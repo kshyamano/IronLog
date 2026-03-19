@@ -162,6 +162,36 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .page{display:none}.page.active{display:block;animation:fadeUp .22s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
+/* DEMO MODE BANNER */
+.demo-banner{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(240,180,41,.12),rgba(232,83,63,.08));
+  border:1px solid rgba(240,180,41,.3);border-radius:14px;
+  padding:14px 18px;margin-bottom:16px;position:relative;overflow:hidden;
+}
+.demo-banner::before{
+  content:'DEMO';position:absolute;right:-8px;top:-12px;
+  font-family:var(--font-display);font-size:80px;color:rgba(240,180,41,.06);
+  letter-spacing:.06em;line-height:1;pointer-events:none;user-select:none;
+}
+.demo-banner-icon{font-size:28px;flex-shrink:0}
+.demo-banner-text{flex:1;min-width:180px}
+.demo-banner-title{font-family:var(--font-head);font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--gold);margin-bottom:3px}
+.demo-banner-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.demo-banner-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.btn-start-fresh{
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;
+  padding:9px 18px;background:var(--red);color:#fff;border:none;
+  border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.btn-start-fresh:hover{background:#d4402c;transform:translateY(-1px)}
+.btn-keep-demo{
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;
+  padding:9px 14px;background:none;color:var(--muted);border:1px solid var(--border2);
+  border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.btn-keep-demo:hover{border-color:var(--border3);color:var(--text)}
+
 /* DASHBOARD */
 .db-hero{
   position:relative;overflow:hidden;
@@ -345,56 +375,118 @@ select option{background:var(--card2)}
 .field-group label{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
 .field-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
 
-/* EXERCISE CARDS */
-.ex-list{display:flex;flex-direction:column;gap:0}
-.ss-group{border:1px solid rgba(240,180,41,.25);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
-.ss-group-header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(240,180,41,.06);border-bottom:1px solid rgba(240,180,41,.15);cursor:pointer;user-select:none}
+/* EXERCISE CARDS & LOG PAGE — CINEMATIC REDESIGN */
+.ex-list{display:flex;flex-direction:column;gap:14px}
+
+/* Standalone card */
+.standalone-wrap{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--border);transition:border-color .2s,box-shadow .2s;position:relative}
+.standalone-wrap:hover{border-color:var(--border3);box-shadow:0 4px 30px rgba(0,0,0,.3)}
+
+/* Superset group */
+.ss-group{border-radius:14px;overflow:hidden;border:1px solid rgba(240,180,41,.3);background:rgba(240,180,41,.03);margin-bottom:0}
+.ss-group-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:linear-gradient(90deg,rgba(240,180,41,.1),rgba(240,180,41,.04));border-bottom:1px solid rgba(240,180,41,.2);cursor:pointer;user-select:none}
 .ss-group-header-left{display:flex;flex-direction:column;gap:2px}
-.ss-group-title{font-size:10px;font-family:var(--font-head);color:var(--gold);font-weight:700;letter-spacing:.12em}
-.ss-group-sub{font-size:11px;color:var(--muted);font-family:var(--font-head)}
-.ss-chev{font-size:12px;color:var(--gold);transition:transform .2s}
+.ss-group-title{font-size:10px;font-family:var(--font-head);color:var(--gold);font-weight:700;letter-spacing:.14em}
+.ss-group-sub{font-size:12px;color:var(--muted);font-family:var(--font-head);font-weight:600}
+.ss-chev{font-size:13px;color:var(--gold);transition:transform .2s}
 .ss-chev.open{transform:rotate(180deg)}
-.standalone-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.ss-group-body{display:flex;flex-direction:column}
+
+/* Exercise card inner */
 .ex-card-inner{background:var(--card);overflow:hidden}
-.ex-card-inner+.ex-card-inner{border-top:1px solid rgba(240,180,41,.12)}
-.ex-head{display:flex;align-items:center;padding:13px 16px;gap:10px;cursor:pointer;user-select:none;transition:background .12s}
-.ex-head:hover{background:var(--card2)}
-.ex-head h3{font-family:var(--font-head);font-size:18px;font-weight:700;letter-spacing:.04em;flex:1}
-.ex-chev{color:var(--dim);font-size:12px;transition:transform .2s}
+.ex-card-inner+.ex-card-inner{border-top:2px solid rgba(240,180,41,.12)}
+
+/* Exercise header */
+.ex-head{display:flex;align-items:center;padding:16px 18px;gap:12px;cursor:pointer;user-select:none;transition:background .12s;position:relative}
+.ex-head:hover{background:rgba(255,255,255,.02)}
+.ex-muscle-stripe{position:absolute;left:0;top:0;bottom:0;width:3px}
+.ex-head-left{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;padding-left:8px}
+.ex-name{font-family:var(--font-display);font-size:24px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ex-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ex-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.ex-sets-count{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;color:var(--muted);line-height:1}
+.ex-sets-label{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
+.ex-chev{color:var(--dim);font-size:11px;transition:transform .2s;margin-top:4px}
 .ex-chev.collapsed{transform:rotate(-90deg)}
-.ex-body{border-top:1px solid var(--border)}
-.sets-wrap table{width:100%;border-collapse:collapse}
-.sets-wrap th{font-size:10px;font-family:var(--font-head);letter-spacing:.1em;color:var(--dim);padding:8px 16px;text-align:left;background:var(--card2);border-bottom:1px solid var(--border)}
-.sets-wrap td{padding:9px 16px;font-size:14px;border-bottom:1px solid var(--border)}
-.sets-wrap tr:last-child td{border-bottom:none}
-.sets-wrap tr.set-row:hover{background:var(--card2)}
-.set-num{font-family:var(--font-display);font-size:18px;color:var(--dim);width:28px;display:inline-block}
-.vol-chip{font-size:12px;color:var(--gold);font-family:var(--font-head);font-weight:600}
-.e1rm-chip{font-size:12px;color:var(--blue);font-family:var(--font-head);font-weight:600}
-.best-bar{padding:8px 16px;font-size:12px;color:var(--dim);font-family:var(--font-head);border-top:1px solid var(--border);display:flex;gap:16px;flex-wrap:wrap}
-.best-bar strong{color:var(--muted)}
-.log-set-area{padding:12px 16px;background:var(--card2);border-top:1px solid var(--border)}
-.log-set-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
-.log-set-row .fi{display:flex;flex-direction:column;gap:4px}
-.log-set-row .fi label{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
-.log-set-row input[type=number]{width:76px}
-.ss-add-area{padding:10px 16px;border-top:1px solid rgba(240,180,41,.12);background:rgba(240,180,41,.03)}
+.ex-body{border-top:1px solid rgba(255,255,255,.04)}
+
+/* BADGES */
+.badge{font-size:9px;font-family:var(--font-head);font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.08em;white-space:nowrap}
+.badge-upper{background:rgba(79,157,232,.15);color:var(--blue)}
+.badge-lower{background:var(--green-dim);color:var(--green)}
+.badge-ss{background:var(--gold-dim);color:var(--gold)}
+
+/* Sets — card style */
+.sets-display{padding:12px 18px;display:flex;flex-direction:column;gap:6px}
+.set-card{display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 26px;align-items:center;gap:6px;padding:10px 12px;border-radius:10px;background:var(--card2);border:1px solid var(--border);transition:all .12s;animation:setSlideIn .22s ease both}
+@keyframes setSlideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.set-card:hover{background:var(--card3);border-color:var(--border2)}
+.set-card.best-set{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06)}
+.set-num-badge{font-family:var(--font-display);font-size:18px;color:var(--dim);text-align:center;line-height:1}
+.set-cell{display:flex;flex-direction:column;gap:1px;min-width:0}
+.set-cell .sv{font-family:var(--font-head);font-size:15px;font-weight:700}
+.set-cell .sk{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
+.set-del-btn{background:none;border:none;cursor:pointer;color:var(--dim);font-size:14px;padding:4px;border-radius:4px;transition:color .12s;justify-self:end}
+.set-del-btn:hover{color:var(--red)}
+.no-sets-msg{padding:20px;text-align:center;color:var(--dim);font-family:var(--font-head);font-size:12px;letter-spacing:.1em}
+
+/* Best bar */
+.best-bar{display:flex;align-items:center;margin:0 18px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(240,180,41,.08),rgba(79,157,232,.06));border:1px solid rgba(240,180,41,.15);overflow:hidden}
+.best-bar-item{flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:1px;border-right:1px solid rgba(255,255,255,.04)}
+.best-bar-item:last-child{border-right:none}
+.bbi-val{font-family:var(--font-head);font-size:13px;font-weight:700}
+.bbi-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
+
+/* Log set area */
+.log-set-area{padding:16px 18px;background:linear-gradient(180deg,rgba(255,255,255,.01) 0%,var(--card2) 100%);border-top:1px solid rgba(255,255,255,.04)}
+.log-set-title{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.14em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.log-set-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.log-set-inputs{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.log-input-group{display:flex;flex-direction:column;gap:5px}
+.log-input-group label{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
+.log-input-group input{font-family:var(--font-display);font-size:20px;letter-spacing:.04em;padding:10px 12px;width:82px;text-align:center;border:1px solid var(--border2);border-radius:10px;background:var(--card);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.log-input-group input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(232,83,63,.12)}
+.log-input-group input::placeholder{color:var(--dim)}
+.btn-add-set{font-family:var(--font-display);font-size:18px;letter-spacing:.08em;padding:11px 22px;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;transition:all .15s;box-shadow:0 4px 20px rgba(232,83,63,.3);white-space:nowrap;align-self:flex-end}
+.btn-add-set:hover{background:#d4402c;box-shadow:0 6px 28px rgba(232,83,63,.45);transform:translateY(-1px)}
+.btn-add-set:active{transform:none;box-shadow:0 2px 10px rgba(232,83,63,.2)}
+.btn-remove-ex{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 12px;background:none;border:1px solid var(--border);color:var(--dim);border-radius:6px;cursor:pointer;transition:all .15s;align-self:flex-end}
+.btn-remove-ex:hover{border-color:rgba(232,83,63,.4);color:var(--red)}
+
+/* Superset add */
+.ss-add-area{padding:12px 18px;border-top:1px solid rgba(240,180,41,.1);background:rgba(240,180,41,.03)}
 .ss-add-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
-.add-ex-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-top:16px}
-.add-ex-panel h4{font-family:var(--font-head);font-size:15px;font-weight:700;letter-spacing:.08em;margin-bottom:14px;color:var(--muted)}
+.ss-add-label{font-size:9px;font-family:var(--font-head);color:var(--gold);letter-spacing:.14em;margin-bottom:0}
+
+/* Add exercise panel */
+.add-ex-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:4px;position:relative;overflow:hidden}
+.add-ex-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),transparent);opacity:.6}
+.add-ex-panel h4{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;margin-bottom:16px;color:var(--text)}
+
+/* Stats bar */
+.log-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:20px}
+.log-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden;transition:border-color .2s;cursor:default}
+.log-stat.clickable{cursor:pointer}
+.log-stat.clickable:hover{border-color:var(--border3)}
+.log-stat .ls-val{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;line-height:1;margin-bottom:3px}
+.log-stat .ls-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
+.log-stat.saved-stat{border-color:rgba(68,199,106,.3);background:rgba(68,199,106,.05)}
+.log-stat.save-stat{border-color:rgba(240,180,41,.2);background:rgba(240,180,41,.04)}
+
+/* Empty state */
+.log-empty{padding:60px 20px;text-align:center}
+.log-empty-icon{font-size:48px;margin-bottom:14px;opacity:.4}
+.log-empty-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--dim);margin-bottom:8px}
+.log-empty-sub{font-size:13px;color:var(--dim);line-height:1.6}
+
+/* Finish workout button */
+.finish-workout-btn{display:flex;align-items:center;gap:12px;margin-top:4px;width:100%;background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(232,83,63,.07));border:1px solid rgba(240,180,41,.22);border-radius:14px;padding:16px 22px;cursor:pointer;transition:all .2s;font-family:var(--font-display);font-size:20px;letter-spacing:.08em;color:var(--gold)}
+.finish-workout-btn:hover{background:linear-gradient(135deg,rgba(240,180,41,.18),rgba(232,83,63,.12));border-color:rgba(240,180,41,.4);transform:translateY(-1px)}
+.finish-workout-btn .fwb-icon{font-size:22px}
 
 /* SESSION SAVE PANEL */
-.session-save-card{
-  background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);
-  overflow:hidden;
-  box-shadow:0 0 0 1px rgba(240,180,41,0.08),0 8px 40px rgba(0,0,0,0.3);
-}
-.ssave-header{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-  padding:20px 22px 16px;
-  background:linear-gradient(135deg,rgba(240,180,41,0.08),rgba(232,83,63,0.06));
-  border-bottom:1px solid var(--border);
-}
+.session-save-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 0 1px rgba(240,180,41,0.08),0 8px 40px rgba(0,0,0,0.3)}
+.ssave-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 22px 16px;background:linear-gradient(135deg,rgba(240,180,41,0.08),rgba(232,83,63,0.06));border-bottom:1px solid var(--border)}
 .ssave-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--gold);line-height:1;margin-bottom:4px}
 .ssave-sub{font-size:13px;color:var(--muted);line-height:1.5}
 .ssave-body{padding:18px 22px}
@@ -403,15 +495,8 @@ select option{background:var(--card2)}
 .ssave-star{font-size:24px;cursor:pointer;opacity:.3;transition:all .15s;user-select:none}
 .ssave-star.active{opacity:1}
 .ssave-star:hover{transform:scale(1.2)}
-.ssave-footer{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  padding:14px 22px;border-top:1px solid var(--border);
-  background:var(--card2);
-}
-.session-note-card{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  padding:14px 16px;
-}
+.ssave-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 22px;border-top:1px solid var(--border);background:var(--card2)}
+.session-note-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
 .session-note-card .sn-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .session-note-card .sn-title{font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--gold)}
 .session-note-card .sn-date{font-size:11px;color:var(--dim);font-family:var(--font-head)}
@@ -419,21 +504,7 @@ select option{background:var(--card2)}
 .session-note-card .sn-stars{display:flex;gap:3px;margin-top:6px}
 .session-note-card .sn-star{font-size:14px;opacity:.25}
 .session-note-card .sn-star.active{opacity:1}
-.finish-workout-btn{
-  display:flex;align-items:center;gap:8px;margin-top:16px;width:100%;
-  background:linear-gradient(135deg,rgba(240,180,41,0.12),rgba(232,83,63,0.08));
-  border:1px solid rgba(240,180,41,0.25);border-radius:var(--r);
-  padding:14px 20px;cursor:pointer;transition:all .2s;
-  font-family:var(--font-head);font-size:15px;font-weight:700;letter-spacing:.08em;color:var(--gold);
-}
-.finish-workout-btn:hover{background:linear-gradient(135deg,rgba(240,180,41,0.2),rgba(232,83,63,0.14));border-color:rgba(240,180,41,0.4);transform:translateY(-1px)}
-.finish-workout-btn .fwb-icon{font-size:20px}
 
-/* BADGES */
-.badge{font-size:10px;font-family:var(--font-head);font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.06em;white-space:nowrap}
-.badge-upper{background:rgba(79,157,232,.15);color:var(--blue)}
-.badge-lower{background:var(--green-dim);color:var(--green)}
-.badge-ss{background:var(--gold-dim);color:var(--gold)}
 
 /* OTHER PAGES */
 .week-nav{display:flex;align-items:center;gap:10px;margin-bottom:16px}
@@ -603,6 +674,249 @@ select option{background:var(--card2)}
 .builder-ex-del{font-size:12px;cursor:pointer;color:var(--dim);align-self:flex-start;padding:2px 5px;border:none;background:none}
 .builder-ex-del:hover{color:var(--red)}
 .plan-save-bar{background:var(--card2);border-top:1px solid var(--border);padding:16px 24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:-24px;margin-top:20px;border-radius:0 0 var(--r-lg) var(--r-lg)}
+
+/* ── EXERCISE PICKER DROPDOWN ── */
+/* ── EXERCISE MATRIX ── */
+.exm-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:800;
+  display:none;align-items:flex-end;justify-content:center;
+  backdrop-filter:blur(4px);
+  -webkit-overflow-scrolling:touch;
+}
+.exm-overlay.open{display:flex}
+.exm-sheet{
+  background:var(--surface);width:100%;max-width:900px;
+  border-radius:20px 20px 0 0;border-top:1px solid var(--border2);
+  height:90vh;max-height:90vh;display:flex;flex-direction:column;
+  box-shadow:0 -20px 60px rgba(0,0,0,0.5);
+  animation:sheetUp .25s cubic-bezier(.22,.68,0,1.2) both;
+  overflow:hidden;
+}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.exm-handle{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0}
+.exm-header{padding:14px 20px 0;flex-shrink:0}
+.exm-title{font-family:var(--font-display);font-size:26px;letter-spacing:.06em;margin-bottom:10px}
+.exm-search-row{display:flex;gap:8px;margin-bottom:12px}
+.exm-search{
+  flex:1;font-family:var(--font-body);font-size:14px;padding:10px 14px;
+  border:1px solid var(--border2);border-radius:10px;
+  background:var(--card2);color:var(--text);outline:none;transition:border-color .15s;
+}
+.exm-search:focus{border-color:var(--red)}
+.exm-search::placeholder{color:var(--dim)}
+.exm-filter-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;flex-shrink:0;padding:0 20px 10px}
+.exm-filter-tabs::-webkit-scrollbar{display:none}
+.exm-filter-tab{
+  font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;
+  padding:5px 12px;border-radius:20px;border:1px solid var(--border2);
+  background:none;color:var(--dim);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;
+}
+.exm-filter-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+.exm-filter-tab:hover:not(.active){border-color:var(--border3);color:var(--muted)}
+
+/* Matrix scroll area — columns layout */
+.exm-body{overflow-y:auto;overflow-x:hidden;flex:1;display:flex;flex-direction:column;-webkit-overflow-scrolling:touch}
+.exm-matrix-scroll{overflow-x:auto;overflow-y:visible;padding:0 16px 4px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.exm-matrix-scroll::-webkit-scrollbar{height:4px}
+.exm-matrix-scroll::-webkit-scrollbar-track{background:transparent}
+.exm-matrix-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* Column matrix grid */
+.exm-matrix-grid{
+  display:flex;gap:10px;align-items:flex-start;
+  padding-bottom:8px;
+  width:max-content;min-width:100%;
+}
+.exm-col{
+  flex:0 0 160px;display:flex;flex-direction:column;gap:0;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+}
+.exm-col-header{
+  padding:10px 12px 8px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;
+  display:flex;align-items:center;gap:7px;flex-shrink:0;
+}
+.exm-col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.exm-col-name{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em}
+.exm-col-count{font-family:var(--font-head);font-size:10px;color:var(--dim);margin-left:auto}
+.exm-col-body{padding:6px;display:flex;flex-direction:column;gap:3px;flex:1}
+
+/* Row chip inside column */
+.exm-row-chip{
+  display:flex;align-items:center;
+  padding:7px 9px;border-radius:8px;
+  cursor:pointer;transition:all .12s;
+  border:1px solid transparent;
+  position:relative;gap:6px;
+}
+.exm-row-chip:hover{background:var(--card2);border-color:var(--border)}
+.exm-row-chip.recent-chip{background:rgba(240,180,41,.05);border-color:rgba(240,180,41,.15)}
+.exm-row-chip.custom-chip{border-style:dashed;border-color:var(--border)}
+.exm-row-chip-name{flex:1;font-size:12px;font-weight:500;line-height:1.3;min-width:0;word-break:break-word}
+.exm-row-chip-info{
+  flex-shrink:0;width:20px;height:20px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+  background:var(--blue-dim);border:1px solid rgba(79,157,232,.3);
+  font-size:9px;font-family:var(--font-head);font-weight:700;color:var(--blue);
+  cursor:pointer;transition:all .15s;letter-spacing:0;
+}
+.exm-row-chip:hover .exm-row-chip-info{display:flex}
+.exm-row-chip-info:hover{background:rgba(79,157,232,.25)}
+.exm-recent-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* Custom "Recently Used" section at top of body */
+.exm-recent-section{
+  padding:8px 16px 0;flex-shrink:0;
+}
+.exm-recent-label{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--dim);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.exm-recent-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.exm-recent-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.exm-recent-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:8px;border:1px solid rgba(240,180,41,.25);
+  background:rgba(240,180,41,.06);cursor:pointer;transition:all .12s;
+  font-size:12px;font-weight:500;
+}
+.exm-recent-pill:hover{background:rgba(240,180,41,.12);border-color:rgba(240,180,41,.4)}
+.exm-recent-pill .rp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* Group label for search results */
+.exm-group{margin-bottom:16px}
+.exm-group-label{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--dim);margin-bottom:8px;margin-left:4px;display:flex;align-items:center;gap:8px}
+.exm-group-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.exm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.exm-chip{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:13px;font-weight:500;position:relative}
+.exm-chip:hover{border-color:var(--border3);background:var(--card2);transform:translateY(-1px)}
+.exm-chip.recent{border-color:rgba(240,180,41,.25);background:rgba(240,180,41,.04)}
+.exm-chip.custom-chip{border-style:dashed}
+.exm-chip .chip-detail-btn{display:none;position:absolute;right:-1px;top:-1px;bottom:-1px;padding:0 10px;background:rgba(79,157,232,.15);border:1px solid rgba(79,157,232,.3);border-radius:0 10px 10px 0;cursor:pointer;color:var(--blue);font-size:10px;font-family:var(--font-head);font-weight:700;letter-spacing:.06em;align-items:center}
+.exm-chip:hover .chip-detail-btn{display:flex}
+
+/* Custom add box */
+.exm-custom-add{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:0 16px 16px;flex-shrink:0}
+.exm-custom-add-title{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.exm-custom-add-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.exm-custom-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.exm-custom-row input{font-size:14px;padding:9px 12px;border-radius:8px}
+.exm-custom-row select{font-size:13px;padding:9px 10px;border-radius:8px;width:auto;min-width:130px}
+.exm-close-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;padding:9px 18px;background:none;border:1px solid var(--border2);color:var(--muted);border-radius:8px;cursor:pointer;transition:all .15s;flex-shrink:0}
+.exm-close-btn:hover{border-color:var(--border3);color:var(--text)}
+
+/* EXERCISE DETAIL OVERLAY */
+.exd-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:900;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+.exd-overlay.open{display:flex}
+.exd-sheet{background:var(--surface);border-radius:20px;border:1px solid var(--border2);width:100%;max-width:560px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 80px rgba(0,0,0,.6);animation:exdIn .2s ease both}
+@keyframes exdIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.exd-hero{padding:28px 28px 20px;position:relative;overflow:hidden}
+.exd-hero::before{content:'';position:absolute;inset:0;opacity:.08}
+.exd-muscle-tag{font-size:10px;font-family:var(--font-head);font-weight:700;letter-spacing:.14em;padding:4px 10px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.exd-name{font-family:var(--font-display);font-size:36px;letter-spacing:.04em;line-height:1;margin-bottom:6px}
+.exd-alt{font-size:12px;color:var(--dim);font-family:var(--font-head);letter-spacing:.04em;margin-bottom:16px}
+.exd-body{padding:0 28px 28px}
+.exd-section{margin-bottom:20px}
+.exd-section-title{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.exd-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.exd-muscles-row{display:flex;gap:6px;flex-wrap:wrap}
+.exd-muscle-pill{font-size:11px;font-family:var(--font-head);padding:4px 10px;border-radius:6px;font-weight:600}
+.exd-cue-list{display:flex;flex-direction:column;gap:8px}
+.exd-cue{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--card2);border-radius:8px;border-left:3px solid var(--gold)}
+.exd-cue-num{font-family:var(--font-display);font-size:18px;color:var(--gold);flex-shrink:0;line-height:1.2}
+.exd-cue-text{font-size:13px;color:var(--muted);line-height:1.6}
+.exd-tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.exd-tip{background:var(--card2);border-radius:8px;padding:10px 12px}
+.exd-tip-label{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:4px}
+.exd-tip-val{font-size:13px;font-weight:500}
+.exd-footer{display:flex;gap:8px;padding:20px 28px;border-top:1px solid var(--border);flex-wrap:wrap}
+.exd-close-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;padding:10px 18px;background:none;border:1px solid var(--border2);color:var(--muted);border-radius:8px;cursor:pointer;transition:all .15s}
+.exd-close-btn:hover{border-color:var(--border3);color:var(--text)}
+.exd-add-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;padding:10px 18px;background:var(--red);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:all .15s}
+.exd-add-btn:hover{background:#d4402c}
+
+/* ADD trigger button in log page */
+.add-ex-trigger{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:2px dashed var(--border2);border-radius:14px;
+  padding:18px 22px;cursor:pointer;transition:all .2s;
+  margin-top:4px;width:100%;
+  position:relative;overflow:hidden;
+}
+.add-ex-trigger::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--gold),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.add-ex-trigger:hover{border-color:var(--red);border-style:solid;background:var(--card2)}
+.add-ex-trigger:hover::before{opacity:.8}
+.aet-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:var(--red-dim);border:1px solid rgba(232,83,63,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;transition:all .2s;
+}
+.add-ex-trigger:hover .aet-icon{background:var(--red);transform:rotate(90deg)}
+.aet-text{flex:1;text-align:left}
+.aet-title{font-family:var(--font-display);font-size:20px;letter-spacing:.06em;color:var(--text);margin-bottom:2px}
+.aet-sub{font-size:12px;color:var(--dim);font-family:var(--font-head);letter-spacing:.04em}
+.aet-count{font-family:var(--font-display);font-size:22px;color:var(--dim)}
+
+/* Keep old picker CSS stubs for plan builder (uses ex-dropdown) */
+.ex-picker-wrap{position:relative;width:100%}
+.ex-picker-input{width:100%;cursor:pointer}
+.ex-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);z-index:500;max-height:260px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.ex-dropdown.open{display:flex}
+.ex-dropdown-search{padding:8px 10px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--card)}
+.ex-dropdown-search input{width:100%;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--card2);color:var(--text);outline:none}
+.ex-dropdown-search input:focus{border-color:var(--red)}
+.ex-dropdown-list{overflow-y:auto;max-height:200px;padding:4px}
+.ex-dropdown-section{font-size:10px;font-family:var(--font-head);font-weight:700;letter-spacing:.12em;color:var(--dim);padding:6px 10px 3px;margin-top:4px}
+.ex-dropdown-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:6px;cursor:pointer;transition:background .1s}
+.ex-dropdown-item:hover{background:var(--card2)}
+.ex-dropdown-item .edi-name{font-size:14px;font-weight:500}
+.ex-dropdown-item .edi-badge{font-size:9px;font-family:var(--font-head);font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.06em}
+
+/* ── PLAN BUILDER REDESIGN ── */
+.pb-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.pb-name-wrap{flex:1;min-width:200px}
+.pb-name-label{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em;margin-bottom:6px}
+.pb-name-input{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;padding:8px 12px;width:100%}
+.pb-days-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap}
+.pb-day-tab{
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;
+  padding:8px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:none;color:var(--dim);cursor:pointer;white-space:nowrap;transition:all .15s;
+  position:relative;flex-shrink:0;
+}
+.pb-day-tab.active{background:var(--card2);border-color:var(--border2);color:var(--text)}
+.pb-day-tab.is-rest{color:var(--dim);opacity:.5}
+.pb-day-tab.has-ex::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--green)}
+.pb-day-panel{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.pb-rest-toggle{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.pb-rest-toggle label{font-size:13px;font-weight:500;cursor:pointer;flex:1}
+.pb-toggle-switch{position:relative;width:42px;height:24px;flex-shrink:0}
+.pb-toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.pb-toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:12px;transition:background .2s;cursor:pointer}
+.pb-toggle-thumb{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.pb-toggle-switch input:checked~.pb-toggle-track{background:var(--red)}
+.pb-toggle-switch input:checked~.pb-toggle-thumb{transform:translateX(18px)}
+.pb-focus-row{display:flex;gap:8px;margin-bottom:14px;align-items:flex-end}
+.pb-focus-row .field-group{flex:1}
+.pb-ex-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;min-height:0}
+.pb-ex-row{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:8px 12px;
+}
+.pb-ex-row .per-name{flex:1;font-size:13px;font-weight:500}
+.pb-ex-row .per-scheme{font-size:11px;font-family:var(--font-head);color:var(--dim);letter-spacing:.04em}
+.pb-ex-row .per-del{background:none;border:none;cursor:pointer;color:var(--dim);padding:2px 4px;border-radius:3px;font-size:14px;flex-shrink:0}
+.pb-ex-row .per-del:hover{color:var(--red)}
+.pb-add-ex-box{background:var(--card);border:1px dashed var(--border2);border-radius:var(--r);padding:12px}
+.pb-add-ex-box-title{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:10px}
+.pb-add-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.pb-scheme-input{font-size:13px;padding:8px 10px;width:90px}
+.pb-empty{text-align:center;padding:20px;color:var(--dim);font-family:var(--font-head);font-size:12px;letter-spacing:.08em}
+.pb-rest-panel{text-align:center;padding:30px 20px;color:var(--dim);font-family:var(--font-head);font-size:13px;letter-spacing:.08em}
 .plan-csv-import-zone{border:2px dashed var(--border2);border-radius:var(--r-lg);padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--card);margin-bottom:16px}
 .plan-csv-import-zone:hover{border-color:var(--blue);background:var(--card2)}
 .plan-csv-import-zone.dragover{border-color:var(--blue);background:rgba(79,157,232,0.06)}
@@ -790,6 +1104,9 @@ select option{background:var(--card2)}
     <div id="page-dashboard" class="page active">
 
       <!-- HERO -->
+      <!-- DEMO MODE BANNER — shown when guest has demo data loaded -->
+      <div id="demo-banner" style="display:none"></div>
+
       <div class="db-hero">
         <div class="db-hero-bg-text" id="db-bg-word">PUSH</div>
         <div class="db-greeting">
@@ -865,18 +1182,18 @@ select option{background:var(--card2)}
         </div>
         <button class="btn btn-ghost btn-sm" onclick="goToday()">Today</button>
       </div>
-      <div class="metrics" id="log-metrics"></div>
+      <div class="log-stats-bar" id="log-metrics"></div>
       <div class="ex-list" id="ex-list"></div>
-      <div class="add-ex-panel">
-        <h4>＋ ADD EXERCISE</h4>
-        <div class="field-row">
-          <div class="field-group"><label>EXERCISE NAME</label><input type="text" id="new-name" placeholder="Type or pick from library..." list="ex-dl" autocomplete="off"><datalist id="ex-dl"></datalist></div>
-          <div class="field-group" style="max-width:170px"><label>MUSCLE GROUP</label>
-            <select id="new-muscle"><option value="">Auto-detect...</option><option>Chest</option><option>Back</option><option>Shoulders</option><option>Biceps</option><option>Triceps</option><option>Forearms</option><option>Quads</option><option>Hamstrings</option><option>Glutes</option><option>Calves</option><option>Core</option></select>
-          </div>
-          <div style="padding-top:18px"><button class="btn btn-red" onclick="addExercise()">ADD</button></div>
+      <!-- EXERCISE MATRIX TRIGGER -->
+      <button class="add-ex-trigger" id="add-ex-trigger-btn">
+        <div class="aet-icon">＋</div>
+        <div class="aet-text">
+          <div class="aet-title">ADD EXERCISE</div>
+          <div class="aet-sub">Browse all exercises by muscle group</div>
         </div>
-      </div>
+        <div class="aet-count" id="aet-count"></div>
+      </button>
+      <datalist id="ex-dl"></datalist>
 
       <!-- SESSION SAVE PANEL -->
       <div id="session-save-panel" style="display:none;margin-top:16px">
@@ -895,7 +1212,7 @@ select option{background:var(--card2)}
             </div>
             <div class="field-group" style="margin-bottom:14px">
               <label>NOTES / FEELINGS</label>
-              <textarea id="session-notes" placeholder="How did the session feel? Any PRs? Injuries? Sleep quality? ..." style="width:100%;min-height:72px;resize:vertical;font-family:var(--font-body);font-size:13px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--card2);color:var(--text);outline:none;line-height:1.6" oninput="this.style.border='1px solid var(--border2)'"></textarea>
+              <textarea id="session-notes" placeholder="How did the session feel? Any PRs? Injuries? Sleep quality? ..." style="width:100%;min-height:72px;resize:vertical;font-family:var(--font-body);font-size:13px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--card2);color:var(--text);outline:none;line-height:1.6"></textarea>
             </div>
             <div class="ssave-rating-row">
               <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:6px">SESSION RATING</div>
@@ -903,17 +1220,61 @@ select option{background:var(--card2)}
             </div>
           </div>
           <div class="ssave-footer">
-            <button class="btn btn-red" onclick="saveSession()">✓ SAVE SESSION</button>
+            <button class="btn btn-red" onclick="saveSession()">&#10003; SAVE SESSION</button>
             <button class="btn btn-ghost btn-sm" onclick="document.getElementById('session-save-panel').style.display='none'">Cancel</button>
-            <div id="ssave-saved-indicator" style="display:none;margin-left:auto;font-family:var(--font-head);font-size:12px;color:var(--green);letter-spacing:.06em">✓ SAVED</div>
+            <div id="ssave-saved-indicator" style="display:none;margin-left:auto;font-family:var(--font-head);font-size:12px;color:var(--green);letter-spacing:.06em">&#10003; SAVED</div>
           </div>
         </div>
       </div>
-
-      <!-- PREVIOUS SESSION NOTES (shown if exists) -->
       <div id="prev-session-note" style="display:none;margin-top:12px"></div>
-
     </div>
+
+    <!-- EXERCISE MATRIX OVERLAY -->
+    <div class="exm-overlay" id="exm-overlay">
+      <div class="exm-sheet" id="exm-sheet">
+        <div class="exm-handle"></div>
+        <div class="exm-header">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div class="exm-title">ADD EXERCISE</div>
+            <button class="exm-close-btn" id="exm-close-btn">✕ Done</button>
+          </div>
+          <div class="exm-search-row">
+            <input class="exm-search" id="exm-search" placeholder="Search any exercise..." autocomplete="off">
+          </div>
+        </div>
+        <div class="exm-filter-tabs" id="exm-filter-tabs"></div>
+        <div class="exm-body" id="exm-body">
+          <!-- Recently used pills -->
+          <div id="exm-recent-section" class="exm-recent-section" style="display:none"></div>
+          <!-- Horizontal scroll matrix OR search results -->
+          <div class="exm-matrix-scroll" id="exm-matrix-scroll">
+            <div class="exm-matrix-grid" id="exm-matrix-grid"></div>
+          </div>
+        </div>
+        <!-- Add custom exercise — always visible at bottom -->
+        <div class="exm-custom-add">
+          <div class="exm-custom-add-title">＋ ADD NEW EXERCISE</div>
+          <div class="exm-custom-row">
+            <input type="text" id="exm-custom-name" placeholder="Exercise name..." style="flex:1;min-width:160px">
+            <select id="exm-custom-muscle">
+              <option value="">Muscle group (optional)</option>
+              <option>Chest</option><option>Back</option><option>Shoulders</option>
+              <option>Biceps</option><option>Triceps</option><option>Forearms</option>
+              <option>Quads</option><option>Hamstrings</option><option>Glutes</option>
+              <option>Calves</option><option>Core</option>
+            </select>
+            <button class="btn btn-red btn-sm" id="exm-add-custom-btn">ADD</button>
+          </div>
+          <div style="font-size:11px;color:var(--dim);margin-top:8px;font-family:var(--font-head);letter-spacing:.04em">Saved to your library · available in matrix next time</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE DETAIL OVERLAY -->
+    <div class="exd-overlay" id="exd-overlay">
+      <div class="exd-sheet" id="exd-sheet"></div>
+    </div>
+
 
     <!-- ── WEEKLY ── -->
     <div id="page-weekly" class="page">
@@ -1236,11 +1597,152 @@ async function resendVerification(){
   if(_lastVerUser){try{await fbSendEmailVerification(_lastVerUser);toast('Verification email resent!');}catch(e){toast('Try signing in again.',true);}}
 }
 
+/* ══ DEMO DATA GENERATOR ══ */
+const DEMO_KEY = 'il7_guest_is_demo'; // flag in localStorage
+
+function isDemoMode(){
+  return IS_GUEST && localStorage.getItem(DEMO_KEY)==='1';
+}
+
+function generateDemoData(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const dk2=d=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const dy=String(d.getDate()).padStart(2,'0');return`${y}-${m}-${dy}`;};
+  const daysAgo=n=>{const d=new Date(today);d.setDate(d.getDate()-n);return d;};
+
+  // PPL split template
+  const PUSH=[
+    {name:'Bench Press',muscle:'Chest',progression:(w,n)=>w+n*1.25},
+    {name:'Incline Bench',muscle:'Chest',progression:(w,n)=>w+n*0.75},
+    {name:'Overhead Press',muscle:'Shoulders',progression:(w,n)=>w+n*0.5},
+    {name:'Lateral Raise',muscle:'Shoulders',progression:(w,n)=>w},
+    {name:'Tricep Pushdown',muscle:'Triceps',progression:(w,n)=>w+n*0.5},
+    {name:'Skull Crusher',muscle:'Triceps',progression:(w,n)=>w+n*0.25},
+  ];
+  const PULL=[
+    {name:'Deadlift',muscle:'Back',progression:(w,n)=>w+n*2.5},
+    {name:'Barbell Row',muscle:'Back',progression:(w,n)=>w+n*1},
+    {name:'Pull Up',muscle:'Back',progression:(w,n)=>w},
+    {name:'Lat Pulldown',muscle:'Back',progression:(w,n)=>w+n*0.5},
+    {name:'Barbell Curl',muscle:'Biceps',progression:(w,n)=>w+n*0.5},
+    {name:'Hammer Curl',muscle:'Biceps',progression:(w,n)=>w+n*0.25},
+  ];
+  const LEGS=[
+    {name:'Squat',muscle:'Quads',progression:(w,n)=>w+n*1.5},
+    {name:'Romanian Deadlift',muscle:'Hamstrings',progression:(w,n)=>w+n*1},
+    {name:'Leg Press',muscle:'Quads',progression:(w,n)=>w+n*2},
+    {name:'Hip Thrust',muscle:'Glutes',progression:(w,n)=>w+n*2},
+    {name:'Leg Curl',muscle:'Hamstrings',progression:(w,n)=>w+n*0.5},
+    {name:'Calf Raise',muscle:'Calves',progression:(w,n)=>w},
+  ];
+
+  // Base weights (starting point 45 days ago)
+  const BASE={
+    'Bench Press':80,'Incline Bench':65,'Overhead Press':55,'Lateral Raise':12,
+    'Tricep Pushdown':30,'Skull Crusher':35,'Deadlift':100,'Barbell Row':70,
+    'Pull Up':0,'Lat Pulldown':55,'Barbell Curl':35,'Hammer Curl':14,
+    'Squat':90,'Romanian Deadlift':75,'Leg Press':120,'Hip Thrust':80,
+    'Leg Curl':35,'Calf Raise':40,
+  };
+
+  const makeSession=(exercises, weekNum)=>{
+    return exercises.map(ex=>{
+      const baseW=BASE[ex.name]||20;
+      const w=Math.round((ex.progression(baseW,weekNum)*2))/2;
+      const sets=4;
+      const reps=ex.name==='Deadlift'?5:ex.name==='Squat'?8:ex.name.includes('Raise')?15:10;
+      const setArr=[];
+      for(let s=0;s<sets;s++){
+        const repsActual=reps+Math.floor(Math.random()*3)-1;
+        const weightActual=s===sets-1?w-2.5:w;
+        setArr.push({w:weightActual,r:Math.max(1,repsActual),rpe:String(7+s*0.5),ts:Date.now()-s*60000});
+      }
+      return{id:Date.now()+Math.random()*10000|0,name:ex.name,muscle:ex.muscle,superSetOf:null,sets:setArr};
+    });
+  };
+
+  // Generate 6 weeks of PPL (42 days, ~36 training days)
+  const newData={};
+  const splitCycle=[PUSH,PULL,LEGS,PUSH,PULL,LEGS]; // 6-day cycle, day 7 = rest
+  let trainingDay=0;
+
+  for(let daysBack=42;daysBack>=0;daysBack--){
+    const d=daysAgo(daysBack);
+    const dayOfWeek=d.getDay(); // 0=Sun
+    if(dayOfWeek===0) continue; // rest on Sundays
+    const weekNum=Math.floor((42-daysBack)/7);
+    const splitIdx=trainingDay%6;
+    trainingDay++;
+    const split=splitCycle[splitIdx];
+    const key=dk2(d);
+    newData[key]={
+      exercises:makeSession(split,weekNum),
+      sessionNote:daysBack>0?{
+        title:['Strong session','Felt great','Good pump','Solid work','PR day!','Heavy day'][Math.floor(Math.random()*6)],
+        notes:'',rating:Math.floor(Math.random()*2)+4,savedAt:d.getTime()
+      }:null
+    };
+  }
+
+  // Set targets
+  const newTargets={Chest:120,Back:180,Shoulders:75,Biceps:55,Triceps:70,Quads:140,Hamstrings:110,Glutes:120,Calves:80,Core:50,Forearms:30};
+
+  return{data:newData,targets:newTargets};
+}
+
 function enterGuestMode(){
   IS_GUEST=true;
   CU={uid:'guest',name:'Guest',email:'',provider:'guest',avatarColor:'#4a4a46',photoURL:null};
+
+  // Load existing guest data
+  loadUserData();
+
+  // If no data yet, inject demo data
+  const hasData=Object.keys(DATA).length>0;
+  if(!hasData){
+    const demo=generateDemoData();
+    DATA=demo.data;
+    TARGETS=demo.targets;
+    save();saveTgt();
+    localStorage.setItem(DEMO_KEY,'1');
+  }
+
   showApp();
-  toast('Continuing as Guest — data stays on this device');
+  if(isDemoMode()){
+    toast('Demo loaded — explore all features, then hit "Start My Journey" when ready 🔥');
+  }
+}
+
+function clearDemoDataAndStart(){
+  if(!confirm('This will delete all demo data and start fresh. Ready for Day 1?')) return;
+  DATA={};TARGETS={};LIBRARY={};
+  save();saveTgt();saveLib();
+  localStorage.removeItem(DEMO_KEY);
+  renderDashboard();
+  toast('Demo cleared — Day 1 starts NOW. Let\'s go! 💪');
+}
+
+function dismissDemoBanner(){
+  localStorage.removeItem(DEMO_KEY);
+  document.getElementById('demo-banner').style.display='none';
+  toast('Continuing with demo data — clear it anytime from the dashboard');
+}
+
+function renderDemoBanner(){
+  const el=document.getElementById('demo-banner');
+  if(!el) return;
+  if(!isDemoMode()){el.style.display='none';return;}
+  el.style.display='block';
+  el.innerHTML=`<div class="demo-banner">
+    <div class="demo-banner-icon">🎯</div>
+    <div class="demo-banner-text">
+      <div class="demo-banner-title">YOU'RE VIEWING DEMO DATA</div>
+      <div class="demo-banner-sub">6 weeks of training loaded so you can explore all charts and features. When you're ready, start your own journey.</div>
+    </div>
+    <div class="demo-banner-actions">
+      <button class="btn-start-fresh" onclick="clearDemoDataAndStart()">🏋️ START MY JOURNEY</button>
+      <button class="btn-keep-demo" onclick="dismissDemoBanner()">Keep Exploring</button>
+    </div>
+  </div>`;
 }
 
 function showAuthFromApp(){
@@ -1418,6 +1920,7 @@ function destroyCharts(arr){arr.forEach(c=>{try{c.destroy();}catch(e){}});arr.le
 // DASHBOARD
 function renderDashboard(){
   destroyCharts(dbCharts);
+  renderDemoBanner();
   renderHero();
   renderStatCards();
   renderHeatmap();
@@ -1725,13 +2228,604 @@ function changeDate(n){currentDate=new Date(currentDate.getTime()+n*86400000);re
 function goToday(){currentDate=new Date();currentDate.setHours(0,0,0,0);renderLog();}
 function goToDate(k){currentDate=new Date(k+'T00:00:00');goPage('log');renderLog();}
 
-function addExercise(){
-  const name=document.getElementById('new-name').value.trim();if(!name){document.getElementById('new-name').focus();return;}
-  const sel=document.getElementById('new-muscle');
-  const muscle=sel.value||getMuscle(name)||'';
-  getDay(currentDate).exercises.push({id:Date.now(),name,muscle,superSetOf:null,sets:[]});
-  save();document.getElementById('new-name').value='';document.getElementById('new-muscle').value='';renderLog();
+/* ══ EXERCISE MATRIX ══ */
+let exmFilterMuscle = 'ALL';
+let exmQuery = '';
+
+// Per-muscle colour accents for the matrix chips
+const EX_MUSCLE_COLORS = {
+  Chest:'#4f9de8',Back:'#44c76a',Shoulders:'#9b6fe0',
+  Biceps:'#e8533f',Triceps:'#f0b429',Forearms:'#e07a5f',
+  Quads:'#44c76a',Hamstrings:'#5ec97a',Glutes:'#f0b429',
+  Calves:'#4f9de8',Core:'#e8533f',Custom:'#888880',
+};
+
+// Which exercises have a detail page (built-in compound lifts)
+const HAS_DETAIL_PAGE = new Set([
+  'Bench Press','Incline Bench','Decline Bench','Overhead Press','Barbell Row',
+  'Deadlift','Squat','Pull Up','Dips','Romanian Deadlift','Hip Thrust',
+  'Barbell Curl','Skull Crusher','Lateral Raise','Leg Press','Bulgarian Split Squat',
+]);
+
+function openExMatrix(){
+  exmQuery='';exmFilterMuscle='ALL';
+  document.getElementById('exm-overlay').classList.add('open');
+  document.getElementById('exm-search').value='';
+  // Don't disable body scroll — the overlay is fixed, body should remain scrollable after close
+  renderExMatrix();
+  // Reset filter tabs built state so they rebuild with fresh data
+  const tabsEl=document.getElementById('exm-filter-tabs');
+  if(tabsEl) tabsEl.dataset.built='';
+  setTimeout(()=>document.getElementById('exm-search')?.focus(),300);
 }
+
+function closeExMatrix(){
+  document.getElementById('exm-overlay').classList.remove('open');
+}
+
+function exmOverlayClick(e){
+  if(e.target===document.getElementById('exm-overlay')) closeExMatrix();
+}
+
+function exmSearch(q){
+  exmQuery=q.toLowerCase().trim();
+  renderExMatrix();
+}
+
+function exmSetFilter(muscle){
+  exmFilterMuscle=muscle;
+  document.querySelectorAll('.exm-filter-tab').forEach(t=>{
+    t.classList.toggle('active',t.dataset.muscle===muscle);
+  });
+  renderExMatrix();
+}
+
+
+function exmSelectExercise(name, muscle){
+  const m=muscle||getMuscle(name)||'';
+  getDay(currentDate).exercises.push({id:Date.now(),name,muscle:m,superSetOf:null,sets:[]});
+  save();
+  closeExMatrix();
+  renderLog();
+  toast(`${name} added`);
+  updateAetCount();
+  // Scroll log page down to the newly added card after render
+  setTimeout(()=>{
+    const cards=document.querySelectorAll('#ex-list .standalone-wrap, #ex-list .ss-group');
+    const last=cards[cards.length-1];
+    if(last){
+      last.scrollIntoView({behavior:'smooth',block:'nearest'});
+    } else {
+      // Fallback: scroll the main area to bottom
+      const main=document.querySelector('.main');
+      if(main) main.scrollTop=main.scrollHeight;
+      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    }
+  },120);
+}
+
+function exmAddCustom(){
+  const nameEl=document.getElementById('exm-custom-name');
+  const muscleEl=document.getElementById('exm-custom-muscle');
+  const name=(nameEl?.value||'').trim();
+  const muscle=(muscleEl?.value||'').trim();
+  if(!name){nameEl?.focus();return;}
+
+  // Save to library if not already there
+  const allEx=allExLib();
+  if(!allEx[name]){
+    LIBRARY[name]={muscle:muscle||''};
+    saveLib();
+    toast(`"${name}" added to Library`);
+  }
+
+  // Add to today's log
+  exmSelectExercise(name, muscle);
+}
+
+function updateAetCount(){
+  const el=document.getElementById('aet-count');
+  const total=Object.keys(allExLib()).length;
+  if(el) el.textContent=total;
+}
+
+function renderExMatrix(){
+  const allEx=allExLib();
+  const q=exmQuery;
+  const f=exmFilterMuscle;
+
+  // Build filter tabs (only once)
+  const tabsEl=document.getElementById('exm-filter-tabs');
+  if(tabsEl&&!tabsEl.dataset.built){
+    tabsEl.dataset.built='1';
+    const tabs=['ALL',...UPPER,...LOWER,'Custom'];
+    tabsEl.innerHTML=tabs.map(m=>`<button class="exm-filter-tab${m==='ALL'?' active':''}" data-muscle="${m}" onclick="exmSetFilter('${m}')">${m==='ALL'?'All':m}</button>`).join('');
+  }
+
+  // Recently used (last 8 distinct exercises)
+  const recentArr=[];
+  const seenR=new Set();
+  Object.keys(DATA).sort().reverse().forEach(k=>{
+    (DATA[k].exercises||[]).forEach(ex=>{
+      if(!seenR.has(ex.name)&&recentArr.length<8){recentArr.push(ex.name);seenR.add(ex.name);}
+    });
+  });
+
+  // Render recently used pills
+  const recentSection=document.getElementById('exm-recent-section');
+  if(recentSection){
+    if(!q&&f==='ALL'&&recentArr.length){
+      recentSection.style.display='block';
+      recentSection.innerHTML=`<div class="exm-recent-label">RECENTLY USED</div>
+        <div class="exm-recent-chips">
+          ${recentArr.map(name=>{
+            const muscle=getMuscle(name)||'';
+            const col=EX_MUSCLE_COLORS[muscle]||'var(--dim)';
+            return`<div class="exm-recent-pill" onclick="exmSelectExercise('${name.replace(/'/g,"\\'")}','${muscle}')">
+              <div class="rp-dot" style="background:${col}"></div>${name}
+            </div>`;
+          }).join('')}
+        </div>`;
+    }else{
+      recentSection.style.display='none';
+    }
+  }
+
+  // Build exercise map grouped by muscle
+  const grouped={};
+  ALL_MUSCLES.forEach(m=>grouped[m]=[]);
+  grouped['Custom']=[];
+
+  // Fill builtins
+  Object.entries(BUILTIN).forEach(([name,muscle])=>{
+    if(grouped[muscle]) grouped[muscle].push({name,muscle,isCustom:false,isBuiltin:true});
+  });
+  // Fill library custom exercises
+  Object.entries(LIBRARY).forEach(([name,info])=>{
+    const muscle=info.muscle||'';
+    const target=muscle&&grouped[muscle]?muscle:'Custom';
+    // Avoid duplicates with builtins
+    if(!BUILTIN[name]) grouped[target].push({name,muscle,isCustom:true,isBuiltin:false});
+  });
+
+  const matchEx=(name,muscle)=>{
+    const mq=!q||name.toLowerCase().includes(q)||(muscle||'').toLowerCase().includes(q);
+    const mf=f==='ALL'||muscle===f||(f==='Custom'&&!BUILTIN[name]);
+    return mq&&mf;
+  };
+
+  // ----- SEARCH MODE: flat list -----
+  if(q){
+    document.getElementById('exm-matrix-scroll').style.display='none';
+    const scrollEl=document.getElementById('exm-matrix-scroll');
+    if(scrollEl) scrollEl.style.display='none';
+
+    // Render as chips in the scroll area
+    let html='';
+    const matches=[];
+    [...ALL_MUSCLES,'Custom'].forEach(muscle=>{
+      (grouped[muscle]||[]).filter(({name,m})=>matchEx(name,muscle)).forEach(item=>matches.push({...item,muscle}));
+    });
+    matches.sort((a,b)=>a.name.localeCompare(b.name));
+
+    if(matches.length){
+      const byMuscle={};
+      matches.forEach(item=>{const k=item.muscle||'Custom';if(!byMuscle[k])byMuscle[k]=[];byMuscle[k].push(item);});
+      Object.entries(byMuscle).forEach(([muscle,items])=>{
+        const col=EX_MUSCLE_COLORS[muscle]||'var(--dim)';
+        html+=`<div class="exm-group">
+          <div class="exm-group-label" style="color:${col}">${muscle.toUpperCase()}</div>
+          <div class="exm-chips">
+            ${items.map(({name,muscle:m,isCustom,isBuiltin})=>{
+              const hasDetail=isBuiltin&&HAS_DETAIL_PAGE.has(name);
+              const detailBtn=hasDetail?`<span class="chip-detail-btn" onclick="event.stopPropagation();openExDetail('${name.replace(/'/g,"\\'")}')">ⓘ</span>`:'';
+              return`<div class="exm-chip${isCustom?' custom-chip':''}" style="border-left:3px solid ${EX_MUSCLE_COLORS[m||muscle]||col}" onclick="exmSelectExercise('${name.replace(/'/g,"\\'")}','${m||muscle}')">${name}${detailBtn}</div>`;
+            }).join('')}
+          </div>
+        </div>`;
+      });
+    }else{
+      html=`<div style="padding:30px;text-align:center;color:var(--dim);font-family:var(--font-head);font-size:13px;letter-spacing:.08em">No matches — add "${q}" as a new exercise below</div>`;
+      // Pre-fill the custom add input
+      const nameEl=document.getElementById('exm-custom-name');
+      if(nameEl&&!nameEl.value) nameEl.value=q;
+    }
+
+    // Render in a temporary inner div inside exm-body
+    let searchDiv=document.getElementById('exm-search-results');
+    if(!searchDiv){
+      searchDiv=document.createElement('div');
+      searchDiv.id='exm-search-results';
+      searchDiv.style.cssText='overflow-y:auto;flex:1;padding:8px 16px 0';
+      const body=document.getElementById('exm-body');
+      if(body) body.insertBefore(searchDiv, document.getElementById('exm-matrix-scroll'));
+    }
+    searchDiv.style.display='block';
+    searchDiv.innerHTML=html;
+    const scrollEl2=document.getElementById('exm-matrix-scroll');
+    if(scrollEl2) scrollEl2.style.display='none';
+    return;
+  }
+
+  // Hide search results, show matrix
+  const searchDiv=document.getElementById('exm-search-results');
+  if(searchDiv) searchDiv.style.display='none';
+  const scrollEl=document.getElementById('exm-matrix-scroll');
+  if(scrollEl) scrollEl.style.display='';
+
+  // ----- MATRIX MODE: columns -----
+  const gridEl=document.getElementById('exm-matrix-grid');
+  if(!gridEl)return;
+
+  const muscleList=f==='ALL'?[...ALL_MUSCLES,'Custom']:[f];
+
+  let gridHtml='';
+  muscleList.forEach(muscle=>{
+    const items=(grouped[muscle]||[]).filter(({name})=>matchEx(name,muscle)).sort((a,b)=>a.name.localeCompare(b.name));
+    if(!items.length&&f!=='ALL') return;
+    const col=EX_MUSCLE_COLORS[muscle]||'#888';
+    const isUpper=UPPER.includes(muscle);
+    const isLower=LOWER.includes(muscle);
+    const groupTag=isUpper?'UP':isLower?'LO':'CU';
+
+    const chips=items.map(({name,muscle:m,isCustom,isBuiltin})=>{
+      const hasDetail=isBuiltin&&HAS_DETAIL_PAGE.has(name);
+      const isRecent=seenR.has(name);
+      const safeN=name.replace(/'/g,"\\'");
+      return`<div class="exm-row-chip${isCustom?' custom-chip':''}${isRecent?' recent-chip':''}" onclick="exmSelectExercise('${safeN}','${m||muscle}')">
+        ${isRecent?`<div class="exm-recent-dot"></div>`:''}
+        <div class="exm-row-chip-name">${name}</div>
+        ${hasDetail?`<div class="exm-row-chip-info" onclick="event.stopPropagation();openExDetail('${safeN}')">ⓘ</div>`:''}
+      </div>`;
+    }).join('');
+
+    gridHtml+=`<div class="exm-col">
+      <div class="exm-col-header" style="border-bottom-color:${col}33">
+        <div class="exm-col-dot" style="background:${col}"></div>
+        <div class="exm-col-name" style="color:${col}">${muscle.toUpperCase()}</div>
+        <div class="exm-col-count">${items.length}</div>
+      </div>
+      <div class="exm-col-body">
+        ${chips||`<div style="padding:10px 6px;font-size:11px;color:var(--dim);font-family:var(--font-head);letter-spacing:.06em">None yet</div>`}
+      </div>
+    </div>`;
+  });
+
+  gridEl.innerHTML=gridHtml;
+}
+
+/* ── EXERCISE DETAIL DATA ── */
+const EXERCISE_DETAIL_DB = {
+  'Bench Press':{
+    muscle:'Chest',group:'upper',
+    aka:'Flat Bench, Barbell Press',
+    primary:['Pectoralis Major'],secondary:['Anterior Deltoid','Triceps Brachii','Serratus Anterior'],
+    cues:[
+      'Retract and depress your shoulder blades — pack them into your back pockets',
+      'Grip just outside shoulder-width. Full grip, thumbs around the bar',
+      'Unrack with locked arms, lower slowly to mid-chest — 3 second descent',
+      'Drive feet into floor, press bar in a slight arc back toward the rack',
+    ],
+    sets:'3–5 sets',reps:'3–12 reps',rest:'2–5 min',tip:'Arch your upper back, keep glutes on the bench. Leg drive through the floor amplifies pressing strength.',
+  },
+  'Squat':{
+    muscle:'Quads',group:'lower',
+    aka:'Barbell Back Squat, High Bar, Low Bar',
+    primary:['Quadriceps (Rectus Femoris, Vastus Lateralis, Medialis, Intermedius)'],secondary:['Glutes','Hamstrings','Spinal Erectors','Core'],
+    cues:[
+      'Bar sits on upper traps (high bar) or rear delts (low bar). Not on your neck',
+      'Stance just outside hips, toes 15–30° out. Find YOUR stance',
+      'Brace 360° — breathe into your belly, create intra-abdominal pressure',
+      'Descend until hip crease is below the knee — full depth unlocks glute activation',
+    ],
+    sets:'3–5 sets',reps:'3–10 reps',rest:'3–5 min',tip:'Record yourself from the side. Knee cave and good-morning squats are silent form killers.',
+  },
+  'Deadlift':{
+    muscle:'Back',group:'upper',
+    aka:'Conventional Deadlift, Pull',
+    primary:['Erector Spinae','Gluteus Maximus','Hamstrings'],secondary:['Trapezius','Latissimus Dorsi','Forearms','Quadriceps'],
+    cues:[
+      'Bar over mid-foot. Hinge to the bar — shins touch, don\'t squat it up',
+      'Neutral spine from setup. "Long neck, proud chest" — no rounding',
+      'Lat engagement first — pull the slack out, then drive the floor away',
+      'Lock hips and knees simultaneously at the top. Squeeze glutes hard',
+    ],
+    sets:'1–4 sets',reps:'1–8 reps',rest:'3–5 min',tip:'The deadlift reveals everything. Video every heavy single — the bar should drag your shins on the way up.',
+  },
+  'Pull Up':{
+    muscle:'Back',group:'upper',
+    aka:'Chin Up (supinated grip), Weighted Pull Up',
+    primary:['Latissimus Dorsi','Biceps Brachii'],secondary:['Rear Deltoid','Rhomboids','Lower Trapezius'],
+    cues:[
+      'Full dead hang to start — every rep from the bottom',
+      'Initiate by depressing the scapulae, then think "elbows to pockets"',
+      'Chin clears the bar — chest ideally touches or approaches it',
+      'Control the descent — 2–3 seconds down. No kipping for hypertrophy',
+    ],
+    sets:'3–4 sets',reps:'5–15 reps',rest:'2–3 min',tip:'Add weight before you add reps past 15. Weighted pull-ups build lats far faster than high-rep bodyweight.',
+  },
+  'Overhead Press':{
+    muscle:'Shoulders',group:'upper',
+    aka:'Strict Press, Military Press, OHP',
+    primary:['Anterior Deltoid','Medial Deltoid'],secondary:['Triceps','Upper Pectoralis','Serratus Anterior','Core'],
+    cues:[
+      'Grip just outside shoulders. Bar rests on upper chest, elbows slightly forward',
+      'Brace your core — this is a full-body lift, not just an arm exercise',
+      'Press the bar vertically. Head moves back slightly to let the bar pass',
+      'At lockout: shrug at the top. Your ears should be in front of your arms',
+    ],
+    sets:'3–5 sets',reps:'3–10 reps',rest:'2–4 min',tip:'OHP exposes shoulder mobility issues. If you can\'t lock out without leaning back aggressively, fix your thoracic spine first.',
+  },
+  'Barbell Row':{
+    muscle:'Back',group:'upper',
+    aka:'Pendlay Row, Bent-Over Row',
+    primary:['Latissimus Dorsi','Rhomboids','Trapezius'],secondary:['Biceps','Rear Deltoid','Erector Spinae'],
+    cues:[
+      'Hinge to ~45°, bar hangs directly below shoulders',
+      'Pull bar to lower chest / upper stomach — NOT to your collar',
+      'Lead with the elbows, not the hands. Drive elbows back and up',
+      'Pause and squeeze at the top for 1 second to ensure full contraction',
+    ],
+    sets:'3–4 sets',reps:'6–12 reps',rest:'2–3 min',tip:'Control the eccentric. If you can\'t lower the bar slowly, the weight is too heavy and your ego is too large.',
+  },
+  'Romanian Deadlift':{
+    muscle:'Hamstrings',group:'lower',
+    aka:'RDL, Stiff-Leg Deadlift',
+    primary:['Hamstrings','Gluteus Maximus'],secondary:['Erector Spinae','Adductors'],
+    cues:[
+      'Stand hip-width, soft knee bend. Bar in contact with your legs throughout',
+      'Hip hinge — push your hips back as if reaching for a wall behind you',
+      'Lower until a strong hamstring stretch. Stop before lower back rounds',
+      'Drive hips forward to stand — squeeze glutes hard at the top',
+    ],
+    sets:'3–4 sets',reps:'8–15 reps',rest:'2–3 min',tip:'Feel it in your hamstrings, not your back. If you feel it in your lower back, you\'re rounding — reduce range of motion.',
+  },
+  'Hip Thrust':{
+    muscle:'Glutes',group:'lower',
+    aka:'Barbell Hip Thrust, Glute Bridge',
+    primary:['Gluteus Maximus'],secondary:['Hamstrings','Adductors','Core'],
+    cues:[
+      'Upper back on bench edge, bar on hip crease with a pad',
+      'Chin tucked, ribs down. Do NOT hyperextend your lower back at the top',
+      'Drive through the entire foot — not just the heels',
+      'Full hip extension at top — squeeze hard for 1–2 seconds',
+    ],
+    sets:'3–4 sets',reps:'8–20 reps',rest:'90 sec–2 min',tip:'This is the king of glute exercises. Load it heavily. A 100kg+ hip thrust is achievable and will transform your glutes.',
+  },
+  'Barbell Curl':{
+    muscle:'Biceps',group:'upper',
+    aka:'Standing Barbell Curl, EZ Bar Curl',
+    primary:['Biceps Brachii','Brachialis'],secondary:['Brachioradialis','Forearms'],
+    cues:[
+      'Elbows pinned to your sides — they are not allowed to travel forward',
+      'Supinate fully at the top — turn your pinky fingers outward',
+      'Control the eccentric — 2 seconds down, feel the stretch',
+      'Don\'t use momentum. If you need to swing, the weight is too heavy',
+    ],
+    sets:'3–4 sets',reps:'8–15 reps',rest:'90 sec',tip:'Peak contraction matters more than weight. Squeeze hard at the top and hold for one second.',
+  },
+  'Skull Crusher':{
+    muscle:'Triceps',group:'upper',
+    aka:'Lying Tricep Extension, EZ Bar Extension',
+    primary:['Triceps Brachii (Long Head emphasis)'],secondary:['Anconeus'],
+    cues:[
+      'Elbows pointed at the ceiling — do not let them flare wide',
+      'Lower bar to forehead (or slightly beyond, behind head for more stretch)',
+      'Extension is elbow-only — no shoulder involvement',
+      'Pair with close-grip bench in a superset for full tricep development',
+    ],
+    sets:'3–4 sets',reps:'8–15 reps',rest:'90 sec',tip:'The long head only fully stretches above the head. A slight incline (15–30°) maximises long-head recruitment.',
+  },
+  'Lateral Raise':{
+    muscle:'Shoulders',group:'upper',
+    aka:'Dumbbell Lateral Raise, Cable Lateral',
+    primary:['Medial Deltoid'],secondary:['Supraspinatus','Anterior Deltoid'],
+    cues:[
+      'Slight forward lean and slight elbow bend — not a strict vertical movement',
+      'Lead with the elbows, not the hands. Little finger slightly higher at top',
+      'Raise to just below shoulder height — going higher shifts to traps',
+      'Control the descent. 2–3 seconds down against the resistance',
+    ],
+    sets:'3–5 sets',reps:'12–25 reps',rest:'60–90 sec',tip:'Cable laterals maintain tension throughout. Dumbbells have zero tension at the bottom. Both are useful for different reasons.',
+  },
+  'Leg Press':{
+    muscle:'Quads',group:'lower',
+    aka:'45° Leg Press, Horizontal Leg Press',
+    primary:['Quadriceps'],secondary:['Gluteus Maximus','Hamstrings','Calves'],
+    cues:[
+      'Feet shoulder-width, toes at natural angle — never internally rotated',
+      'Lower until knees reach ~90°. Lower back must stay flat on the pad',
+      'Never lock out at the top under load — keep tension on the quads',
+      'Foot position changes emphasis: high feet = more glutes/hams, low feet = more quads',
+    ],
+    sets:'3–4 sets',reps:'8–20 reps',rest:'2–3 min',tip:'The leg press allows very high volume safely. Paused reps at the bottom destroy quads in a productive way.',
+  },
+  'Bulgarian Split Squat':{
+    muscle:'Quads',group:'lower',
+    aka:'Rear-Foot Elevated Split Squat, RFESS',
+    primary:['Quadriceps','Gluteus Maximus'],secondary:['Hamstrings','Hip Flexors','Core'],
+    cues:[
+      'Rear foot elevated on bench. Front foot far enough forward that knee stays behind toes',
+      'Descend vertically — don\'t let the front knee travel dramatically inward',
+      'Torso upright for quad emphasis, slight forward lean for glute emphasis',
+      'Drive through the heel of your front foot to return',
+    ],
+    sets:'3–4 sets',reps:'8–15 per leg',rest:'2 min',tip:'This is harder than it looks. Start with bodyweight. The balance challenge alone will fatigue you before the resistance does.',
+  },
+  'Incline Bench':{
+    muscle:'Chest',group:'upper',
+    aka:'Incline Barbell Press',
+    primary:['Upper Pectoralis Major (Clavicular Head)'],secondary:['Anterior Deltoid','Triceps'],
+    cues:[
+      '30–45° incline. Higher than 45° becomes mostly shoulders',
+      'Touch bar to upper chest, just below the collarbone',
+      'Same scapular setup as flat bench — retract and depress',
+      'Grip width: slightly inside your flat bench grip',
+    ],
+    sets:'3–4 sets',reps:'6–12 reps',rest:'2–3 min',tip:'Upper chest is chronically underdeveloped in most people. Prioritise incline work first in your push day when you\'re freshest.',
+  },
+  'Decline Bench':{
+    muscle:'Chest',group:'upper',
+    aka:'Decline Barbell Press',
+    primary:['Lower Pectoralis Major (Sternocostal Head)'],secondary:['Triceps','Anterior Deltoid'],
+    cues:['Touch lower sternum / upper abs','Decline reduces shoulder involvement','Great for full chest development and finishing press movements'],
+    sets:'3–4 sets',reps:'8–12 reps',rest:'2–3 min',tip:'Often overlooked but crucial for lower chest fullness. Don\'t skip it.',
+  },
+  'Dips':{
+    muscle:'Triceps',group:'upper',
+    aka:'Tricep Dips, Chest Dips',
+    primary:['Triceps Brachii'],secondary:['Pectoralis Major','Anterior Deltoid'],
+    cues:[
+      'Forward lean = more chest. Upright = more triceps',
+      'Lower until upper arms are parallel to the floor minimum',
+      'Flare elbows slightly for chest dips, tuck for tricep focus',
+      'Add weight via a dipping belt once bodyweight becomes easy',
+    ],
+    sets:'3–4 sets',reps:'6–15 reps',rest:'2 min',tip:'Weighted dips and weighted pull-ups are the two most underrated mass-builders in upper body training.',
+  },
+};
+
+function openExDetail(name){
+  const data=EXERCISE_DETAIL_DB[name];
+  if(!data){
+    // For exercises without a detail page, still show a minimal card
+    renderExDetailSimple(name);
+    return;
+  }
+  const col=EX_MUSCLE_COLORS[data.muscle]||'var(--dim)';
+  const isUpper=UPPER.includes(data.muscle);
+
+  const primaryHtml=data.primary.map(m=>`<span class="exd-muscle-pill" style="background:${col}18;color:${col};border:1px solid ${col}30">${m}</span>`).join('');
+  const secondaryHtml=data.secondary.map(m=>`<span class="exd-muscle-pill" style="background:var(--card2);color:var(--muted);border:1px solid var(--border)">${m}</span>`).join('');
+  const cuesHtml=data.cues.map((c,i)=>`<div class="exd-cue"><div class="exd-cue-num">${i+1}</div><div class="exd-cue-text">${c}</div></div>`).join('');
+
+  document.getElementById('exd-sheet').innerHTML=`
+    <div class="exd-hero" style="background:linear-gradient(135deg,${col}15,${col}05)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+        <div>
+          <div class="exd-muscle-tag" style="background:${col}20;color:${col};border:1px solid ${col}30">${data.muscle.toUpperCase()} · ${isUpper?'UPPER':'LOWER'} BODY</div>
+          <div class="exd-name">${name}</div>
+          ${data.aka?`<div class="exd-alt">Also: ${data.aka}</div>`:''}
+        </div>
+        <button class="exd-close-btn" onclick="closeExDetail()" style="margin-top:4px">✕</button>
+      </div>
+    </div>
+    <div class="exd-body">
+      <div class="exd-section">
+        <div class="exd-section-title">MUSCLES WORKED</div>
+        <div style="margin-bottom:8px"><div style="font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:6px">PRIMARY</div>
+          <div class="exd-muscles-row">${primaryHtml}</div></div>
+        <div><div style="font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:6px">SECONDARY</div>
+          <div class="exd-muscles-row">${secondaryHtml}</div></div>
+      </div>
+      <div class="exd-section">
+        <div class="exd-section-title">COACHING CUES</div>
+        <div class="exd-cue-list">${cuesHtml}</div>
+      </div>
+      <div class="exd-section">
+        <div class="exd-section-title">PROGRAMMING</div>
+        <div class="exd-tips-grid">
+          <div class="exd-tip"><div class="exd-tip-label">SETS</div><div class="exd-tip-val">${data.sets}</div></div>
+          <div class="exd-tip"><div class="exd-tip-label">REPS</div><div class="exd-tip-val">${data.reps}</div></div>
+          <div class="exd-tip"><div class="exd-tip-label">REST</div><div class="exd-tip-val">${data.rest}</div></div>
+          <div class="exd-tip"><div class="exd-tip-label">LEVEL</div><div class="exd-tip-val">${data.level||'All'}</div></div>
+        </div>
+        ${data.tip?`<div style="margin-top:10px;padding:12px 14px;background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);border-radius:10px;border-left:3px solid var(--gold)">
+          <div style="font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.1em;margin-bottom:4px">COACH'S TIP</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">${data.tip}</div>
+        </div>`:''}
+      </div>
+    </div>
+    <div class="exd-footer">
+      <button class="exd-close-btn" onclick="closeExDetail()">← Back</button>
+      <button class="exd-add-btn" onclick="exmSelectExercise('${name.replace(/'/g,"\\'")}','${data.muscle}');closeExDetail()">＋ Add to Workout</button>
+    </div>
+  `;
+
+  document.getElementById('exd-overlay').classList.add('open');
+}
+
+function renderExDetailSimple(name){
+  const muscle=getMuscle(name)||'';
+  const col=EX_MUSCLE_COLORS[muscle]||'var(--dim)';
+  document.getElementById('exd-sheet').innerHTML=`
+    <div class="exd-hero" style="background:linear-gradient(135deg,${col}12,transparent)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between">
+        <div>
+          ${muscle?`<div class="exd-muscle-tag" style="background:${col}20;color:${col}">${muscle.toUpperCase()}</div>`:''}
+          <div class="exd-name">${name}</div>
+          <div class="exd-alt">Custom exercise — no detail page yet</div>
+        </div>
+        <button class="exd-close-btn" onclick="closeExDetail()">✕</button>
+      </div>
+    </div>
+    <div class="exd-footer">
+      <button class="exd-close-btn" onclick="closeExDetail()">← Back</button>
+      <button class="exd-add-btn" onclick="exmSelectExercise('${name.replace(/'/g,"\\'")}','${muscle}');closeExDetail()">＋ Add to Workout</button>
+    </div>
+  `;
+  document.getElementById('exd-overlay').classList.add('open');
+}
+
+function closeExDetail(){
+  document.getElementById('exd-overlay').classList.remove('open');
+}
+function exdOverlayClick(e){
+  if(e.target===document.getElementById('exd-overlay')) closeExDetail();
+}
+
+// Expose new functions
+window.openExDetail=openExDetail;
+window.closeExDetail=closeExDetail;
+window.exdOverlayClick=exdOverlayClick;
+
+function addExercise(){
+  // Now just opens the matrix
+  openExMatrix();
+}
+
+function escQ(s){ return (s||'').replace(/'/g,"\'").replace(/"/g,'&quot;'); }
+
+// Keep selectExPickerItem for plan builder compatibility
+let _pickerTarget=null;
+function openExPicker(dropdownId, inputId, muscleSelectId){
+  document.querySelectorAll('.ex-dropdown.open').forEach(d=>{ if(d.id!==dropdownId) d.classList.remove('open'); });
+  const dd=document.getElementById(dropdownId); if(!dd) return;
+  if(dd.classList.contains('open')){ dd.classList.remove('open'); _pickerTarget=null; return; }
+  _pickerTarget={dropdownId, inputId, muscleSelectId};
+  dd.classList.add('open');
+  const searchEl=document.getElementById(dropdownId+'-search');
+  if(searchEl){ searchEl.value=''; searchEl.focus(); }
+  renderExPickerList(dropdownId, '');
+}
+function filterExPicker(dropdownId, query){ renderExPickerList(dropdownId, query); }
+function renderExPickerList(dropdownId, query){
+  const listEl=document.getElementById(dropdownId+'-list'); if(!listEl) return;
+  const allEx=allExLib(); const q=(query||'').toLowerCase().trim();
+  let html='';
+  ALL_MUSCLES.forEach(muscle=>{
+    const items=Object.entries(allEx).filter(([n,m])=>m===muscle&&(!q||n.toLowerCase().includes(q))).map(([n])=>n).sort();
+    if(!items.length) return;
+    html+=`<div class="ex-dropdown-section">${muscle.toUpperCase()}</div>`;
+    items.forEach(name=>{ html+=`<div class="ex-dropdown-item" onclick="selectExPickerItem('${dropdownId}','${escQ(name)}','${muscle}')"><div class="edi-name">${name}</div></div>`; });
+  });
+  const custom=Object.entries(allEx).filter(([n,m])=>!ALL_MUSCLES.includes(m)&&(!q||n.toLowerCase().includes(q)));
+  if(custom.length){ html+=`<div class="ex-dropdown-section">CUSTOM</div>`;custom.forEach(([n])=>{html+=`<div class="ex-dropdown-item" onclick="selectExPickerItem('${dropdownId}','${escQ(n)}','')"><div class="edi-name">${n}</div></div>`;});}
+  listEl.innerHTML=html||`<div style="padding:16px;text-align:center;color:var(--dim);font-size:12px">No results</div>`;
+}
+function selectExPickerItem(dropdownId, name, muscle){
+  if(!dropdownId&&_pickerTarget) dropdownId=_pickerTarget.dropdownId;
+  const t=_pickerTarget;
+  const inputEl=document.getElementById(t?.inputId||''); if(inputEl){inputEl.value=name;inputEl.dataset.value=name;}
+  if(t?.muscleSelectId){const mEl=document.getElementById(t.muscleSelectId);const dm=muscle||getMuscle(name)||'';if(mEl&&dm)mEl.value=dm;}
+  const dd=document.getElementById(dropdownId||t?.dropdownId||''); if(dd)dd.classList.remove('open');
+  _pickerTarget=null;
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.ex-picker-wrap')){document.querySelectorAll('.ex-dropdown.open').forEach(d=>d.classList.remove('open'));_pickerTarget=null;}
+});
+
+
 function addSet(exId){
   const w=parseFloat(document.getElementById('w-'+exId).value)||0;
   const r=parseInt(document.getElementById('r-'+exId).value)||0;
@@ -1774,55 +2868,84 @@ function toggleSSGroup(parentId){
   const aa=document.getElementById('ssadd-'+parentId);if(aa)aa.style.display=collapsed?'none':'';
 }
 
+// Muscle accent colours for the left stripe
+const MUSCLE_COLOURS={
+  Chest:'#4f9de8',Back:'#44c76a',Shoulders:'#9b6fe0',
+  Biceps:'#e8533f',Triceps:'#f0b429',Forearms:'#e07a5f',
+  Quads:'#44c76a',Hamstrings:'#5ec97a',Glutes:'#f0b429',
+  Calves:'#4f9de8',Core:'#e8533f',
+};
+
 function renderLog(){
   document.getElementById('log-date-lbl').textContent=fmtDate(currentDate);
   const day=getDay(currentDate);const exercises=day.exercises||[];
-  let totVol=0,totSets=0;exercises.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
+  let totVol=0,totSets=0;
+  exercises.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
   const hasSets=exercises.some(e=>e.sets&&e.sets.length>0);
 
+  // Stats bar
+  const saved=day.sessionNote;
   document.getElementById('log-metrics').innerHTML=`
-    <div class="mc"><div class="lbl">EXERCISES</div><div class="val">${exercises.length}</div></div>
-    <div class="mc"><div class="lbl">TOTAL SETS</div><div class="val">${totSets}</div></div>
-    <div class="mc"><div class="lbl">VOLUME (u/100)</div><div class="val gold">${fmtVol(totVol)}</div></div>
-    ${hasSets?`<div class="mc" style="cursor:pointer;border-color:${day.sessionNote?'rgba(68,199,106,.3)':'rgba(240,180,41,.2)'}" onclick="openSessionSavePanel()">
-      <div class="lbl">${day.sessionNote?'SESSION SAVED':'SAVE SESSION'}</div>
-      <div class="val" style="font-size:20px;margin-top:2px">${day.sessionNote?'<span style="color:var(--green)">✓</span>':'<span style="color:var(--gold)">→</span>'}</div>
+    <div class="log-stat"><div class="ls-val">${exercises.length}</div><div class="ls-lbl">EXERCISES</div></div>
+    <div class="log-stat"><div class="ls-val">${totSets}</div><div class="ls-lbl">SETS</div></div>
+    <div class="log-stat"><div class="ls-val" style="color:var(--gold)">${fmtVol(totVol)}</div><div class="ls-lbl">VOL u/100</div></div>
+    ${hasSets?`<div class="log-stat clickable ${saved?'saved-stat':'save-stat'}" onclick="openSessionSavePanel()">
+      <div class="ls-val" style="font-size:22px;color:${saved?'var(--green)':'var(--gold)'}">${saved?'✓':'→'}</div>
+      <div class="ls-lbl">${saved?'SAVED':'SAVE'}</div>
     </div>`:''}
   `;
+
   document.getElementById('ex-dl').innerHTML=Object.keys(allExLib()).sort().map(n=>`<option value="${n}">`).join('');
-  const topLevel=exercises.filter(e=>!e.superSetOf);let html='';
-  if(!topLevel.length){html='<div class="empty">NO EXERCISES — ADD ONE BELOW</div>';}
-  else topLevel.forEach(ex=>{
-    const children=exercises.filter(e=>e.superSetOf===ex.id);
-    if(children.length>0){
-      const grpC=!!ssCollapse[ex.id];
-      html+=`<div class="ss-group">
-        <div class="ss-group-header" onclick="toggleSSGroup(${ex.id})">
-          <div class="ss-group-header-left">
-            <span class="ss-group-title">⚡ SUPERSET</span>
-            <span class="ss-group-sub">${[ex,...children].map(e=>e.name).join(' + ')}</span>
+
+  const topLevel=exercises.filter(e=>!e.superSetOf);
+  let html='';
+
+  if(!topLevel.length){
+    html=`<div class="log-empty">
+      <div class="log-empty-icon">🏋️</div>
+      <div class="log-empty-title">NO EXERCISES YET</div>
+      <div class="log-empty-sub">Add your first exercise below to start today's session</div>
+    </div>`;
+  } else {
+    topLevel.forEach(ex=>{
+      const children=exercises.filter(e=>e.superSetOf===ex.id);
+      if(children.length>0){
+        const grpC=!!ssCollapse[ex.id];
+        html+=`<div class="ss-group">
+          <div class="ss-group-header" onclick="toggleSSGroup(${ex.id})">
+            <div class="ss-group-header-left">
+              <span class="ss-group-title">⚡ SUPERSET</span>
+              <span class="ss-group-sub">${[ex,...children].map(e=>e.name).join(' + ')}</span>
+            </div>
+            <span class="ss-chev${grpC?'':' open'}" id="sschev-${ex.id}">▾</span>
           </div>
-          <span class="ss-chev${grpC?'':' open'}" id="sschev-${ex.id}">▾</span>
-        </div>
-        <div class="ss-group-body">${exCardHTML(ex,true,grpC)}${children.map(c=>exCardHTML(c,true,grpC)).join('')}</div>
-        <div id="ssadd-${ex.id}" class="ss-add-area" style="${grpC?'display:none':''}">
-          <div style="font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.1em">ADD TO THIS SUPERSET</div>
-          <div class="ss-add-inner"><input type="text" id="ss-inp-${ex.id}" placeholder="Exercise name..." list="ex-dl" style="max-width:240px"><button class="btn btn-gold btn-sm" onclick="addSuperset(${ex.id})">+ ADD</button></div>
-        </div>
-      </div>`;
-    }else html+=`<div class="standalone-wrap">${exCardHTML(ex,false,false)}</div>`;
-  });
+          <div class="ss-group-body">
+            ${exCardHTML(ex,true,grpC)}
+            ${children.map(c=>exCardHTML(c,true,grpC)).join('')}
+          </div>
+          <div id="ssadd-${ex.id}" class="ss-add-area" style="${grpC?'display:none':''}">
+            <div class="ss-add-label">⚡ ADD TO THIS SUPERSET</div>
+            <div class="ss-add-inner">
+              <input type="text" id="ss-inp-${ex.id}" placeholder="Exercise name..." list="ex-dl" style="max-width:240px">
+              <button class="btn btn-gold btn-sm" onclick="addSuperset(${ex.id})">+ ADD</button>
+            </div>
+          </div>
+        </div>`;
+      } else {
+        html+=`<div class="standalone-wrap">${exCardHTML(ex,false,false)}</div>`;
+      }
+    });
+  }
   document.getElementById('ex-list').innerHTML=html;
 
-  // Show finish workout button when there are logged sets
-  if(hasSets&&!day.sessionNote){
-    const existingBtn=document.querySelector('.finish-workout-btn');
-    if(!existingBtn){
+  // Finish & Save button
+  if(hasSets&&!saved){
+    if(!document.querySelector('.finish-workout-btn')){
       const addPanel=document.querySelector('.add-ex-panel');
       if(addPanel){
         const btn=document.createElement('button');
         btn.className='finish-workout-btn';
-        btn.innerHTML=`<span class="fwb-icon">🏁</span> FINISH & SAVE SESSION <span style="margin-left:auto;font-size:16px">→</span>`;
+        btn.innerHTML=`<span class="fwb-icon">🏁</span> FINISH &amp; SAVE SESSION <span style="margin-left:auto;font-size:16px;opacity:.6">→</span>`;
         btn.onclick=openSessionSavePanel;
         addPanel.parentNode.insertBefore(btn,addPanel);
       }
@@ -1831,53 +2954,86 @@ function renderLog(){
     document.querySelector('.finish-workout-btn')?.remove();
   }
 
-  // Restore save panel visibility if it was open
   const savePanel=document.getElementById('session-save-panel');
   if(savePanel&&savePanel.style.display!=='none') initSessionSavePanel();
-
-  // Show previous note
   renderPrevSessionNote(day);
-
-  const nm=document.getElementById('new-name');
-  if(nm&&!nm._bl){nm._bl=true;nm.addEventListener('input',function(){const m=getMuscle(this.value);if(m)document.getElementById('new-muscle').value=m;});}
 }
 
 function exCardHTML(ex,inSS,forceCollapsed){
-  const isChild=!!ex.superSetOf;const collapsed=forceCollapsed||(exCollapse[ex.id]||false);
-  const bs=bestSet(ex.sets);const vol=totalVol2(ex.sets);const est=bs?e1rm(bs.w,bs.r):0;
-  const grp=mGrp(ex.muscle);const bCls=grp==='upper'?'badge-upper':grp==='lower'?'badge-lower':'';
-  const setsHtml=ex.sets.map((s,i)=>`<tr class="set-row">
-    <td><span class="set-num">${i+1}</span></td><td>${s.w} kg</td><td>${s.r}</td>
-    <td><span class="vol-chip">${fmtVol(s.w*s.r)}</span></td><td><span class="e1rm-chip">${e1rm(s.w,s.r)} kg</span></td>
-    <td style="color:var(--dim)">${s.rpe||'—'}</td><td><button class="btn-icon" onclick="delSet(${ex.id},${i})">✕</button></td>
-  </tr>`).join('');
+  const isChild=!!ex.superSetOf;
+  const collapsed=forceCollapsed||(exCollapse[ex.id]||false);
+  const bs=bestSet(ex.sets);
+  const vol=totalVol2(ex.sets);
+  const est=bs?e1rm(bs.w,bs.r):0;
+  const grp=mGrp(ex.muscle);
+  const bCls=grp==='upper'?'badge-upper':grp==='lower'?'badge-lower':'';
+  const stripeColor=MUSCLE_COLOURS[ex.muscle]||'var(--border2)';
+
+  // Find best set index for highlighting
+  const bestIdx=bs?ex.sets.indexOf(bs):-1;
+
+  // Sets as cards
+  const setsHtml=ex.sets.map((s,i)=>{
+    const isBest=i===bestIdx&&ex.sets.length>1;
+    return`<div class="set-card${isBest?' best-set':''}" style="animation-delay:${i*0.04}s">
+      <div class="set-num-badge">${i+1}</div>
+      <div class="set-cell"><div class="sv">${s.w}<span style="font-size:11px;font-family:var(--font-head);color:var(--dim);font-weight:400;margin-left:1px">kg</span></div><div class="sk">WEIGHT</div></div>
+      <div class="set-cell"><div class="sv">${s.r}</div><div class="sk">REPS</div></div>
+      <div class="set-cell"><div class="sv" style="color:var(--gold)">${fmtVol(s.w*s.r)}</div><div class="sk">VOL</div></div>
+      <div class="set-cell"><div class="sv" style="color:var(--blue)">${e1rm(s.w,s.r)}</div><div class="sk">e1RM</div></div>
+      <button class="set-del-btn" onclick="delSet(${ex.id},${i})" title="Remove set">✕</button>
+    </div>`;
+  }).join('');
+
+  // Best bar
+  const bestBarHtml=bs?`<div class="best-bar">
+    <div class="best-bar-item"><div class="bbi-val">${bs.w}kg × ${bs.r}</div><div class="bbi-lbl">BEST SET</div></div>
+    <div class="best-bar-item"><div class="bbi-val" style="color:var(--gold)">${fmtVol(vol)} u</div><div class="bbi-lbl">VOLUME</div></div>
+    <div class="best-bar-item"><div class="bbi-val" style="color:var(--blue)">${est} kg</div><div class="bbi-lbl">EST 1RM</div></div>
+    ${ex.sets.length>1?`<div class="best-bar-item"><div class="bbi-val" style="color:var(--green)">${ex.sets.length}</div><div class="bbi-lbl">SETS DONE</div></div>`:''}
+  </div>`:'';
+
+  // Plan target hint
+  const targetHint=ex.planScheme?`<span class="btn-plan-scheme">TARGET: ${ex.planScheme}</span>`:'';
+
   return`<div class="ex-card-inner">
     <div class="ex-head" onclick="toggleEx(${ex.id})">
-      <h3>${ex.name}</h3>
-      ${ex.muscle?`<span class="badge ${bCls}">${ex.muscle} · ${grp.toUpperCase()}</span>`:''}
-      ${isChild?'<span class="badge badge-ss">SUPERSET</span>':''}
-      <span style="color:var(--dim);font-size:13px">${ex.sets.length} sets</span>
-      <span class="ex-chev${collapsed?' collapsed':''}" id="echev-${ex.id}">▾</span>
+      <div class="ex-muscle-stripe" style="background:${stripeColor}"></div>
+      <div class="ex-head-left">
+        <div class="ex-name">${ex.name}</div>
+        <div class="ex-meta-row">
+          ${ex.muscle?`<span class="badge ${bCls}">${ex.muscle} · ${grp.toUpperCase()}</span>`:''}
+          ${isChild?'<span class="badge badge-ss">⚡ SUPERSET</span>':''}
+          ${targetHint}
+        </div>
+      </div>
+      <div class="ex-head-right">
+        <div class="ex-sets-count">${ex.sets.length}</div>
+        <div class="ex-sets-label">SETS</div>
+        <span class="ex-chev${collapsed?' collapsed':''}" id="echev-${ex.id}">▾</span>
+      </div>
     </div>
     <div id="eb-${ex.id}" class="ex-body" style="${collapsed?'display:none':''}">
-      <div class="sets-wrap"><table>
-        <thead><tr><th>SET</th><th>WEIGHT</th><th>REPS</th><th>VOL (u/100)</th><th>e1RM</th><th>RPE</th><th></th></tr></thead>
-        <tbody>${setsHtml||'<tr><td colspan="7" style="text-align:center;color:var(--dim);padding:14px;font-family:var(--font-head);font-size:11px;letter-spacing:.08em">NO SETS YET</td></tr>'}</tbody>
-      </table></div>
-      ${bs?`<div class="best-bar"><span>BEST <strong>${bs.w}kg × ${bs.r}</strong></span><span>VOL <strong style="color:var(--gold)">${fmtVol(vol)} u/100</strong></span><span>e1RM <strong style="color:var(--blue)">${est} kg</strong></span></div>`:''}
+      ${ex.sets.length
+        ?`<div class="sets-display">${setsHtml}</div>${bestBarHtml}`
+        :`<div class="no-sets-msg">No sets logged yet — add your first set below</div>`
+      }
       <div class="log-set-area">
-        <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:8px">LOG A SET${ex.planScheme?` · <span style="color:var(--gold)">${ex.planScheme}</span>`:''}</div>
-        <div class="log-set-row">
-          <div class="fi"><label>WEIGHT (KG)</label><input type="number" id="w-${ex.id}" min="0" step="0.5" placeholder="60"></div>
-          <div class="fi"><label>REPS</label><input type="number" id="r-${ex.id}" min="1" placeholder="8"></div>
-          <div class="fi"><label>RPE</label><input type="number" id="rpe-${ex.id}" min="1" max="10" step=".5" placeholder="8"></div>
-          <div class="fi" style="padding-top:18px"><button class="btn btn-red" onclick="addSet(${ex.id})">+ SET</button></div>
-          <div class="fi" style="padding-top:18px;margin-left:auto"><button class="btn btn-ghost btn-sm" onclick="delExercise(${ex.id})" style="color:var(--dim)">Remove</button></div>
+        <div class="log-set-title">LOG A SET</div>
+        <div class="log-set-inputs">
+          <div class="log-input-group"><label>WEIGHT KG</label><input type="number" id="w-${ex.id}" min="0" step="0.5" placeholder="60"></div>
+          <div class="log-input-group"><label>REPS</label><input type="number" id="r-${ex.id}" min="1" placeholder="8"></div>
+          <div class="log-input-group"><label>RPE</label><input type="number" id="rpe-${ex.id}" min="1" max="10" step=".5" placeholder="8"></div>
+          <button class="btn-add-set" onclick="addSet(${ex.id})">+ SET</button>
+          <button class="btn-remove-ex" onclick="delExercise(${ex.id})">Remove</button>
         </div>
       </div>
       ${!isChild&&!inSS?`<div class="ss-add-area">
-        <div style="font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.1em">⚡ PAIR WITH SUPERSET</div>
-        <div class="ss-add-inner"><input type="text" id="ss-inp-${ex.id}" placeholder="e.g. Tricep Pushdown" list="ex-dl" style="max-width:240px"><button class="btn btn-gold btn-sm" onclick="addSuperset(${ex.id})">+ SUPERSET</button></div>
+        <div class="ss-add-label">⚡ PAIR WITH SUPERSET EXERCISE</div>
+        <div class="ss-add-inner">
+          <input type="text" id="ss-inp-${ex.id}" placeholder="e.g. Tricep Pushdown" list="ex-dl" style="max-width:240px">
+          <button class="btn btn-gold btn-sm" onclick="addSuperset(${ex.id})">+ SUPERSET</button>
+        </div>
       </div>`:''}
     </div>
   </div>`;
@@ -2513,87 +3669,172 @@ function renderCustomPlanList(){
   }).join('');
 }
 
+let builderActiveDay=0;
+
 function openPlanBuilder(idx){
   document.getElementById('custom-plan-list').style.display='none';
   const el=document.getElementById('plan-builder');
   el.style.display='block';
+  builderActiveDay=0;
 
   if(idx===null){
-    // New plan
     builderState={
       idx:null,
       name:'MY PLAN',
-      days:DAYS_OF_WEEK.map(d=>({name:d,focus:'',exercises:[],rest:false}))
+      days:DAYS_OF_WEEK.map((d,i)=>({name:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],short:d,focus:'',exercises:[],rest:false}))
     };
   } else {
-    builderState={idx,...JSON.parse(JSON.stringify(customPlans[idx]))};
-    // Ensure 7 days
-    while(builderState.days.length<7) builderState.days.push({name:DAYS_OF_WEEK[builderState.days.length],focus:'',exercises:[],rest:false});
+    const raw=JSON.parse(JSON.stringify(customPlans[idx]));
+    // Ensure all 7 days exist with short names
+    const fullNames=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    while(raw.days.length<7) raw.days.push({name:fullNames[raw.days.length],short:DAYS_OF_WEEK[raw.days.length],focus:'',exercises:[],rest:false});
+    raw.days.forEach((d,i)=>{if(!d.short)d.short=DAYS_OF_WEEK[i];if(!d.name)d.name=fullNames[i];});
+    builderState={idx,...raw};
   }
   renderPlanBuilder();
 }
 
 function renderPlanBuilder(){
   const el=document.getElementById('plan-builder');
-  const daysHtml=builderState.days.map((day,di)=>{
-    const isRest=day.rest;
-    const exHtml=(day.exercises||[]).map((ex,ei)=>`
-      <div class="builder-ex-entry">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div class="builder-ex-name">${ex.name}</div>
-          <button class="builder-ex-del" onclick="removeBuilderEx(${di},${ei})">✕</button>
-        </div>
-        <div class="builder-ex-scheme">${ex.scheme||''}</div>
-      </div>`).join('');
+  if(!el||!builderState)return;
 
-    return`<div class="builder-day" id="bday-${di}">
-      <div class="builder-day-header">
-        <div class="builder-day-name">${day.name}</div>
-        <button class="builder-rest-toggle" onclick="toggleBuilderRest(${di})" title="${isRest?'Mark as training':'Mark as rest'}">${isRest?'▶ TRAIN':'☽ REST'}</button>
-      </div>
-      <div class="builder-day-body" style="${isRest?'opacity:.4;pointer-events:none':''}">
-        <input class="builder-focus-input" type="text" placeholder="Focus (e.g. CHEST & TRICEPS)" value="${day.focus||''}" oninput="builderState.days[${di}].focus=this.value">
-        ${exHtml}
-        <div style="margin-top:8px">
-          <div style="display:flex;gap:4px;margin-bottom:4px">
-            <input type="text" id="bex-name-${di}" placeholder="Exercise name" list="ex-dl" style="font-size:12px;padding:6px 8px;flex:1">
-            <input type="text" id="bex-scheme-${di}" placeholder="Sets×Reps" style="font-size:12px;padding:6px 8px;width:80px">
-          </div>
-          <button class="btn btn-gold btn-sm" onclick="addBuilderEx(${di})" style="width:100%;font-size:11px">+ ADD EXERCISE</button>
-        </div>
-      </div>
-    </div>`;
+  const day=builderState.days[builderActiveDay];
+
+  // Day tabs
+  const tabsHtml=builderState.days.map((d,i)=>{
+    const hasEx=!d.rest&&d.exercises.length>0;
+    return`<button class="pb-day-tab${i===builderActiveDay?' active':''}${d.rest?' is-rest':''}${hasEx?' has-ex':''}"
+      onclick="builderSetDay(${i})">${d.short||DAYS_OF_WEEK[i]}</button>`;
   }).join('');
 
+  // Current day exercises
+  const exListHtml=(!day.rest&&day.exercises.length)
+    ? day.exercises.map((ex,ei)=>`<div class="pb-ex-row">
+        <div style="flex:1;min-width:0">
+          <div class="per-name">${ex.name}</div>
+          ${ex.scheme?`<div class="per-scheme">${ex.scheme}</div>`:''}
+        </div>
+        <button class="per-del" onclick="removeBuilderEx(${builderActiveDay},${ei})">✕</button>
+      </div>`).join('')
+    : (day.rest?'':  `<div class="pb-empty">No exercises yet — add below</div>`);
+
+  // Day panel content
+  const dayContent=day.rest
+    ? `<div class="pb-rest-panel">😴 &nbsp;Rest & Recovery Day<br><span style="font-size:12px;color:var(--dim);margin-top:6px;display:block">Toggle to add training</span></div>`
+    : `<div class="pb-focus-row">
+        <div class="field-group">
+          <label>SESSION FOCUS</label>
+          <input type="text" placeholder="e.g. Chest &amp; Triceps, Leg Day, Full Body..."
+            value="${day.focus||''}"
+            oninput="builderState.days[${builderActiveDay}].focus=this.value"
+            style="font-family:var(--font-head);font-weight:700;font-size:14px;letter-spacing:.04em">
+        </div>
+      </div>
+      <div class="pb-ex-list" id="pb-ex-list">${exListHtml}</div>
+      <div class="pb-add-ex-box">
+        <div class="pb-add-ex-box-title">＋ ADD EXERCISE</div>
+        <div class="pb-add-row">
+          <div class="field-group" style="flex:2;min-width:160px">
+            <label>EXERCISE</label>
+            <div class="ex-picker-wrap">
+              <input type="text" class="ex-picker-input" id="pb-ex-name"
+                placeholder="Search or select..."
+                autocomplete="off" readonly
+                onclick="openExPicker('pb-ex-picker','pb-ex-name',null)"
+                style="cursor:pointer;font-size:13px;padding:8px 10px">
+              <div class="ex-dropdown" id="pb-ex-picker">
+                <div class="ex-dropdown-search">
+                  <input type="text" id="pb-ex-picker-search" placeholder="🔍 Search..."
+                    oninput="filterExPicker('pb-ex-picker',this.value)"
+                    autocomplete="off">
+                </div>
+                <div class="ex-dropdown-list" id="pb-ex-picker-list"></div>
+              </div>
+            </div>
+          </div>
+          <div class="field-group" style="max-width:110px">
+            <label>SETS × REPS</label>
+            <input type="text" id="pb-ex-scheme" placeholder="4×8-10" class="pb-scheme-input">
+          </div>
+          <div style="padding-top:18px">
+            <button class="btn btn-red btn-sm" onclick="addBuilderEx(${builderActiveDay})">ADD</button>
+          </div>
+        </div>
+      </div>`;
+
   el.innerHTML=`<div class="builder-card">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
-      <div style="flex:1;min-width:200px">
-        <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:6px">PLAN NAME</div>
-        <input type="text" id="builder-plan-name" value="${builderState.name}" style="font-family:var(--font-display);font-size:22px;letter-spacing:.06em;padding:8px 12px" oninput="builderState.name=this.value">
+    <div class="pb-header">
+      <div class="pb-name-wrap">
+        <div class="pb-name-label">PLAN NAME</div>
+        <input class="pb-name-input" type="text" id="builder-plan-name"
+          value="${builderState.name}"
+          oninput="builderState.name=this.value"
+          placeholder="My Custom Plan">
+      </div>
+      <div style="display:flex;gap:8px;padding-top:22px">
+        <button class="btn btn-ghost btn-sm" onclick="closeBuilder()">Cancel</button>
+        <button class="btn btn-red" onclick="saveBuilderPlan()">💾 Save Plan</button>
       </div>
     </div>
-    <div class="builder-week-grid">${daysHtml}</div>
-    <div class="plan-save-bar">
-      <button class="btn btn-red" onclick="saveBuilderPlan()">💾 SAVE PLAN</button>
-      <button class="btn btn-ghost" onclick="closeBuilder()">Cancel</button>
-      ${builderState.idx!==null?`<button class="btn btn-ghost btn-sm" onclick="applyCustomPlan(${builderState.idx},event)" style="margin-left:auto">▶ USE THIS PLAN TODAY</button>`:''}
+
+    <div style="font-size:11px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;margin-bottom:8px">SELECT A DAY TO EDIT</div>
+    <div class="pb-days-nav">${tabsHtml}</div>
+
+    <div class="pb-day-panel">
+      <div class="pb-rest-toggle">
+        <label for="pb-rest-toggle-cb" style="font-family:var(--font-head);font-weight:700;font-size:14px;letter-spacing:.04em">
+          ${day.rest?'REST DAY':'TRAINING DAY'}
+          <span style="font-size:11px;font-weight:400;color:var(--dim);margin-left:8px">${builderState.days[builderActiveDay].name}</span>
+        </label>
+        <label class="pb-toggle-switch">
+          <input type="checkbox" id="pb-rest-toggle-cb" ${day.rest?'':'checked'} onchange="toggleBuilderRest(${builderActiveDay},this.checked)">
+          <div class="pb-toggle-track"></div>
+          <div class="pb-toggle-thumb"></div>
+        </label>
+      </div>
+      ${dayContent}
+    </div>
+
+    <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="font-size:12px;color:var(--dim);font-family:var(--font-head)">
+        ${builderState.days.filter(d=>!d.rest&&d.exercises.length>0).length} training days · ${builderState.days.reduce((s,d)=>s+d.exercises.length,0)} exercises total
+      </div>
+      ${builderState.idx!==null?`<button class="btn btn-ghost btn-sm" onclick="applyCustomPlan(${builderState.idx},event)">▶ USE TODAY</button>`:''}
     </div>
   </div>`;
+
+  // Re-expose builderState for inline handlers
+  window.builderState=builderState;
 }
 
-function toggleBuilderRest(di){
-  builderState.days[di].rest=!builderState.days[di].rest;
+function builderSetDay(di){
+  builderActiveDay=di;
+  renderPlanBuilder();
+}
+
+function toggleBuilderRest(di, isTraining){
+  builderState.days[di].rest=!isTraining;
   renderPlanBuilder();
 }
 
 function addBuilderEx(di){
-  const nameEl=document.getElementById('bex-name-'+di);
-  const schemeEl=document.getElementById('bex-scheme-'+di);
+  const nameEl=document.getElementById('pb-ex-name');
+  const schemeEl=document.getElementById('pb-ex-scheme');
   const name=(nameEl?.value||'').trim();
   const scheme=(schemeEl?.value||'').trim();
   if(!name)return;
   builderState.days[di].exercises.push({name,scheme});
-  nameEl.value='';schemeEl.value='';
+
+  // Auto-add to library if not already known
+  const allEx=allExLib();
+  if(!allEx[name]){
+    LIBRARY[name]={muscle:''};
+    saveLib();
+    toast(`"${name}" added to Exercise Library`);
+  }
+
+  if(nameEl){nameEl.value='';nameEl.dataset.value='';}
+  if(schemeEl) schemeEl.value='';
   renderPlanBuilder();
 }
 
@@ -2603,8 +3844,23 @@ function removeBuilderEx(di,ei){
 }
 
 function saveBuilderPlan(){
-  const name=document.getElementById('builder-plan-name')?.value?.trim()||'MY PLAN';
+  const nameEl=document.getElementById('builder-plan-name');
+  const name=(nameEl?.value||builderState.name||'').trim()||'MY PLAN';
   builderState.name=name;
+
+  // Auto-add ALL exercises in the plan to library
+  let newCount=0;
+  const allEx=allExLib();
+  builderState.days.forEach(day=>{
+    (day.exercises||[]).forEach(ex=>{
+      if(ex.name&&!allEx[ex.name]){
+        LIBRARY[ex.name]={muscle:''};
+        newCount++;
+      }
+    });
+  });
+  if(newCount>0){ saveLib(); toast(`${newCount} new exercise${newCount>1?'s':''} added to Library`); }
+
   const plan={name:builderState.name,days:builderState.days};
   if(builderState.idx!==null){customPlans[builderState.idx]=plan;}
   else{customPlans.push(plan);}
@@ -2994,6 +4250,21 @@ window.delExercise=delExercise; window.addSuperset=addSuperset;
 window.toggleEx=toggleEx; window.toggleSSGroup=toggleSSGroup;
 window.openSessionSavePanel=openSessionSavePanel; window.saveSession=saveSession;
 window.setSessionRating=setSessionRating;
+// Exercise Matrix
+window.openExMatrix=openExMatrix; window.closeExMatrix=closeExMatrix;
+window.exmOverlayClick=exmOverlayClick; window.exmSearch=exmSearch;
+window.exmSetFilter=exmSetFilter; window.renderExMatrix=renderExMatrix;
+window.exmSelectExercise=exmSelectExercise; window.exmAddCustom=exmAddCustom;
+window.updateAetCount=updateAetCount;
+// Exercise Detail
+window.openExDetail=openExDetail; window.closeExDetail=closeExDetail;
+window.exdOverlayClick=exdOverlayClick; window.renderExDetailSimple=renderExDetailSimple;
+// Demo mode
+window.clearDemoDataAndStart=clearDemoDataAndStart;
+window.dismissDemoBanner=dismissDemoBanner;
+// Exercise picker (plan builder)
+window.openExPicker=openExPicker; window.filterExPicker=filterExPicker;
+window.selectExPickerItem=selectExPickerItem;
 // Pages
 window.renderProgress=renderProgress; window.renderHistory=renderHistory;
 window.renderLibrary=renderLibrary; window.renderMuscles=renderMuscles;
@@ -3009,7 +4280,8 @@ window.applyPlanToday=applyPlanToday; window.openPlanBuilder=openPlanBuilder;
 window.closeBuilder=closeBuilder; window.saveBuilderPlan=saveBuilderPlan;
 window.addBuilderEx=addBuilderEx; window.removeBuilderEx=removeBuilderEx;
 window.toggleBuilderRest=toggleBuilderRest; window.applyCustomPlan=applyCustomPlan;
-window.deleteCustomPlan=deleteCustomPlan; window.renderPlanImportSection=renderPlanImportSection;
+window.deleteCustomPlan=deleteCustomPlan; window.builderSetDay=builderSetDay;
+window.renderPlanImportSection=renderPlanImportSection;
 window.toggleFormatDocs=toggleFormatDocs; window.downloadPlanTemplate=downloadPlanTemplate;
 window.copyLLMPrompt=copyLLMPrompt; window.importPlanToMyPlans=importPlanToMyPlans;
 window.planDropOver=planDropOver; window.planDropLeave=planDropLeave;
@@ -3026,6 +4298,22 @@ setTimeout(()=>{
   const btn=document.getElementById('skip-to-guest-btn');
   if(btn) btn.style.display='block';
 },2000);
+
+// ── Wire static HTML elements that can't use onclick="" in modules ──
+document.addEventListener('DOMContentLoaded',()=>{
+  // Matrix open trigger
+  document.getElementById('add-ex-trigger-btn')?.addEventListener('click', openExMatrix);
+  // Matrix overlay background click to close
+  document.getElementById('exm-overlay')?.addEventListener('click', exmOverlayClick);
+  // Matrix close button
+  document.getElementById('exm-close-btn')?.addEventListener('click', closeExMatrix);
+  // Matrix search input
+  document.getElementById('exm-search')?.addEventListener('input', e=>exmSearch(e.target.value));
+  // Matrix add custom button
+  document.getElementById('exm-add-custom-btn')?.addEventListener('click', exmAddCustom);
+  // Detail overlay background click to close
+  document.getElementById('exd-overlay')?.addEventListener('click', exdOverlayClick);
+});
 </script>
 </body>
 </html>
