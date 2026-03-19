@@ -401,88 +401,160 @@ select option{background:var(--card2)}
 .ex-head:hover{background:rgba(255,255,255,.02)}
 .ex-muscle-stripe{position:absolute;left:0;top:0;bottom:0;width:3px}
 .ex-head-left{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;padding-left:8px}
-.ex-name{font-family:var(--font-display);font-size:24px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ex-name{font-family:var(--font-display);font-size:24px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ex-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px}
 .ex-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
-.ex-sets-count{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;color:var(--muted);line-height:1}
-.ex-sets-label{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
-.ex-chev{color:var(--dim);font-size:11px;transition:transform .2s;margin-top:4px}
+.ex-sets-count{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;color:var(--text);line-height:1}
+.ex-sets-label{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.12em;font-weight:700}
+.ex-chev{color:var(--muted);font-size:11px;transition:transform .2s;margin-top:4px}
 .ex-chev.collapsed{transform:rotate(-90deg)}
-.ex-body{border-top:1px solid rgba(255,255,255,.04)}
+.ex-body{border-top:1px solid rgba(255,255,255,.06)}
 
 /* BADGES */
 .badge{font-size:9px;font-family:var(--font-head);font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.08em;white-space:nowrap}
-.badge-upper{background:rgba(79,157,232,.15);color:var(--blue)}
-.badge-lower{background:var(--green-dim);color:var(--green)}
-.badge-ss{background:var(--gold-dim);color:var(--gold)}
+.badge-upper{background:rgba(79,157,232,.2);color:#7dbff5}
+.badge-lower{background:rgba(68,199,106,.2);color:#6ddf8a}
+.badge-ss{background:rgba(240,180,41,.2);color:var(--gold)}
 
-/* Sets — card style */
+/* Sets */
 .sets-display{padding:12px 18px;display:flex;flex-direction:column;gap:6px}
-.set-card{display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 26px;align-items:center;gap:6px;padding:10px 12px;border-radius:10px;background:var(--card2);border:1px solid var(--border);transition:all .12s;animation:setSlideIn .22s ease both}
+.set-card{display:grid;grid-template-columns:30px 1fr 1fr 1fr 1fr 26px;align-items:center;gap:6px;padding:10px 12px;border-radius:10px;background:var(--card2);border:1px solid var(--border2);transition:all .12s;animation:setSlideIn .22s ease both}
 @keyframes setSlideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
-.set-card:hover{background:var(--card3);border-color:var(--border2)}
-.set-card.best-set{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06)}
-.set-num-badge{font-family:var(--font-display);font-size:18px;color:var(--dim);text-align:center;line-height:1}
+.set-card:hover{background:var(--card3);border-color:var(--border3)}
+.set-card.best-set{border-color:rgba(240,180,41,.5);background:rgba(240,180,41,.08)}
+.set-num-badge{font-family:var(--font-display);font-size:18px;color:var(--muted);text-align:center;line-height:1}
 .set-cell{display:flex;flex-direction:column;gap:1px;min-width:0}
-.set-cell .sv{font-family:var(--font-head);font-size:15px;font-weight:700}
-.set-cell .sk{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
-.set-del-btn{background:none;border:none;cursor:pointer;color:var(--dim);font-size:14px;padding:4px;border-radius:4px;transition:color .12s;justify-self:end}
+.set-cell .sv{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--text)}
+.set-cell .sk{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.1em;font-weight:600}
+.set-del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;padding:4px;border-radius:4px;transition:color .12s;justify-self:end}
 .set-del-btn:hover{color:var(--red)}
-.no-sets-msg{padding:20px;text-align:center;color:var(--dim);font-family:var(--font-head);font-size:12px;letter-spacing:.1em}
+.no-sets-msg{padding:20px;text-align:center;color:var(--muted);font-family:var(--font-head);font-size:13px;letter-spacing:.06em;font-weight:600}
 
 /* Best bar */
-.best-bar{display:flex;align-items:center;margin:0 18px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(240,180,41,.08),rgba(79,157,232,.06));border:1px solid rgba(240,180,41,.15);overflow:hidden}
-.best-bar-item{flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:1px;border-right:1px solid rgba(255,255,255,.04)}
+.best-bar{display:flex;align-items:center;margin:0 18px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(240,180,41,.1),rgba(79,157,232,.08));border:1px solid rgba(240,180,41,.2);overflow:hidden}
+.best-bar-item{flex:1;padding:9px 12px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,.06)}
 .best-bar-item:last-child{border-right:none}
-.bbi-val{font-family:var(--font-head);font-size:13px;font-weight:700}
-.bbi-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
+.bbi-val{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text)}
+.bbi-lbl{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.1em;font-weight:700}
 
 /* Log set area */
-.log-set-area{padding:16px 18px;background:linear-gradient(180deg,rgba(255,255,255,.01) 0%,var(--card2) 100%);border-top:1px solid rgba(255,255,255,.04)}
-.log-set-title{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.14em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.log-set-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.log-set-area{padding:16px 18px;background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06)}
+.log-set-title{font-size:11px;font-family:var(--font-head);color:var(--muted);font-weight:700;letter-spacing:.14em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.log-set-title::after{content:'';flex:1;height:1px;background:var(--border2)}
 .log-set-inputs{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
 .log-input-group{display:flex;flex-direction:column;gap:5px}
-.log-input-group label{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
-.log-input-group input{font-family:var(--font-display);font-size:20px;letter-spacing:.04em;padding:10px 12px;width:82px;text-align:center;border:1px solid var(--border2);border-radius:10px;background:var(--card);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
-.log-input-group input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(232,83,63,.12)}
+.log-input-group label{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.12em;font-weight:700}
+.log-input-group input{font-family:var(--font-display);font-size:22px;letter-spacing:.04em;padding:10px 12px;width:86px;text-align:center;border:1px solid var(--border2);border-radius:10px;background:var(--card);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.log-input-group input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(232,83,63,.15)}
 .log-input-group input::placeholder{color:var(--dim)}
-.btn-add-set{font-family:var(--font-display);font-size:18px;letter-spacing:.08em;padding:11px 22px;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;transition:all .15s;box-shadow:0 4px 20px rgba(232,83,63,.3);white-space:nowrap;align-self:flex-end}
-.btn-add-set:hover{background:#d4402c;box-shadow:0 6px 28px rgba(232,83,63,.45);transform:translateY(-1px)}
+.btn-add-set{font-family:var(--font-display);font-size:18px;letter-spacing:.08em;padding:11px 22px;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;transition:all .15s;box-shadow:0 4px 20px rgba(232,83,63,.35);white-space:nowrap;align-self:flex-end}
+.btn-add-set:hover{background:#d4402c;box-shadow:0 6px 28px rgba(232,83,63,.5);transform:translateY(-1px)}
 .btn-add-set:active{transform:none;box-shadow:0 2px 10px rgba(232,83,63,.2)}
-.btn-remove-ex{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 12px;background:none;border:1px solid var(--border);color:var(--dim);border-radius:6px;cursor:pointer;transition:all .15s;align-self:flex-end}
+.btn-remove-ex{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 12px;background:none;border:1px solid var(--border2);color:var(--muted);border-radius:6px;cursor:pointer;transition:all .15s;align-self:flex-end}
 .btn-remove-ex:hover{border-color:rgba(232,83,63,.4);color:var(--red)}
 
 /* Superset add */
-.ss-add-area{padding:12px 18px;border-top:1px solid rgba(240,180,41,.1);background:rgba(240,180,41,.03)}
+.ss-add-area{padding:12px 18px;border-top:1px solid rgba(240,180,41,.15);background:rgba(240,180,41,.05)}
 .ss-add-inner{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
-.ss-add-label{font-size:9px;font-family:var(--font-head);color:var(--gold);letter-spacing:.14em;margin-bottom:0}
+.ss-add-label{font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.14em;margin-bottom:0;font-weight:700}
+
+/* Superset pick button */
+.ss-pick-btn{flex:1;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;border:1px dashed rgba(240,180,41,.5);background:rgba(240,180,41,.06);color:var(--gold);cursor:pointer;transition:all .15s;font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.06em}
+.ss-pick-btn:hover{background:rgba(240,180,41,.14);border-color:var(--gold);transform:translateY(-1px)}
+
+/* Superset roman numeral badge */
+.ss-roman-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(240,180,41,.2);border:1px solid rgba(240,180,41,.4);font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--gold);flex-shrink:0;letter-spacing:0}
+
+/* Set card timer columns */
+.set-card.has-timer{grid-template-columns:30px 1fr 1fr 1fr 1fr 1fr 26px}
+.set-cell.timer-cell .sv{color:var(--blue);font-size:13px;font-weight:700}
+.set-cell.rest-cell .sv{color:var(--green);font-size:13px;font-weight:700}
 
 /* Add exercise panel */
-.add-ex-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:4px;position:relative;overflow:hidden}
-.add-ex-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),transparent);opacity:.6}
+.add-ex-panel{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:20px;margin-top:4px;position:relative;overflow:hidden}
+.add-ex-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold),transparent);opacity:.8}
 .add-ex-panel h4{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;margin-bottom:16px;color:var(--text)}
 
 /* Stats bar */
 .log-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:20px}
-.log-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden;transition:border-color .2s;cursor:default}
+.log-stat{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden;transition:border-color .2s;cursor:default}
 .log-stat.clickable{cursor:pointer}
 .log-stat.clickable:hover{border-color:var(--border3)}
-.log-stat .ls-val{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;line-height:1;margin-bottom:3px}
-.log-stat .ls-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.12em}
-.log-stat.saved-stat{border-color:rgba(68,199,106,.3);background:rgba(68,199,106,.05)}
-.log-stat.save-stat{border-color:rgba(240,180,41,.2);background:rgba(240,180,41,.04)}
+.log-stat .ls-val{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;line-height:1;margin-bottom:3px;color:var(--text)}
+.log-stat .ls-lbl{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.12em;font-weight:700}
+.log-stat.saved-stat{border-color:rgba(68,199,106,.4);background:rgba(68,199,106,.07)}
+.log-stat.save-stat{border-color:rgba(240,180,41,.35);background:rgba(240,180,41,.07)}
 
 /* Empty state */
 .log-empty{padding:60px 20px;text-align:center}
-.log-empty-icon{font-size:48px;margin-bottom:14px;opacity:.4}
-.log-empty-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--dim);margin-bottom:8px}
-.log-empty-sub{font-size:13px;color:var(--dim);line-height:1.6}
+.log-empty-icon{font-size:48px;margin-bottom:14px;opacity:.6}
+.log-empty-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.log-empty-sub{font-size:13px;color:var(--muted);line-height:1.6;font-weight:500}
 
 /* Finish workout button */
-.finish-workout-btn{display:flex;align-items:center;gap:12px;margin-top:4px;width:100%;background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(232,83,63,.07));border:1px solid rgba(240,180,41,.22);border-radius:14px;padding:16px 22px;cursor:pointer;transition:all .2s;font-family:var(--font-display);font-size:20px;letter-spacing:.08em;color:var(--gold)}
-.finish-workout-btn:hover{background:linear-gradient(135deg,rgba(240,180,41,.18),rgba(232,83,63,.12));border-color:rgba(240,180,41,.4);transform:translateY(-1px)}
+.finish-workout-btn{display:flex;align-items:center;gap:12px;margin-top:4px;width:100%;background:linear-gradient(135deg,rgba(240,180,41,.12),rgba(232,83,63,.08));border:2px solid rgba(240,180,41,.3);border-radius:14px;padding:16px 22px;cursor:pointer;transition:all .2s;font-family:var(--font-display);font-size:20px;letter-spacing:.08em;color:var(--gold)}
+.finish-workout-btn:hover{background:linear-gradient(135deg,rgba(240,180,41,.2),rgba(232,83,63,.14));border-color:rgba(240,180,41,.5);transform:translateY(-1px)}
 .finish-workout-btn .fwb-icon{font-size:22px}
+
+/* Session done banner */
+.session-done-banner{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:18px 20px;margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(68,199,106,.12),rgba(68,199,106,.04));
+  border:2px solid rgba(68,199,106,.35);border-radius:14px;
+  animation:fadeUp .3s ease both;
+}
+.sdb-check{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:rgba(68,199,106,.2);border:2px solid rgba(68,199,106,.5);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;color:var(--green);font-weight:700;
+}
+.sdb-content{flex:1;min-width:0}
+.sdb-title{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;color:var(--text);margin-bottom:4px}
+.sdb-stats{font-size:13px;color:var(--muted);font-family:var(--font-head);font-weight:600;letter-spacing:.04em;display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.sdb-muscles{display:flex;gap:5px;flex-wrap:wrap}
+.sdb-muscle-tag{font-size:10px;font-family:var(--font-head);font-weight:700;padding:3px 8px;border-radius:4px;background:rgba(68,199,106,.15);color:#6ddf8a;letter-spacing:.06em}
+.sdb-stars{display:flex;gap:3px;flex-shrink:0}
+
+/* ── SET TIMER ── */
+.ex-timer-row{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(79,157,232,.14),rgba(79,157,232,.05));border-top:2px solid rgba(79,157,232,.35);flex-wrap:wrap}
+.timer-clock{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.timer-display{font-family:var(--font-display);font-size:40px;letter-spacing:.06em;min-width:100px;color:var(--blue);transition:color .3s;line-height:1;text-shadow:0 0 20px rgba(79,157,232,.45)}
+.timer-display.running{color:#ff6b55;text-shadow:0 0 20px rgba(232,83,63,.55)}
+.timer-display.resting{color:#5ee87a;text-shadow:0 0 20px rgba(68,199,106,.45)}
+.timer-label{font-size:10px;font-family:var(--font-head);color:#7dbff5;letter-spacing:.14em;display:block;margin-top:3px;font-weight:700}
+.timer-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.timer-btn.start{background:var(--blue);color:#fff;box-shadow:0 4px 18px rgba(79,157,232,.55)}
+.timer-btn.start:hover{background:#3a8dd4;transform:translateY(-1px);box-shadow:0 6px 24px rgba(79,157,232,.65)}
+.timer-btn.stop{background:rgba(232,83,63,.2);color:#ff6b55;border:1px solid rgba(232,83,63,.45)}
+.timer-btn.stop:hover{background:rgba(232,83,63,.3)}
+.timer-btn.reset{background:rgba(79,157,232,.12);color:var(--blue);border:1px solid rgba(79,157,232,.3);font-size:11px;padding:8px 12px}
+.timer-btn.reset:hover{background:rgba(79,157,232,.22)}
+.timer-btn.done{background:rgba(155,111,224,.15);color:#b8a0f0;border:1px solid rgba(155,111,224,.4);font-size:11px}
+.timer-btn.done:hover{background:rgba(155,111,224,.25);border-color:rgba(155,111,224,.6)}
+.timer-display.ex-resting{color:#b8a0f0;text-shadow:0 0 20px rgba(155,111,224,.5)}
+.ex-resting-row{background:linear-gradient(135deg,rgba(155,111,224,.12),rgba(155,111,224,.04)) !important;border-top-color:rgba(155,111,224,.4) !important}
+.ex-rest-badge{font-size:9px;font-family:var(--font-head);font-weight:700;letter-spacing:.12em;color:#b8a0f0;background:rgba(155,111,224,.15);border:1px solid rgba(155,111,224,.3);padding:3px 8px;border-radius:4px;margin-left:8px}
+.timer-toggle-btn{font-size:11px;font-family:var(--font-head);color:#7dbff5;letter-spacing:.06em;background:none;border:1px solid rgba(79,157,232,.25);cursor:pointer;padding:5px 10px;border-radius:6px;flex-shrink:0;transition:all .15s;opacity:.8}
+.timer-toggle-btn:hover{opacity:1;border-color:rgba(79,157,232,.5)}
+.ex-timer-off{padding:10px 18px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(79,157,232,.1);background:rgba(79,157,232,.04)}
+.timer-enable-btn{font-size:12px;font-family:var(--font-head);color:var(--blue);letter-spacing:.08em;background:rgba(79,157,232,.12);border:1px solid rgba(79,157,232,.3);cursor:pointer;padding:7px 14px;border-radius:8px;display:flex;align-items:center;gap:6px;transition:all .15s;font-weight:700}
+.timer-enable-btn:hover{background:rgba(79,157,232,.22);border-color:rgba(79,157,232,.55)}
+.intensity-badge{font-size:11px;font-family:var(--font-head);font-weight:700;letter-spacing:.1em;padding:5px 10px;border-radius:6px;margin-left:auto}
+.intensity-badge.low{background:rgba(68,199,106,.2);color:#5ee87a;border:1px solid rgba(68,199,106,.35)}
+.intensity-badge.med{background:rgba(240,180,41,.2);color:var(--gold);border:1px solid rgba(240,180,41,.35)}
+.intensity-badge.high{background:rgba(232,83,63,.2);color:#ff6b55;border:1px solid rgba(232,83,63,.35)}
+.intensity-badge.peak{background:rgba(232,83,63,.28);color:#ff7a65;border:1px solid rgba(232,83,63,.55);text-shadow:0 0 8px rgba(232,83,63,.45)}
+
+/* ── SAVE BAR ── */
+.unsaved-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;animation:pulse-dot 1.2s ease-in-out infinite;vertical-align:middle;box-shadow:0 0 8px rgba(240,180,41,.65);margin-right:6px}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.55)}}
+.log-save-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;margin-top:10px;background:linear-gradient(135deg,rgba(240,180,41,.18),rgba(240,180,41,.06));border:2px solid rgba(240,180,41,.45);border-radius:12px;box-shadow:0 0 24px rgba(240,180,41,.12)}
+.log-save-bar-text{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.06em;flex:1;text-shadow:0 0 12px rgba(240,180,41,.35)}
+.btn-log-save{font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.12em;padding:10px 24px;background:var(--gold);color:#0a0a08;border:none;border-radius:8px;cursor:pointer;transition:all .15s;box-shadow:0 4px 16px rgba(240,180,41,.45)}
+.btn-log-save:hover{background:#f7c240;transform:translateY(-1px);box-shadow:0 6px 24px rgba(240,180,41,.6)}
+
 
 /* SESSION SAVE PANEL */
 .session-save-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 0 1px rgba(240,180,41,0.08),0 8px 40px rgba(0,0,0,0.3)}
@@ -1200,7 +1272,7 @@ select option{background:var(--card2)}
         <div class="session-save-card">
           <div class="ssave-header">
             <div>
-              <div class="ssave-title">SAVE SESSION</div>
+              <div class="ssave-title">SAVE</div>
               <div class="ssave-sub" id="ssave-summary-line">Summarising your workout...</div>
             </div>
             <div id="ssave-badge"></div>
@@ -1220,7 +1292,7 @@ select option{background:var(--card2)}
             </div>
           </div>
           <div class="ssave-footer">
-            <button class="btn btn-red" onclick="saveSession()">&#10003; SAVE SESSION</button>
+            <button class="btn btn-red" onclick="saveSession()">&#10003; SAVE</button>
             <button class="btn btn-ghost btn-sm" onclick="document.getElementById('session-save-panel').style.display='none'">Cancel</button>
             <div id="ssave-saved-indicator" style="display:none;margin-left:auto;font-family:var(--font-head);font-size:12px;color:var(--green);letter-spacing:.06em">&#10003; SAVED</div>
           </div>
@@ -1491,9 +1563,51 @@ async function pushToFirestore(){
   }catch(e){}
 }
 
-function save(){try{localStorage.setItem(ukey('data'),JSON.stringify(DATA));}catch(e){}pushToFirestore();}
-function saveTgt(){try{localStorage.setItem(ukey('targets'),JSON.stringify(TARGETS));}catch(e){}pushToFirestore();}
-function saveLib(){try{localStorage.setItem(ukey('library'),JSON.stringify(LIBRARY));}catch(e){}pushToFirestore();}
+// ── SAVE SYSTEM ──────────────────────────────────────────────────────────────
+// localStorage saves immediately (data never lost on navigation/logout)
+// Firestore syncs only when user explicitly saves OR on a 30s debounce
+let _firestoreSaveTimer = null;
+
+function save(){
+  try{localStorage.setItem(ukey('data'),JSON.stringify(DATA));}catch(e){}
+  _scheduleFirestoreSync();
+  _markUnsaved();
+}
+function saveTgt(){
+  try{localStorage.setItem(ukey('targets'),JSON.stringify(TARGETS));}catch(e){}
+  _scheduleFirestoreSync();
+}
+function saveLib(){
+  try{localStorage.setItem(ukey('library'),JSON.stringify(LIBRARY));}catch(e){}
+  _scheduleFirestoreSync();
+}
+
+let _hasUnsaved = false;
+function _markUnsaved(){
+  _hasUnsaved = true;
+  // Update unsaved indicator on log page if visible
+  const dot = document.getElementById('log-unsaved-dot');
+  if(dot) dot.style.display = 'inline-block';
+  const bar = document.getElementById('log-save-bar');
+  if(bar) bar.style.display = 'flex';
+}
+function _markSaved(){
+  _hasUnsaved = false;
+  const dot = document.getElementById('log-unsaved-dot');
+  if(dot) dot.style.display = 'none';
+  const bar = document.getElementById('log-save-bar');
+  if(bar) bar.style.display = 'none';
+}
+function _scheduleFirestoreSync(){
+  clearTimeout(_firestoreSaveTimer);
+  _firestoreSaveTimer = setTimeout(()=>{ pushToFirestore(); }, 30000);
+}
+function manualSaveToCloud(){
+  clearTimeout(_firestoreSaveTimer);
+  pushToFirestore();
+  _markSaved();
+  toast('Synced to cloud ✓');
+}
 
 function loadCustomPlans(){
   try{customPlans=JSON.parse(localStorage.getItem(ukey('custom_plans'))||'[]');}catch(e){customPlans=[];}
@@ -1812,9 +1926,11 @@ document.addEventListener('click',e=>{
 
   try{
     const[authMod,firestoreMod,appMod]=await Promise.all([
-      import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js'),
-      import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js'),
-      import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js'),
+      // Try official Firebase CDN — works on GitHub Pages and any HTTPS host.
+      // If opened as file:// locally, this will fail and the catch block handles it gracefully.
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
     ]);
     fbSignInWithEmailAndPassword=authMod.signInWithEmailAndPassword;
     fbCreateUserWithEmailAndPassword=authMod.createUserWithEmailAndPassword;
@@ -2280,29 +2396,6 @@ function exmSetFilter(muscle){
   renderExMatrix();
 }
 
-
-function exmSelectExercise(name, muscle){
-  const m=muscle||getMuscle(name)||'';
-  getDay(currentDate).exercises.push({id:Date.now(),name,muscle:m,superSetOf:null,sets:[]});
-  save();
-  closeExMatrix();
-  renderLog();
-  toast(`${name} added`);
-  updateAetCount();
-  // Scroll log page down to the newly added card after render
-  setTimeout(()=>{
-    const cards=document.querySelectorAll('#ex-list .standalone-wrap, #ex-list .ss-group');
-    const last=cards[cards.length-1];
-    if(last){
-      last.scrollIntoView({behavior:'smooth',block:'nearest'});
-    } else {
-      // Fallback: scroll the main area to bottom
-      const main=document.querySelector('.main');
-      if(main) main.scrollTop=main.scrollHeight;
-      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    }
-  },120);
-}
 
 function exmAddCustom(){
   const nameEl=document.getElementById('exm-custom-name');
@@ -2826,30 +2919,398 @@ document.addEventListener('click',e=>{
 });
 
 
-function addSet(exId){
-  const w=parseFloat(document.getElementById('w-'+exId).value)||0;
-  const r=parseInt(document.getElementById('r-'+exId).value)||0;
-  const rpe=document.getElementById('rpe-'+exId).value;
-  if(r<=0)return;
-  const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
-  if(!ex)return;ex.sets.push({w,r,rpe,ts:Date.now()});save();renderLog();
+// ── SET TIMER ENGINE ──────────────────────────────────────────────────────────
+// Per-exercise timer state: { state:'idle'|'running'|'resting', start:ms, elapsed:ms, restStart:ms, restElapsed:ms, useTimer:bool }
+// ══ SET TIMER ENGINE — robust state machine ══════════════════════════════════
+//
+// State machine per exercise:
+//   idle ──[START]──> running ──[■ SET DONE / addSet]──> resting ──[▶ NEXT SET]──> running
+//                                                                 └──[✓ EXERCISE DONE]──> ex_resting
+//
+// ex_resting: whole exercise is done, counting rest between exercises.
+// When the NEXT exercise's ▶ START SET is pressed, it stops the ex_resting timer
+// on all other exercises and saves that duration to ex.exRestDur.
+//
+// Each set stores:
+//   setDur  — how long the SET took (seconds)
+//   restDur — how long REST after that set took (seconds, patched back)
+// Each exercise stores:
+//   exRestDur — how long the REST between exercises took (seconds)
+
+const EX_TIMERS = {};
+const EX_TIMER_INTERVALS = {};
+// Track which exId is currently in ex_resting state (only one at a time)
+let _exRestingId = null;
+
+function getTimer(exId){
+  if(!EX_TIMERS[exId]) EX_TIMERS[exId]={
+    state:'idle',        // 'idle' | 'running' | 'resting' | 'ex_resting'
+    setStart:0,
+    setElapsed:0,
+    restStart:0,
+    restElapsed:0,
+    exRestStart:0,       // when exercise-level rest started
+    exRestElapsed:0,     // ms of exercise-level rest so far
+    useTimer:false,
+    lastSetIndex:-1
+  };
+  return EX_TIMERS[exId];
 }
+
+function enableTimer(exId){
+  getTimer(exId).useTimer=true;
+  renderTimerRow(exId);
+}
+
+function disableTimer(exId){
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  delete EX_TIMER_INTERVALS[exId];
+  if(_exRestingId===exId) _exRestingId=null;
+  EX_TIMERS[exId]={state:'idle',setStart:0,setElapsed:0,restStart:0,restElapsed:0,exRestStart:0,exRestElapsed:0,useTimer:false,lastSetIndex:-1};
+  renderTimerRow(exId);
+}
+
+function timerStart(exId){
+  const t=getTimer(exId);
+  if(t.state==='running') return;
+
+  // If another exercise is in ex_resting state, stop it and save its rest time
+  if(_exRestingId!==null && _exRestingId!==exId){
+    _finaliseExRest(_exRestingId);
+  }
+
+  // Finalise set-level rest and patch onto last set
+  if(t.state==='resting'){
+    t.restElapsed=Date.now()-t.restStart;
+    _patchRestOnLastSet(exId, Math.round(t.restElapsed/1000));
+  }
+
+  // If resuming from ex_resting (user starts a new set on same exercise)
+  if(t.state==='ex_resting'){
+    t.exRestElapsed=Date.now()-t.exRestStart;
+    if(_exRestingId===exId) _exRestingId=null;
+    // Save ex rest duration to exercise object
+    const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
+    if(ex){ ex.exRestDur=Math.round(t.exRestElapsed/1000); save(); }
+  }
+
+  t.state='running';
+  t.setElapsed=0;
+  t.setStart=Date.now();
+  t.restElapsed=0;
+
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  EX_TIMER_INTERVALS[exId]=setInterval(()=>_tickTimer(exId),250);
+  _updateTimerDisplay(exId);
+}
+
+function timerStop(exId){
+  const t=getTimer(exId);
+  if(t.state!=='running') return;
+
+  t.setElapsed=Date.now()-t.setStart;
+  t.state='resting';
+  t.restStart=Date.now();
+  t.restElapsed=0;
+
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  EX_TIMER_INTERVALS[exId]=setInterval(()=>_tickTimer(exId),250);
+  _updateTimerDisplay(exId);
+}
+
+function timerReset(exId){
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  delete EX_TIMER_INTERVALS[exId];
+  if(_exRestingId===exId) _exRestingId=null;
+  EX_TIMERS[exId]={state:'idle',setStart:0,setElapsed:0,restStart:0,restElapsed:0,exRestStart:0,exRestElapsed:0,useTimer:true,lastSetIndex:-1};
+  _updateTimerDisplay(exId);
+}
+
+// ✓ EXERCISE DONE — finalise last set's rest, start inter-exercise rest timer
+function exerciseComplete(exId){
+  const t=getTimer(exId);
+
+  // Finalise any ongoing set-level rest first
+  if(t.state==='resting'){
+    t.restElapsed=Date.now()-t.restStart;
+    _patchRestOnLastSet(exId, Math.round(t.restElapsed/1000));
+  }
+
+  // If another exercise was already in ex_resting, stop it
+  if(_exRestingId!==null && _exRestingId!==exId){
+    _finaliseExRest(_exRestingId);
+  }
+
+  t.state='ex_resting';
+  t.exRestStart=Date.now();
+  t.exRestElapsed=0;
+  _exRestingId=exId;
+
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  EX_TIMER_INTERVALS[exId]=setInterval(()=>_tickTimer(exId),250);
+  renderTimerRow(exId);
+}
+
+function _finaliseExRest(exId){
+  const t=getTimer(exId);
+  if(t.state!=='ex_resting') return;
+  t.exRestElapsed=Date.now()-t.exRestStart;
+  t.state='idle';
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  delete EX_TIMER_INTERVALS[exId];
+  if(_exRestingId===exId) _exRestingId=null;
+  // Patch exRestDur onto exercise
+  const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
+  if(ex){ ex.exRestDur=Math.round(t.exRestElapsed/1000); save(); }
+  renderTimerRow(exId);
+}
+
+function _tickTimer(exId){
+  const t=getTimer(exId);
+  if(t.state==='running') t.setElapsed=Date.now()-t.setStart;
+  if(t.state==='resting'){
+    t.restElapsed=Date.now()-t.restStart;
+    _patchRestOnLastSet(exId, Math.round(t.restElapsed/1000), true);
+  }
+  if(t.state==='ex_resting') t.exRestElapsed=Date.now()-t.exRestStart;
+  _updateTimerDisplay(exId);
+}
+
+function _patchRestOnLastSet(exId, restSecs, live){
+  const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
+  const t=getTimer(exId);
+  if(!ex||t.lastSetIndex<0||t.lastSetIndex>=ex.sets.length) return;
+  ex.sets[t.lastSetIndex].restDur=restSecs;
+  if(!live) save();
+}
+
+function _updateTimerDisplay(exId){
+  const el=document.getElementById('timer-row-'+exId);
+  if(!el) return;
+  const t=getTimer(exId);
+  if(!t.useTimer) return;
+
+  const dispEl=el.querySelector('.timer-display');
+  const labelEl=el.querySelector('.timer-label');
+  const intBadge=el.querySelector('.intensity-badge');
+
+  if(t.state==='running'){
+    if(dispEl){ dispEl.textContent=fmtMs(t.setElapsed); dispEl.className='timer-display running'; }
+    if(labelEl) labelEl.textContent='SET TIME';
+    if(intBadge) intBadge.style.display='none';
+  } else if(t.state==='resting'){
+    if(dispEl){ dispEl.textContent=fmtMs(t.restElapsed); dispEl.className='timer-display resting'; }
+    if(labelEl) labelEl.textContent='SET REST';
+    const intensity=_calcIntensity(t.setElapsed, t.restElapsed);
+    if(intBadge){
+      if(intensity){ intBadge.textContent=intensity.label; intBadge.className='intensity-badge '+intensity.cls; intBadge.style.display=''; }
+      else intBadge.style.display='none';
+    }
+  } else if(t.state==='ex_resting'){
+    if(dispEl){ dispEl.textContent=fmtMs(t.exRestElapsed); dispEl.className='timer-display ex-resting'; }
+    if(labelEl) labelEl.textContent='EXERCISE REST';
+    if(intBadge) intBadge.style.display='none';
+  } else {
+    // idle
+    if(dispEl){ dispEl.textContent=t.setElapsed>0?fmtMs(t.setElapsed):'0s'; dispEl.className='timer-display'; }
+    if(labelEl) labelEl.textContent=t.setElapsed>0?'LAST SET':'READY';
+    if(intBadge) intBadge.style.display='none';
+  }
+}
+
+function renderTimerRow(exId){
+  const el=document.getElementById('timer-row-'+exId);
+  if(!el) return;
+  const t=getTimer(exId);
+
+  if(!t.useTimer){
+    el.innerHTML=`<div class="ex-timer-off">
+      <button class="timer-enable-btn" onclick="enableTimer(${exId})">⏱ Use set timer</button>
+    </div>`;
+    return;
+  }
+
+  const isIdle=t.state==='idle';
+  const isRunning=t.state==='running';
+  const isResting=t.state==='resting';
+  const isExResting=t.state==='ex_resting';
+
+  const display=isRunning?fmtMs(t.setElapsed)
+    :isResting?fmtMs(t.restElapsed)
+    :isExResting?fmtMs(t.exRestElapsed)
+    :t.setElapsed>0?fmtMs(t.setElapsed):'0s';
+  const label=isRunning?'SET TIME':isResting?'SET REST':isExResting?'EXERCISE REST':t.setElapsed>0?'LAST SET':'READY';
+  const dispClass=isRunning?'running':isResting?'resting':isExResting?'ex-resting':'';
+  const intensity=(isResting)?_calcIntensity(t.setElapsed,t.restElapsed):null;
+
+  // Get stored exRestDur if exercise is done
+  const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
+  const exRestSaved=ex?.exRestDur;
+
+  el.innerHTML=`<div class="ex-timer-row${isExResting?' ex-resting-row':''}">
+    <div class="timer-clock">
+      <div>
+        <div class="timer-display ${dispClass}">${display}</div>
+        <span class="timer-label">${label}</span>
+      </div>
+      ${intensity?`<div class="intensity-badge ${intensity.cls}">${intensity.label}</div>`:''}
+      ${isExResting?`<div class="ex-rest-badge">inter-exercise rest</div>`:''}
+      ${(!isExResting&&exRestSaved)?`<div style="font-size:11px;font-family:var(--font-head);color:var(--purple);letter-spacing:.06em;margin-left:8px">rest: ${fmtMs(exRestSaved*1000)}</div>`:''}
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+      ${isIdle?`<button class="timer-btn start" onclick="timerStart(${exId})">▶ START SET</button>`:''}
+      ${isRunning?`<button class="timer-btn stop" onclick="timerStop(${exId})">■ SET DONE</button>`:''}
+      ${isResting?`<button class="timer-btn start" onclick="timerStart(${exId})">▶ NEXT SET</button>`:''}
+      ${isResting?`<button class="timer-btn done" onclick="exerciseComplete(${exId})">✓ EXERCISE DONE</button>`:''}
+      ${isExResting?`<button class="timer-btn done" onclick="timerStart(${exId})">▶ START NEXT SET</button>`:''}
+      ${(!isExResting&&(isRunning||isResting||t.setElapsed>0))?`<button class="timer-btn reset" onclick="timerReset(${exId})">↺</button>`:''}
+      ${!isExResting?`<button class="timer-toggle-btn" onclick="disableTimer(${exId})">hide</button>`:''}
+    </div>
+  </div>`;
+}
+
+function fmtMs(ms){
+  if(!ms||ms<0) return '0s';
+  const totalSec=Math.floor(ms/1000);
+  const m=Math.floor(totalSec/60);
+  const s=totalSec%60;
+  return m>0?`${m}m ${s}s`:`${s}s`;
+}
+
+function _calcIntensity(setMs, restMs){
+  if(!setMs||setMs<2000) return null;
+  const ratio=restMs>0?setMs/restMs:2;
+  if(ratio>0.8) return{label:'PEAK',cls:'peak'};
+  if(ratio>0.5) return{label:'HIGH',cls:'high'};
+  if(ratio>0.25) return{label:'MED',cls:'med'};
+  return{label:'LOW',cls:'low'};
+}
+
+// Keep old names as aliases so existing onclick strings still work
+window.startSetTimer=timerStart;
+window.stopSetTimer=timerStop;
+window.resetTimer=timerReset;
+
+// ── SET & EXERCISE MANAGEMENT ─────────────────────────────────────────────────
+function addSet(exId){
+  const w=parseFloat(document.getElementById('w-'+exId)?.value)||0;
+  const r=parseInt(document.getElementById('r-'+exId)?.value)||0;
+  const rpe=(document.getElementById('rpe-'+exId)?.value)||'';
+  if(r<=0){toast('Enter reps first',true);return;}
+  const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
+  if(!ex)return;
+
+  const t=getTimer(exId);
+
+  // If set timer was running, stop it first to get the elapsed
+  if(t.useTimer&&t.state==='running'){
+    t.setElapsed=Date.now()-t.setStart;
+    t.state='idle'; // pause before we read
+    clearInterval(EX_TIMER_INTERVALS[exId]);
+    delete EX_TIMER_INTERVALS[exId];
+  }
+
+  // If we were resting (user forgot to press START for this set),
+  // finalise the rest and patch onto the previous set before starting new
+  if(t.useTimer&&t.state==='resting'){
+    t.restElapsed=Date.now()-t.restStart;
+    _patchRestOnLastSet(exId, Math.round(t.restElapsed/1000));
+    t.state='idle';
+    clearInterval(EX_TIMER_INTERVALS[exId]);
+    delete EX_TIMER_INTERVALS[exId];
+  }
+
+  // Capture set duration (seconds) for this set
+  const setDurSec=t.useTimer&&t.setElapsed>1000?Math.round(t.setElapsed/1000):null;
+  // restDur will be patched on later — save null for now
+  const intensity=t.useTimer&&t.setElapsed>1000?_calcIntensity(t.setElapsed,t.restElapsed):null;
+
+  // Push the set — restDur starts as null, will be patched when rest ends
+  ex.sets.push({w,r,rpe,ts:Date.now(),setDur:setDurSec,restDur:null,intensity:intensity?.label||null});
+  const newSetIndex=ex.sets.length-1;
+  save();
+
+  // Start rest timer for THIS set (will patch restDur back onto this set index)
+  if(t.useTimer){
+    t.lastSetIndex=newSetIndex;
+    t.state='resting';
+    t.restStart=Date.now();
+    t.setElapsed=0;        // reset for next set
+    t.restElapsed=0;
+    clearInterval(EX_TIMER_INTERVALS[exId]);
+    EX_TIMER_INTERVALS[exId]=setInterval(()=>_tickTimer(exId),250);
+  }
+
+  renderLog();
+}
+
 function delSet(exId,si){
   const ex=getDay(currentDate).exercises.find(e=>e.id===exId);
   if(ex){ex.sets.splice(si,1);save();renderLog();}
 }
 function delExercise(exId){
+  clearInterval(EX_TIMER_INTERVALS[exId]);
+  delete EX_TIMERS[exId];
   const day=getDay(currentDate);
   day.exercises=day.exercises.filter(e=>e.id!==exId&&e.superSetOf!==exId);
   delete ssCollapse[exId];delete exCollapse[exId];save();renderLog();
 }
+
+// ── SUPERSET — opens matrix in pick mode ──────────────────────────────────────
+let _supersetPickParentId = null;
+
+function openSupersetPick(parentId){
+  _supersetPickParentId = parentId;
+  exmQuery='';exmFilterMuscle='ALL';
+  document.getElementById('exm-overlay').classList.add('open');
+  const titleEl=document.querySelector('.exm-title');
+  if(titleEl) titleEl.textContent='PICK SUPERSET EXERCISE';
+  document.getElementById('exm-search').value='';
+  const tabsEl=document.getElementById('exm-filter-tabs');
+  if(tabsEl) tabsEl.dataset.built='';
+  renderExMatrix();
+  setTimeout(()=>document.getElementById('exm-search')?.focus(),300);
+}
+
+// Override exmSelectExercise to handle superset pick mode
+const _origExmSelect = exmSelectExercise;
+window._origExmSelect = _origExmSelect;
+
+function exmSelectExercise(name, muscle){
+  if(_supersetPickParentId !== null){
+    // Superset pick mode
+    const parentId = _supersetPickParentId;
+    _supersetPickParentId = null;
+    const titleEl=document.querySelector('.exm-title');
+    if(titleEl) titleEl.textContent='ADD EXERCISE';
+    closeExMatrix();
+    const m=muscle||getMuscle(name)||'';
+    const day=getDay(currentDate);
+    const parent=day.exercises.find(e=>e.id===parentId);
+    if(!parent)return;
+    const pidx=day.exercises.indexOf(parent);
+    day.exercises.splice(pidx+1,0,{id:Date.now(),name,muscle:m,superSetOf:parentId,sets:[]});
+    save();renderLog();
+    toast(`${name} paired as superset`);
+  } else {
+    // Normal add mode
+    const m=muscle||getMuscle(name)||'';
+    getDay(currentDate).exercises.push({id:Date.now(),name,muscle:m,superSetOf:null,sets:[]});
+    save();closeExMatrix();renderLog();
+    toast(`${name} added`);
+    updateAetCount();
+    setTimeout(()=>{
+      const cards=document.querySelectorAll('#ex-list .standalone-wrap, #ex-list .ss-group');
+      const last=cards[cards.length-1];
+      if(last) last.scrollIntoView({behavior:'smooth',block:'nearest'});
+      else window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    },120);
+  }
+}
+
 function addSuperset(parentId){
-  const inp=document.getElementById('ss-inp-'+parentId);if(!inp)return;
-  const name=inp.value.trim();if(!name)return;
-  const day=getDay(currentDate);const parent=day.exercises.find(e=>e.id===parentId);if(!parent)return;
-  const pidx=day.exercises.indexOf(parent);
-  day.exercises.splice(pidx+1,0,{id:Date.now(),name,muscle:getMuscle(name)||parent.muscle||'',superSetOf:parentId,sets:[]});
-  save();inp.value='';renderLog();
+  // Legacy fallback — now opens matrix
+  openSupersetPick(parentId);
 }
 function toggleEx(exId){
   exCollapse[exId]=!exCollapse[exId];
@@ -2883,6 +3344,54 @@ function renderLog(){
   exercises.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
   const hasSets=exercises.some(e=>e.sets&&e.sets.length>0);
 
+  // ── LOCKED / SAVED DAY — show read-only summary ──
+  if(day.locked && hasSets){
+    const note=day.sessionNote||{};
+    const muscleGroups=[...new Set(exercises.filter(e=>e.muscle).map(e=>e.muscle))].slice(0,4);
+    const exCount=exercises.filter(e=>e.sets&&e.sets.length>0).length;
+    const stars=[1,2,3,4,5].map(i=>`<span style="color:${(note.rating||0)>=i?'var(--gold)':'var(--dim)'};font-size:20px">★</span>`).join('');
+
+    document.getElementById('log-metrics').innerHTML=`
+      <div class="log-stat"><div class="ls-val">${exCount}</div><div class="ls-lbl">EXERCISES</div></div>
+      <div class="log-stat"><div class="ls-val">${totSets}</div><div class="ls-lbl">SETS</div></div>
+      <div class="log-stat"><div class="ls-val" style="color:var(--gold)">${fmtVol(totVol)}</div><div class="ls-lbl">VOL u/100</div></div>
+      <div class="log-stat saved-stat"><div class="ls-val" style="color:var(--green);font-size:22px">✓</div><div class="ls-lbl">SAVED</div></div>
+    `;
+
+    document.getElementById('ex-list').innerHTML=`
+      <div class="session-done-banner">
+        <div class="sdb-check">✓</div>
+        <div class="sdb-content">
+          <div class="sdb-title">${note.title||'SESSION COMPLETE'}</div>
+          <div class="sdb-stats">
+            <span>${exCount} exercise${exCount!==1?'s':''}</span>
+            <span>·</span>
+            <span>${totSets} sets</span>
+            <span>·</span>
+            <span style="color:var(--gold)">${fmtVol(totVol)} u/100</span>
+          </div>
+          ${muscleGroups.length?`<div class="sdb-muscles">${muscleGroups.map(m=>`<span class="sdb-muscle-tag">${m}</span>`).join('')}</div>`:''}
+          ${note.notes?`<div style="margin-top:8px;font-size:12px;color:var(--muted);font-style:italic;line-height:1.5">"${note.notes}"</div>`:''}
+        </div>
+        <div class="sdb-stars">${stars}</div>
+      </div>
+      <div style="text-align:center;margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button onclick="unlockDay()" class="btn btn-ghost btn-sm" style="font-family:var(--font-head);letter-spacing:.08em;color:var(--muted)">✏ Edit session</button>
+        <button onclick="startNewSession()" class="btn btn-ghost btn-sm" style="font-family:var(--font-head);letter-spacing:.08em;color:var(--muted)">＋ Add more exercises</button>
+      </div>`;
+
+    // Hide add-exercise trigger and save panels when locked
+    const addTrigger=document.querySelector('.add-ex-trigger');
+    if(addTrigger) addTrigger.style.display='none';
+    document.getElementById('session-save-panel').style.display='none';
+    document.getElementById('prev-session-note').style.display='none';
+    return;
+  }
+
+  // Show add-exercise trigger if it was hidden
+  const addTrigger=document.querySelector('.add-ex-trigger');
+  if(addTrigger) addTrigger.style.display='';
+
   // Stats bar
   const saved=day.sessionNote;
   document.getElementById('log-metrics').innerHTML=`
@@ -2891,7 +3400,7 @@ function renderLog(){
     <div class="log-stat"><div class="ls-val" style="color:var(--gold)">${fmtVol(totVol)}</div><div class="ls-lbl">VOL u/100</div></div>
     ${hasSets?`<div class="log-stat clickable ${saved?'saved-stat':'save-stat'}" onclick="openSessionSavePanel()">
       <div class="ls-val" style="font-size:22px;color:${saved?'var(--green)':'var(--gold)'}">${saved?'✓':'→'}</div>
-      <div class="ls-lbl">${saved?'SAVED':'SAVE'}</div>
+      <div class="ls-lbl">SAVE</div>
     </div>`:''}
   `;
 
@@ -2920,8 +3429,8 @@ function renderLog(){
             <span class="ss-chev${grpC?'':' open'}" id="sschev-${ex.id}">▾</span>
           </div>
           <div class="ss-group-body">
-            ${exCardHTML(ex,true,grpC)}
-            ${children.map(c=>exCardHTML(c,true,grpC)).join('')}
+            ${exCardHTML(ex,true,grpC,0)}
+            ${children.map((c,ci)=>exCardHTML(c,true,grpC,ci+1)).join('')}
           </div>
           <div id="ssadd-${ex.id}" class="ss-add-area" style="${grpC?'display:none':''}">
             <div class="ss-add-label">⚡ ADD TO THIS SUPERSET</div>
@@ -2945,7 +3454,7 @@ function renderLog(){
       if(addPanel){
         const btn=document.createElement('button');
         btn.className='finish-workout-btn';
-        btn.innerHTML=`<span class="fwb-icon">🏁</span> FINISH &amp; SAVE SESSION <span style="margin-left:auto;font-size:16px;opacity:.6">→</span>`;
+        btn.innerHTML=`<span class="fwb-icon">🏁</span> SAVE SESSION <span style="margin-left:auto;font-size:16px;opacity:.6">→</span>`;
         btn.onclick=openSessionSavePanel;
         addPanel.parentNode.insertBefore(btn,addPanel);
       }
@@ -2957,9 +3466,34 @@ function renderLog(){
   const savePanel=document.getElementById('session-save-panel');
   if(savePanel&&savePanel.style.display!=='none') initSessionSavePanel();
   renderPrevSessionNote(day);
+
+  // Restore timer UI for any active timers (after DOM rebuild)
+  exercises.forEach(ex=>{
+    const t=EX_TIMERS[ex.id];
+    if(t&&t.useTimer) renderTimerRow(ex.id);
+  });
+
+  // Show save bar if unsaved changes
+  const existingSaveBar=document.getElementById('log-save-bar');
+  if(!existingSaveBar&&hasSets&&!IS_GUEST){
+    const addTrigger=document.querySelector('.add-ex-trigger');
+    if(addTrigger){
+      const bar=document.createElement('div');
+      bar.id='log-save-bar';
+      bar.className='log-save-bar';
+      bar.style.display=_hasUnsaved?'flex':'none';
+      bar.innerHTML=`<div class="log-save-bar-text"><span class="unsaved-dot" id="log-unsaved-dot"></span> Saved locally — tap to sync to cloud</div>
+        <button class="btn-log-save" onclick="manualSaveToCloud()">☁ Sync</button>`;
+      addTrigger.parentNode.insertBefore(bar, addTrigger);
+    }
+  } else if(existingSaveBar){
+    existingSaveBar.style.display=_hasUnsaved&&hasSets&&!IS_GUEST?'flex':'none';
+  }
 }
 
-function exCardHTML(ex,inSS,forceCollapsed){
+const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x'];
+
+function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
   const isChild=!!ex.superSetOf;
   const collapsed=forceCollapsed||(exCollapse[ex.id]||false);
   const bs=bestSet(ex.sets);
@@ -2968,43 +3502,47 @@ function exCardHTML(ex,inSS,forceCollapsed){
   const grp=mGrp(ex.muscle);
   const bCls=grp==='upper'?'badge-upper':grp==='lower'?'badge-lower':'';
   const stripeColor=MUSCLE_COLOURS[ex.muscle]||'var(--border2)';
-
-  // Find best set index for highlighting
   const bestIdx=bs?ex.sets.indexOf(bs):-1;
+  const t=getTimer(ex.id);
+  const hasTimerData=ex.sets.some(s=>s.setDur);
+  const showTimerCols=hasTimerData||t.useTimer;
 
-  // Sets as cards
   const setsHtml=ex.sets.map((s,i)=>{
     const isBest=i===bestIdx&&ex.sets.length>1;
-    return`<div class="set-card${isBest?' best-set':''}" style="animation-delay:${i*0.04}s">
+    const timerHtml=showTimerCols?`<div class="set-cell timer-cell"><div class="sv">${s.setDur?s.setDur+'s':'—'}</div><div class="sk">ACT</div></div><div class="set-cell rest-cell"><div class="sv">${s.restDur?s.restDur+'s':'—'}</div><div class="sk">REST</div></div>`:''
+    const gridCols=showTimerCols?'30px 1fr 1fr 1fr 1fr 1fr 1fr 26px':'30px 1fr 1fr 1fr 1fr 26px';
+    const iColor=s.intensity==='PEAK'||s.intensity==='HIGH'?'var(--red)':s.intensity==='MED'?'var(--gold)':'var(--green)';
+    return`<div class="set-card${isBest?' best-set':''}" style="animation-delay:${i*0.04}s;grid-template-columns:${gridCols}">
       <div class="set-num-badge">${i+1}</div>
-      <div class="set-cell"><div class="sv">${s.w}<span style="font-size:11px;font-family:var(--font-head);color:var(--dim);font-weight:400;margin-left:1px">kg</span></div><div class="sk">WEIGHT</div></div>
+      <div class="set-cell"><div class="sv">${s.w}<span style="font-size:11px;color:var(--dim);font-weight:400;margin-left:1px">kg</span></div><div class="sk">WEIGHT</div></div>
       <div class="set-cell"><div class="sv">${s.r}</div><div class="sk">REPS</div></div>
       <div class="set-cell"><div class="sv" style="color:var(--gold)">${fmtVol(s.w*s.r)}</div><div class="sk">VOL</div></div>
       <div class="set-cell"><div class="sv" style="color:var(--blue)">${e1rm(s.w,s.r)}</div><div class="sk">e1RM</div></div>
-      <button class="set-del-btn" onclick="delSet(${ex.id},${i})" title="Remove set">✕</button>
+      ${timerHtml}
+      <button class="set-del-btn" onclick="delSet(${ex.id},${i})">✕</button>
     </div>`;
   }).join('');
 
-  // Best bar
   const bestBarHtml=bs?`<div class="best-bar">
     <div class="best-bar-item"><div class="bbi-val">${bs.w}kg × ${bs.r}</div><div class="bbi-lbl">BEST SET</div></div>
     <div class="best-bar-item"><div class="bbi-val" style="color:var(--gold)">${fmtVol(vol)} u</div><div class="bbi-lbl">VOLUME</div></div>
     <div class="best-bar-item"><div class="bbi-val" style="color:var(--blue)">${est} kg</div><div class="bbi-lbl">EST 1RM</div></div>
-    ${ex.sets.length>1?`<div class="best-bar-item"><div class="bbi-val" style="color:var(--green)">${ex.sets.length}</div><div class="bbi-lbl">SETS DONE</div></div>`:''}
-  </div>`:'';
+    ${ex.sets.length>1?`<div class="best-bar-item"><div class="bbi-val" style="color:var(--green)">${ex.sets.length}</div><div class="bbi-lbl">SETS</div></div>`:''} 
+  </div>`:''
 
-  // Plan target hint
-  const targetHint=ex.planScheme?`<span class="btn-plan-scheme">TARGET: ${ex.planScheme}</span>`:'';
+  const romanLabel=(inSS&&ssIndex!==undefined)?`<span class="ss-roman-badge">${ROMAN[ssIndex]||ssIndex+1}</span>`:''
 
   return`<div class="ex-card-inner">
     <div class="ex-head" onclick="toggleEx(${ex.id})">
       <div class="ex-muscle-stripe" style="background:${stripeColor}"></div>
-      <div class="ex-head-left">
-        <div class="ex-name">${ex.name}</div>
+      <div class="ex-head-left" style="padding-left:${inSS?'14px':'8px'}">
+        <div style="display:flex;align-items:center;gap:8px">
+          ${romanLabel}
+          <div class="ex-name" style="font-size:${inSS?'20px':'24px'}">${ex.name}</div>
+        </div>
         <div class="ex-meta-row">
           ${ex.muscle?`<span class="badge ${bCls}">${ex.muscle} · ${grp.toUpperCase()}</span>`:''}
-          ${isChild?'<span class="badge badge-ss">⚡ SUPERSET</span>':''}
-          ${targetHint}
+          ${ex.planScheme?`<span style="font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.04em">${ex.planScheme}</span>`:''}
         </div>
       </div>
       <div class="ex-head-right">
@@ -3016,8 +3554,9 @@ function exCardHTML(ex,inSS,forceCollapsed){
     <div id="eb-${ex.id}" class="ex-body" style="${collapsed?'display:none':''}">
       ${ex.sets.length
         ?`<div class="sets-display">${setsHtml}</div>${bestBarHtml}`
-        :`<div class="no-sets-msg">No sets logged yet — add your first set below</div>`
+        :`<div class="no-sets-msg">No sets yet — log your first set below</div>`
       }
+      <div id="timer-row-${ex.id}"><div class="ex-timer-off"><button class="timer-enable-btn" onclick="enableTimer(${ex.id})">⏱ Enable set timer</button></div></div>
       <div class="log-set-area">
         <div class="log-set-title">LOG A SET</div>
         <div class="log-set-inputs">
@@ -3029,15 +3568,15 @@ function exCardHTML(ex,inSS,forceCollapsed){
         </div>
       </div>
       ${!isChild&&!inSS?`<div class="ss-add-area">
-        <div class="ss-add-label">⚡ PAIR WITH SUPERSET EXERCISE</div>
+        <div class="ss-add-label">⚡ ADD SUPERSET EXERCISE BELOW</div>
         <div class="ss-add-inner">
-          <input type="text" id="ss-inp-${ex.id}" placeholder="e.g. Tricep Pushdown" list="ex-dl" style="max-width:240px">
-          <button class="btn btn-gold btn-sm" onclick="addSuperset(${ex.id})">+ SUPERSET</button>
+          <button class="ss-pick-btn" onclick="openSupersetPick(${ex.id})"><span style="font-size:16px">＋</span> Pick from exercise library</button>
         </div>
       </div>`:''}
     </div>
   </div>`;
 }
+
 
 // WEEKLY
 function getWeekDates(offset){
@@ -3962,14 +4501,62 @@ function saveSession(){
   const day=getDay(currentDate);
   const title=document.getElementById('session-title')?.value?.trim()||'';
   const notes=document.getElementById('session-notes')?.value?.trim()||'';
-  day.sessionNote={title,notes,rating:sessionRating,savedAt:Date.now()};
+
+  // Read stats from exercises (which we KEEP in DATA — they are the database record)
+  const exercises=day.exercises||[];
+  let totVol=0,totSets=0;
+  exercises.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
+  const muscleGroups=[...new Set(exercises.filter(e=>e.muscle).map(e=>e.muscle))].slice(0,4);
+  const exCount=exercises.filter(e=>e.sets&&e.sets.length>0).length;
+  const ratingSnap=sessionRating;
+
+  // Save session note + lock the day so log shows summary view
+  day.sessionNote={title,notes,rating:ratingSnap,savedAt:Date.now()};
+  day.locked=true;  // ← exercises stay in DATA; this flag switches log to read-only summary
+
+  // Stop all timers
+  exercises.forEach(ex=>{
+    clearInterval(EX_TIMER_INTERVALS[ex.id]);
+    delete EX_TIMERS[ex.id];
+    delete exCollapse[ex.id];
+    delete ssCollapse[ex.id];
+  });
+
+  // Write to localStorage + queue Firestore sync
   save();
-  // Show saved indicator
-  const ind=document.getElementById('ssave-saved-indicator');
-  if(ind){ind.style.display='block';}
-  toast('Session saved ✓');
-  // Update button and show previous note
+  _markSaved();
+
+  // Hide panels
+  document.getElementById('session-save-panel').style.display='none';
+  document.querySelector('.finish-workout-btn')?.remove();
+  const saveBar=document.getElementById('log-save-bar');
+  if(saveBar) saveBar.style.display='none';
+
+  // Show summary view (renderLog checks day.locked and renders this)
   renderLog();
+
+  toast('Session saved ✓');
+  sessionRating=0;
+}
+
+function unlockDay(){
+  const day=getDay(currentDate);
+  day.locked=false;
+  save();
+  renderLog();
+}
+
+function startNewSession(){
+  // Keep existing exercises but unlock so user can add more
+  const day=getDay(currentDate);
+  day.locked=false;
+  save();
+  renderLog();
+  // Show add trigger and scroll to it
+  setTimeout(()=>{
+    const addTrigger=document.querySelector('.add-ex-trigger');
+    if(addTrigger){ addTrigger.style.display=''; addTrigger.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  },100);
 }
 
 function renderPrevSessionNote(day){
@@ -4250,6 +4837,15 @@ window.delExercise=delExercise; window.addSuperset=addSuperset;
 window.toggleEx=toggleEx; window.toggleSSGroup=toggleSSGroup;
 window.openSessionSavePanel=openSessionSavePanel; window.saveSession=saveSession;
 window.setSessionRating=setSessionRating;
+window.manualSaveToCloud=manualSaveToCloud;
+window.unlockDay=unlockDay; window.startNewSession=startNewSession;
+// Timer
+window.enableTimer=enableTimer; window.disableTimer=disableTimer;
+window.timerStart=timerStart; window.timerStop=timerStop; window.timerReset=timerReset;
+window.startSetTimer=timerStart; window.stopSetTimer=timerStop; window.resetTimer=timerReset;
+window.exerciseComplete=exerciseComplete;
+// Superset pick
+window.openSupersetPick=openSupersetPick;
 // Exercise Matrix
 window.openExMatrix=openExMatrix; window.closeExMatrix=closeExMatrix;
 window.exmOverlayClick=exmOverlayClick; window.exmSearch=exmSearch;
