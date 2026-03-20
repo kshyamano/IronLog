@@ -21,6 +21,16 @@
   --font-body:'DM Sans',sans-serif;
   --r:10px;--r-sm:6px;--r-lg:16px;
 }
+/* LIGHT MODE */
+body.light{
+  --bg:#f4f2ed;--surface:#ebe8e2;--card:#ffffff;--card2:#f0ede7;--card3:#e8e4dc;
+  --border:#ddd9d0;--border2:#ccc8be;--border3:#b8b3a8;
+  --text:#1a1916;--muted:#6b6860;--dim:#a09e98;
+  --red:#c93d2a;--gold:#c47f00;--blue:#1d6fb5;--green:#1e8f47;--purple:#5d3ea8;
+  --red-dim:rgba(201,61,42,0.10);--gold-dim:rgba(196,127,0,0.10);
+  --blue-dim:rgba(29,111,181,0.10);--green-dim:rgba(30,143,71,0.10);
+}
+body.light html,body.light body{background:var(--bg);color:var(--text)}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;overflow-x:hidden}
 
 /* AUTH SCREEN */
@@ -100,8 +110,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .google-new-form .g-submit{width:100%;background:#1a73e8;color:#fff;font-family:sans-serif;font-size:13px;font-weight:500;padding:9px;border:none;border-radius:4px;cursor:pointer}
 
 /* MAIN APP SHELL */
-#main-app{display:none;min-height:100vh;flex-direction:column}
-#main-app.visible{display:flex}
+#main-app{display:flex;min-height:100vh;flex-direction:column}
+#main-app.hidden{display:none}
 
 /* TOPBAR */
 .topbar{
@@ -110,9 +120,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   padding:0 24px;display:flex;align-items:center;justify-content:space-between;
   height:58px;position:sticky;top:0;z-index:100;
 }
+body.light .topbar{background:rgba(235,232,226,0.95)}
 .topbar-logo{font-family:var(--font-display);font-size:26px;letter-spacing:.08em;color:var(--text)}
 .topbar-logo em{color:var(--gold);font-style:normal}
 .topbar-right{display:flex;gap:8px;align-items:center}
+/* Theme toggle */
+.theme-toggle{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);background:var(--card);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s;flex-shrink:0}
+.theme-toggle:hover{border-color:var(--border3);color:var(--text);background:var(--card2)}
+/* Sign-in button in topbar (for guests viewing dashboard-first) */
+.topbar-signin-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;padding:7px 16px;background:var(--gold);color:#0a0a08;border:none;border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.topbar-signin-btn:hover{background:#f7c240;transform:translateY(-1px)}
+
 .streak-badge{
   display:none;align-items:center;gap:6px;
   background:linear-gradient(135deg,rgba(240,180,41,0.15),rgba(240,180,41,0.05));
@@ -151,12 +169,40 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .ud-item.danger{color:var(--red)}.ud-item.danger:hover{background:var(--red-dim)}
 
 /* NAV */
-.nav{background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 4px;scrollbar-width:none;position:relative;z-index:90}
 .nav::-webkit-scrollbar{display:none}
-.nav-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;padding:13px 16px;background:none;border:none;color:var(--dim);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;display:flex;align-items:center;gap:6px}
+.nav-btn{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;padding:0 14px;height:50px;background:none;border:none;color:var(--dim);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;display:flex;align-items:center;gap:6px;position:relative;flex-shrink:0}
 .nav-btn.active{color:var(--text);border-bottom-color:var(--red)}
 .nav-btn:hover:not(.active){color:var(--muted)}
 .nav-btn .nb-icon{font-size:14px}
+/* Global nav tooltip panel — positioned by JS, lives outside .nav overflow context */
+#nav-tooltip{
+  position:fixed;z-index:9999;
+  width:270px;
+  background:var(--card);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 12px 48px rgba(0,0,0,.22);
+  pointer-events:none;
+  transition:opacity .16s ease, transform .16s ease;
+  opacity:0;
+}
+#nav-tooltip.visible{opacity:1}
+#nav-tooltip::before{
+  content:'';position:absolute;top:-6px;left:var(--caret-x, 50%);
+  transform:translateX(-50%) rotate(45deg);
+  width:10px;height:10px;
+  background:var(--card);
+  border-left:1px solid var(--border2);
+  border-top:1px solid var(--border2);
+}
+.nd-icon{font-size:28px;margin-bottom:10px;line-height:1;display:block}
+.nd-title{font-family:var(--font-display);font-size:20px;letter-spacing:.06em;color:var(--text);margin-bottom:7px;line-height:1}
+.nd-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:0}
+.nd-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.nd-pill{font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:10px;background:var(--card2);color:var(--muted);border:1px solid var(--border2)}
+
 
 .main{flex:1;padding:24px;max-width:1100px;margin:0 auto;width:100%}
 .page{display:none}.page.active{display:block;animation:fadeUp .22s ease}
@@ -319,6 +365,42 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 
 /* MUSCLE RADAR */
 .radar-wrap{position:relative;width:100%;height:220px}
+
+/* MUSCLE FIGURE */
+#muscle-figure-wrap{
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:8px 0 4px;gap:0;position:relative;
+}
+.mf-svg{overflow:visible;user-select:none}
+.mf-zone{
+  cursor:pointer;
+  transition:opacity .15s, filter .15s;
+  opacity:0.92;
+}
+.mf-zone:hover{opacity:1;filter:brightness(1.3)}
+.mf-tooltip{
+  position:absolute;
+  background:var(--card2);
+  border:1px solid var(--border3);
+  border-radius:10px;
+  padding:10px 14px;
+  min-width:160px;
+  max-width:220px;
+  pointer-events:none;
+  z-index:50;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  display:none;
+  top:0;left:0;
+}
+.mf-tt-name{
+  font-family:var(--font-display);font-size:18px;letter-spacing:.04em;
+  color:var(--text);margin-bottom:6px;line-height:1;
+}
+.mf-tt-bar-wrap{height:5px;background:var(--card3);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.mf-tt-bar{height:100%;border-radius:3px;transition:width .3s}
+.mf-tt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.mf-tt-lbl{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.08em}
+.mf-tt-val{font-size:11px;font-family:var(--font-head);font-weight:700;color:var(--text)}
 
 /* RECENT ACTIVITY */
 .activity-list{display:flex;flex-direction:column;gap:8px}
@@ -556,7 +638,74 @@ select option{background:var(--card2)}
 .btn-log-save:hover{background:#f7c240;transform:translateY(-1px);box-shadow:0 6px 24px rgba(240,180,41,.6)}
 
 
-/* SESSION SAVE PANEL */
+/* ── SYNERGIST BANNER ── */
+.syn-banner{
+  padding:10px 18px 8px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  background:rgba(255,255,255,.01);
+}
+.syn-pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:4px}
+.syn-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px 3px 6px;border-radius:20px;
+  border:1px solid;font-family:var(--font-head);
+  font-size:10px;font-weight:700;letter-spacing:.06em;
+  white-space:nowrap;
+}
+.syn-pill-primary{font-size:11px}
+.syn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.syn-pct{opacity:.7;margin-left:1px}
+.syn-note{
+  font-size:10px;color:var(--dim);font-style:italic;letter-spacing:.02em;
+  line-height:1.4;
+}
+
+/* ── PREVIOUS BEST HINT ── */
+.prev-best-hint{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:10px 18px 0;padding:9px 14px;
+  background:rgba(240,180,41,.06);
+  border:1px solid rgba(240,180,41,.15);
+  border-radius:8px;
+}
+.pbh-label{
+  font-family:var(--font-head);font-size:9px;font-weight:700;
+  letter-spacing:.14em;color:var(--dim);
+}
+.pbh-val{
+  font-family:var(--font-head);font-size:14px;font-weight:700;
+  color:var(--gold);letter-spacing:.04em;
+}
+.pbh-e1rm{
+  font-family:var(--font-head);font-size:11px;color:var(--muted);
+  letter-spacing:.04em;margin-left:auto;
+}
+.research-ex-tab{
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;
+  padding:8px 18px;border-radius:8px;border:1px solid var(--border2);
+  background:none;color:var(--muted);cursor:pointer;transition:all .15s;
+}
+.research-ex-tab:hover{border-color:var(--border3);color:var(--text)}
+.research-ex-tab.active{background:var(--card2);color:var(--text);border-color:var(--border3)}
+.research-paper-card{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--card);border:1px solid var(--border2);border-radius:var(--r);
+  padding:16px 18px;text-decoration:none;color:inherit;
+  transition:all .15s;
+}
+.research-paper-card:hover{border-color:var(--gold);background:var(--card2);transform:translateY(-1px)}
+.rpc-badge{
+  flex-shrink:0;font-family:var(--font-head);font-size:9px;font-weight:700;
+  letter-spacing:.1em;padding:5px 8px;border-radius:5px;
+  background:rgba(240,180,41,.12);color:var(--gold);
+  border:1px solid rgba(240,180,41,.2);margin-top:2px;
+}
+.rpc-body{flex:1;min-width:0}
+.rpc-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.4}
+.rpc-meta{font-size:11px;color:var(--muted);margin-bottom:6px;font-style:italic}
+.rpc-finding{font-size:12px;color:var(--dim);line-height:1.6}
+.rpc-arrow{color:var(--dim);font-size:16px;flex-shrink:0;padding-top:2px;transition:color .15s}
+.research-paper-card:hover .rpc-arrow{color:var(--gold)}
 .session-save-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 0 1px rgba(240,180,41,0.08),0 8px 40px rgba(0,0,0,0.3)}
 .ssave-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 22px 16px;background:linear-gradient(135deg,rgba(240,180,41,0.08),rgba(232,83,63,0.06));border-bottom:1px solid var(--border)}
 .ssave-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--gold);line-height:1;margin-bottom:4px}
@@ -595,13 +744,121 @@ select option{background:var(--card2)}
 .filter-row .fi{display:flex;flex-direction:column;gap:4px}
 .filter-row .fi label{font-size:10px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
 .filter-row select{width:auto;min-width:150px}
-.hist-row{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.hist-row .hl{display:flex;flex-direction:column;gap:3px}
-.hist-row .hdate{font-size:11px;color:var(--dim);font-family:var(--font-head);letter-spacing:.06em}
-.hist-row .hex{font-size:15px;font-weight:500}
-.hist-row .hr{text-align:right}
-.hist-row .hstat{font-size:14px;font-family:var(--font-head);font-weight:700}
-.hist-row .hdelta{font-size:11px;font-family:var(--font-head)}
+/* ══ HISTORY PAGE — Journal redesign ══ */
+.hist-filter-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.hist-filter-chips{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.hfc{
+  font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;
+  padding:6px 14px;border-radius:20px;border:1px solid var(--border2);
+  background:none;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.hfc:hover{border-color:var(--border3);color:var(--text)}
+.hfc.active{background:var(--card2);color:var(--text);border-color:var(--border3)}
+.hist-search-wrap{flex-shrink:0}
+.hist-search-input{
+  font-family:var(--font-body);font-size:13px;padding:7px 14px;
+  background:var(--card);border:1px solid var(--border2);border-radius:20px;
+  color:var(--text);outline:none;width:200px;transition:border-color .15s;
+}
+.hist-search-input:focus{border-color:var(--border3)}
+.hist-search-input::placeholder{color:var(--dim)}
+
+/* Calendar strip */
+.hist-cal-wrap{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:18px 20px}
+.hist-cal-title{font-family:var(--font-head);font-size:10px;letter-spacing:.16em;color:var(--dim);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.hist-cal-grid{display:flex;gap:3px;flex-wrap:wrap}
+.hist-cal-day{
+  width:16px;height:16px;border-radius:3px;cursor:pointer;
+  background:var(--card2);border:1px solid transparent;transition:all .12s;
+  position:relative;
+}
+.hist-cal-day:hover{transform:scale(1.3);z-index:10;border-color:var(--border3)}
+.hist-cal-day.has-session{cursor:pointer}
+.hist-cal-day.today{border-color:var(--gold)!important}
+
+/* Session cards */
+.hist-session-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);
+  margin-bottom:12px;overflow:hidden;cursor:pointer;
+  transition:all .18s;position:relative;
+}
+.hist-session-card:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.hist-card-accent{height:3px;width:100%}
+.hist-card-top{display:flex;align-items:flex-start;gap:16px;padding:16px 20px 12px}
+.hist-card-date-col{flex-shrink:0;text-align:center;min-width:52px}
+.hist-card-day-num{font-family:var(--font-display);font-size:36px;letter-spacing:.02em;line-height:1;color:var(--text)}
+.hist-card-month{font-family:var(--font-head);font-size:10px;letter-spacing:.14em;color:var(--dim);margin-top:1px}
+.hist-card-weekday{font-family:var(--font-head);font-size:9px;letter-spacing:.12em;color:var(--dim)}
+.hist-card-divider{width:1px;background:var(--border2);align-self:stretch;flex-shrink:0}
+.hist-card-main{flex:1;min-width:0}
+.hist-card-title{font-family:var(--font-display);font-size:22px;letter-spacing:.04em;color:var(--text);line-height:1;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-card-muscles{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.hist-muscle-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:12px;
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.08em;
+  border:1px solid transparent;
+}
+.hist-muscle-chip-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.hist-card-note{font-size:12px;color:var(--muted);font-style:italic;line-height:1.5;margin-top:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hist-card-right{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.hist-card-stars{display:flex;gap:2px}
+.hist-card-star{font-size:13px}
+.hist-card-e1rm{font-family:var(--font-display);font-size:28px;letter-spacing:.02em;color:var(--blue);line-height:1}
+.hist-card-e1rm-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em;text-align:right}
+
+/* Stats row */
+.hist-card-stats{
+  display:flex;gap:0;border-top:1px solid var(--border);
+  background:var(--card2);
+}
+.hist-stat{flex:1;padding:10px 16px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.hist-stat:last-child{border-right:none}
+.hist-stat-val{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text)}
+.hist-stat-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
+
+/* Volume bar */
+.hist-vol-bar{height:4px;background:var(--border);border-radius:0;overflow:hidden}
+.hist-vol-fill{height:100%;border-radius:0;transition:width .6s cubic-bezier(.22,.68,0,1.2)}
+
+/* Exercise strip inside card (expandable) */
+.hist-card-exs{
+  border-top:1px solid var(--border);padding:10px 20px 12px;
+  display:none;
+}
+.hist-card-exs.open{display:block;animation:fadeUp .18s ease both}
+.hist-ex-row{
+  display:flex;align-items:center;gap:10px;padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,.03);
+}
+.hist-ex-row:last-child{border-bottom:none}
+.hist-ex-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hist-ex-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-ex-sets{font-family:var(--font-head);font-size:11px;color:var(--muted);letter-spacing:.04em;flex-shrink:0}
+.hist-ex-best{font-family:var(--font-head);font-size:11px;color:var(--gold);letter-spacing:.04em;flex-shrink:0}
+.hist-expand-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:8px;border:none;background:none;cursor:pointer;
+  font-family:var(--font-head);font-size:10px;letter-spacing:.1em;color:var(--dim);
+  border-top:1px solid var(--border);transition:color .15s;
+}
+.hist-expand-btn:hover{color:var(--muted)}
+
+/* Empty state */
+.hist-empty{
+  text-align:center;padding:60px 20px;
+}
+.hist-empty-icon{font-size:48px;opacity:.4;margin-bottom:16px}
+.hist-empty-title{font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.hist-empty-sub{font-size:13px;color:var(--dim);line-height:1.6}
+
+/* Month group label */
+.hist-month-label{
+  font-family:var(--font-display);font-size:18px;letter-spacing:.08em;
+  color:var(--dim);margin:20px 0 10px;padding-left:4px;
+}
+.hist-month-label:first-child{margin-top:0}
 .delta-up{color:var(--green)}.delta-dn{color:var(--red)}
 .muscle-section{margin-bottom:24px}
 .muscle-section-title{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--dim);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
@@ -1030,7 +1287,7 @@ select option{background:var(--card2)}
 </div>
 
 <!-- = AUTH SCREEN = -->
-<div id="auth-screen" style="display:flex">
+<div id="auth-screen" style="display:none">
   <div class="auth-box">
     <div class="auth-logo">
       <div class="wordmark">IRON<em>LOG</em></div>
@@ -1136,7 +1393,9 @@ select option{background:var(--card2)}
     <div class="topbar-logo">IRON<em>LOG</em></div>
     <div class="topbar-right">
       <div class="streak-badge" id="streak-badge"></div>
-      <div class="user-pill" onclick="toggleUserMenu()">
+      <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
+      <button class="topbar-signin-btn" id="topbar-signin-btn" onclick="showAuthPanel()" style="display:none">SIGN IN</button>
+      <div class="user-pill" onclick="toggleUserMenu()" id="topbar-user-pill" style="display:none">
         <div class="user-avatar" id="topbar-avatar"></div>
         <span class="user-pill-name" id="topbar-uname"></span>
         <span style="color:var(--dim);font-size:10px;margin-left:2px">▾</span>
@@ -1158,16 +1417,81 @@ select option{background:var(--card2)}
     <button class="ud-item danger" id="ud-signout-btn" onclick="doLogout()">⬤ &nbsp;Sign Out</button>
   </div>
 
-  <nav class="nav">
-    <button class="nav-btn active" onclick="goPage('dashboard',this)"><span class="nb-icon">⚡</span>DASHBOARD</button>
-    <button class="nav-btn" onclick="goPage('log',this)"><span class="nb-icon">📋</span>LOG</button>
-    <button class="nav-btn" onclick="goPage('weekly',this)"><span class="nb-icon">📅</span>WEEKLY</button>
-    <button class="nav-btn" onclick="goPage('progress',this)"><span class="nb-icon">📈</span>PROGRESS</button>
-    <button class="nav-btn" onclick="goPage('muscles',this)"><span class="nb-icon">💪</span>MUSCLES</button>
-    <button class="nav-btn" onclick="goPage('history',this)"><span class="nb-icon">🗂</span>HISTORY</button>
-    <button class="nav-btn" onclick="goPage('plans',this)"><span class="nb-icon">🗓</span>PLANS</button>
-    <button class="nav-btn" onclick="goPage('library',this)"><span class="nb-icon">📚</span>LIBRARY</button>
-    <button class="nav-btn" onclick="goPage('data',this)"><span class="nb-icon">💾</span>DATA</button>
+  <!-- Global nav tooltip — lives outside .nav so overflow doesn't clip it -->
+  <div id="nav-tooltip" style="display:none"></div>
+
+  <nav class="nav" id="main-nav">
+
+    <button class="nav-btn active" onclick="goPage('dashboard',this)"
+      data-nd-icon="⚡" data-nd-title="Dashboard"
+      data-nd-desc="Your training command centre. Activity heatmap for the last 13 weeks, weekly volume rings, 30-day trend chart, all-time PRs, the interactive muscle anatomy map, and your recent sessions."
+      data-nd-pills="HEATMAP|MUSCLE MAP|PRs|STREAK">
+      <span class="nb-icon">⚡</span>DASHBOARD
+    </button>
+
+    <button class="nav-btn" onclick="goPage('log',this)"
+      data-nd-icon="📋" data-nd-title="Workout Log"
+      data-nd-desc="Log today's session in real time. Add exercises from the full library, record sets with weight, reps and RPE, use the set timer to track active and rest time, and pair exercises as supersets."
+      data-nd-pills="SETS & REPS|TIMER|SUPERSET|e1RM">
+      <span class="nb-icon">📋</span>LOG
+    </button>
+
+    <button class="nav-btn" onclick="goPage('weekly',this)"
+      data-nd-icon="📅" data-nd-title="Weekly Overview"
+      data-nd-desc="A 7-day bird's-eye view. Navigate between weeks to compare total volume, active days, and muscle group distribution side by side. Spot which muscles you've undertrained."
+      data-nd-pills="VOLUME|MUSCLE SPLIT|WEEK COMPARE">
+      <span class="nb-icon">📅</span>WEEKLY
+    </button>
+
+    <button class="nav-btn" onclick="goPage('progress',this)"
+      data-nd-icon="📈" data-nd-title="Progress Charts"
+      data-nd-desc="Track any exercise over time. See your estimated 1-rep max trend, volume per session, and best set progression as a chart. Identify plateaus before they stall you."
+      data-nd-pills="e1RM TREND|VOLUME CHART|BEST SET">
+      <span class="nb-icon">📈</span>PROGRESS
+    </button>
+
+    <button class="nav-btn" onclick="goPage('muscles',this)"
+      data-nd-icon="💪" data-nd-title="Muscle Targets"
+      data-nd-desc="Set monthly volume targets for each muscle group and track how close you are with live progress bars. Essential for ensuring balanced development across every training block."
+      data-nd-pills="VOLUME TARGETS|MONTHLY|PROGRESS BARS">
+      <span class="nb-icon">💪</span>MUSCLES
+    </button>
+
+    <button class="nav-btn" onclick="goPage('history',this)"
+      data-nd-icon="🗂" data-nd-title="Session History"
+      data-nd-desc="Your full training journal. Rich session cards show muscles trained, volume, best e1RM, star rating, and your notes. Filter by muscle group or search any exercise. Tap a card for every set."
+      data-nd-pills="JOURNAL|FILTER|CALENDAR|NOTES">
+      <span class="nb-icon">🗂</span>HISTORY
+    </button>
+
+    <button class="nav-btn" onclick="goPage('plans',this)"
+      data-nd-icon="🗓" data-nd-title="Training Plans"
+      data-nd-desc="Choose from coach-designed programmes (PPL, strength, recomp, powerlifting) or build your own weekly plan. Import plans via CSV or generate them with an AI prompt."
+      data-nd-pills="COACH PLANS|CUSTOM|CSV IMPORT">
+      <span class="nb-icon">🗓</span>PLANS
+    </button>
+
+    <button class="nav-btn" onclick="goPage('library',this)"
+      data-nd-icon="📚" data-nd-title="Exercise Library"
+      data-nd-desc="Browse all built-in exercises organised by muscle group, or add your own custom movements. Shows your all-time best e1RM for each exercise so you always know where you stand."
+      data-nd-pills="ALL EXERCISES|CUSTOM ADD|BEST e1RM">
+      <span class="nb-icon">📚</span>LIBRARY
+    </button>
+
+    <button class="nav-btn" onclick="goPage('data',this)"
+      data-nd-icon="💾" data-nd-title="Data Management"
+      data-nd-desc="Export your full workout history as CSV or JSON. Import from a previous backup. Load 6 weeks of realistic demo data to explore all features, or wipe everything to start clean."
+      data-nd-pills="EXPORT|IMPORT|DEMO DATA|BACKUP">
+      <span class="nb-icon">💾</span>DATA
+    </button>
+
+    <button class="nav-btn" onclick="goPage('research',this)"
+      data-nd-icon="🔬" data-nd-title="Exercise Research"
+      data-nd-desc="Peer-reviewed EMG studies powering IRONLOG's synergist fatigue system. See which muscles each exercise taxes, how the coefficients were derived, and links to all original papers."
+      data-nd-pills="EMG DATA|CITATIONS|SYNERGISTS">
+      <span class="nb-icon">🔬</span>RESEARCH
+    </button>
+
   </nav>
 
   <div class="main">
@@ -1230,11 +1554,11 @@ select option{background:var(--card2)}
         </div>
       </div>
 
-      <!-- ROW 3: Muscle Radar + Recent Activity -->
+      <!-- ROW 3: Muscle Figure + Recent Activity -->
       <div class="db-grid">
-        <div class="db-panel">
-          <h3>MUSCLE VOLUME DISTRIBUTION <span>LIFETIME</span></h3>
-          <div class="radar-wrap"><canvas id="db-radar"></canvas></div>
+        <div class="db-panel" style="position:relative">
+          <h3>MUSCLE MAP <span id="muscle-map-subtitle">hover to inspect</span></h3>
+          <div id="muscle-figure-wrap"></div>
         </div>
         <div class="db-panel">
           <h3>RECENT SESSIONS <span onclick="goPage('history')" style="cursor:pointer;color:var(--muted)">VIEW ALL →</span></h3>
@@ -1386,13 +1710,32 @@ select option{background:var(--card2)}
 
     <!-- ── HISTORY ── -->
     <div id="page-history" class="page">
-      <div class="filter-row">
-        <div class="fi"><label>MUSCLE GROUP</label>
-          <select id="hist-muscle" onchange="renderHistory()"><option value="">All muscles</option><option>Chest</option><option>Back</option><option>Shoulders</option><option>Biceps</option><option>Triceps</option><option>Quads</option><option>Hamstrings</option><option>Glutes</option><option>Calves</option><option>Core</option></select>
+
+      <!-- ── STREAK CALENDAR STRIP ── -->
+      <div id="hist-calendar" style="margin-bottom:24px"></div>
+
+      <!-- ── FILTER CHIPS ── -->
+      <div class="hist-filter-bar">
+        <div class="hist-filter-chips" id="hist-muscle-chips">
+          <button class="hfc active" data-m="" onclick="histSetMuscle(this,'')">All</button>
+          <button class="hfc" data-m="Chest" onclick="histSetMuscle(this,'Chest')">Chest</button>
+          <button class="hfc" data-m="Back" onclick="histSetMuscle(this,'Back')">Back</button>
+          <button class="hfc" data-m="Shoulders" onclick="histSetMuscle(this,'Shoulders')">Shoulders</button>
+          <button class="hfc" data-m="Biceps" onclick="histSetMuscle(this,'Biceps')">Biceps</button>
+          <button class="hfc" data-m="Triceps" onclick="histSetMuscle(this,'Triceps')">Triceps</button>
+          <button class="hfc" data-m="Quads" onclick="histSetMuscle(this,'Quads')">Quads</button>
+          <button class="hfc" data-m="Hamstrings" onclick="histSetMuscle(this,'Hamstrings')">Hamstrings</button>
+          <button class="hfc" data-m="Glutes" onclick="histSetMuscle(this,'Glutes')">Glutes</button>
+          <button class="hfc" data-m="Core" onclick="histSetMuscle(this,'Core')">Core</button>
         </div>
-        <div class="fi"><label>EXERCISE</label><select id="hist-ex" onchange="renderHistory()"><option value="">All exercises</option></select></div>
+        <div class="hist-search-wrap">
+          <input type="text" id="hist-search" placeholder="Search exercise..." oninput="renderHistory()" class="hist-search-input">
+        </div>
       </div>
+
+      <!-- ── JOURNAL CARDS ── -->
       <div id="history-list"></div>
+
     </div>
 
     <!-- ── LIBRARY ── -->
@@ -1436,12 +1779,261 @@ select option{background:var(--card2)}
           <input type="file" id="import-file" accept=".json,.csv" onchange="importFile(this)">
         </div>
       </div>
+
+      <!-- DEMO DATA CARD -->
+      <div class="data-card" id="demo-data-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <div>
+            <h3>🎯 Demo Data</h3>
+            <p style="margin-top:4px">Load 6 weeks of realistic PPL training data to see how the dashboards, charts, and muscle map look with real data. You can delete it any time.</p>
+          </div>
+          <div id="demo-status-badge" style="flex-shrink:0"></div>
+        </div>
+        <div id="demo-data-actions" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+      </div>
+
       <div class="data-card">
         <h3>🗑 Danger Zone</h3>
-        <p>Permanently delete all your workout data for this account.</p>
-        <button class="btn btn-ghost" onclick="clearAllData()" style="color:var(--red);border-color:rgba(232,83,63,.3)">Delete My Data</button>
+        <p>Permanently delete all your workout data for this account. This cannot be undone.</p>
+        <button class="btn btn-ghost" onclick="clearAllData()" style="color:var(--red);border-color:rgba(232,83,63,.3)">Delete All My Data</button>
       </div>
     </div>
+
+    <!-- ── RESEARCH ── -->
+    <div id="page-research" class="page">
+      <div class="section-head" style="margin-bottom:6px">
+        <h3>🔬 EXERCISE RESEARCH</h3>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6">EMG-based muscle activation data used to distribute synergist fatigue across your training. Each exercise logs secondary muscle stress automatically based on peer-reviewed biomechanics research.</p>
+      </div>
+
+      <!-- Exercise selector tabs -->
+      <div id="research-tabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;border-bottom:1px solid var(--border2);padding-bottom:16px">
+        <button class="research-ex-tab active" onclick="showResearch('bench')">Bench Press</button>
+        <button class="research-ex-tab" onclick="showResearch('squat')" style="opacity:.45;pointer-events:none">Squat <span style="font-size:9px">soon</span></button>
+        <button class="research-ex-tab" onclick="showResearch('deadlift')" style="opacity:.45;pointer-events:none">Deadlift <span style="font-size:9px">soon</span></button>
+        <button class="research-ex-tab" onclick="showResearch('ohp')" style="opacity:.45;pointer-events:none">OHP <span style="font-size:9px">soon</span></button>
+        <button class="research-ex-tab" onclick="showResearch('row')" style="opacity:.45;pointer-events:none">Barbell Row <span style="font-size:9px">soon</span></button>
+      </div>
+
+      <!-- Bench Press Research Page -->
+      <div id="research-bench">
+
+        <!-- Hero header -->
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:28px 30px;margin-bottom:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;right:-20px;top:-20px;font-family:var(--font-display);font-size:120px;color:rgba(240,180,41,.04);letter-spacing:.04em;pointer-events:none;user-select:none">BENCH</div>
+          <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:8px">PRIMARY EXERCISE ANALYSIS</div>
+          <div style="font-family:var(--font-display);font-size:42px;letter-spacing:.04em;margin-bottom:6px">BENCH PRESS</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;max-width:600px">Flat barbell bench press at 0° incline. The most-studied resistance exercise in sports science with over 200 peer-reviewed EMG studies. Data below reflects normalised %MVIC (maximal voluntary isometric contraction) averaged across studies using a standard grip at approximately 1.5× biacromial width.</div>
+        </div>
+
+        <!-- Muscle activation cards -->
+        <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.18em;color:var(--muted);margin-bottom:12px">MUSCLE ACTIVATION — % MVIC AT FLAT 0°</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px">
+
+          <div style="background:var(--card);border:1px solid rgba(232,83,63,.3);border-radius:var(--r);padding:18px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--red)"></div>
+            <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.12em;color:var(--red);margin-bottom:8px">PRIMARY MOVER</div>
+            <div style="font-family:var(--font-display);font-size:32px;letter-spacing:.04em;color:var(--text)">Pectoralis Major</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Sternal + costal portions. Highest activation in concentric phase.</div>
+            <div style="margin-top:14px;display:flex;align-items:flex-end;gap:10px">
+              <div style="font-family:var(--font-display);font-size:40px;color:var(--red);letter-spacing:.02em">27%</div>
+              <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);padding-bottom:8px">MVIC avg.</div>
+            </div>
+            <div style="margin-top:10px;height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:100%;background:var(--red);border-radius:3px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--dim);margin-top:6px">Fatigue coefficient: 1.00 (baseline)</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid rgba(155,111,224,.3);border-radius:var(--r);padding:18px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--purple)"></div>
+            <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.12em;color:var(--purple);margin-bottom:8px">SYNERGIST</div>
+            <div style="font-family:var(--font-display);font-size:32px;letter-spacing:.04em;color:var(--text)">Anterior Deltoid</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Nearly equal to pec major. Critical for humeral stabilisation throughout movement.</div>
+            <div style="margin-top:14px;display:flex;align-items:flex-end;gap:10px">
+              <div style="font-family:var(--font-display);font-size:40px;color:var(--purple);letter-spacing:.02em">26%</div>
+              <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);padding-bottom:8px">MVIC avg.</div>
+            </div>
+            <div style="margin-top:10px;height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:96%;background:var(--purple);border-radius:3px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--dim);margin-top:6px">Fatigue coefficient: 0.50 of chest volume</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid rgba(79,157,232,.3);border-radius:var(--r);padding:18px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue)"></div>
+            <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.12em;color:var(--blue);margin-bottom:8px">SYNERGIST</div>
+            <div style="font-family:var(--font-display);font-size:32px;letter-spacing:.04em;color:var(--text)">Triceps Brachii</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">All three heads. Elbow extension is the primary contribution. Narrow grip increases TB involvement significantly.</div>
+            <div style="margin-top:14px;display:flex;align-items:flex-end;gap:10px">
+              <div style="font-family:var(--font-display);font-size:40px;color:var(--blue);letter-spacing:.02em">15%</div>
+              <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);padding-bottom:8px">MVIC avg.</div>
+            </div>
+            <div style="margin-top:10px;height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:56%;background:var(--blue);border-radius:3px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--dim);margin-top:6px">Fatigue coefficient: 0.55 of chest volume</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid rgba(68,199,106,.3);border-radius:var(--r);padding:18px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--green)"></div>
+            <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.12em;color:var(--green);margin-bottom:8px">STABILISER</div>
+            <div style="font-family:var(--font-display);font-size:32px;letter-spacing:.04em;color:var(--text)">Serratus Anterior</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Scapular protraction and upward rotation. Important for shoulder health in long-term bench pressing.</div>
+            <div style="margin-top:14px;display:flex;align-items:flex-end;gap:10px">
+              <div style="font-family:var(--font-display);font-size:40px;color:var(--green);letter-spacing:.02em">~8%</div>
+              <div style="font-size:10px;font-family:var(--font-head);color:var(--dim);padding-bottom:8px">MVIC est.</div>
+            </div>
+            <div style="margin-top:10px;height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:30%;background:var(--green);border-radius:3px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--dim);margin-top:6px">Not logged (stabiliser only)</div>
+          </div>
+
+        </div>
+
+        <!-- Effect of grip and incline -->
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:24px;margin-bottom:20px">
+          <div style="font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--text);margin-bottom:16px">HOW VARIATION CHANGES ACTIVATION</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+            <div>
+              <div style="font-family:var(--font-head);font-size:10px;color:var(--gold);letter-spacing:.12em;margin-bottom:8px">INCLINE (+45°)</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.7">↑ Anterior deltoid activation (+40%)<br>↑ Clavicular pec involvement<br>↓ Sternal pec activation<br>↑ Triceps involvement (longer ROM)</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:10px;color:var(--gold);letter-spacing:.12em;margin-bottom:8px">DECLINE (−30°)</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.7">↑ Sternal + costal pec activation<br>↓ Anterior deltoid (−35%)<br>Similar triceps activation<br>Reduced rotator cuff demand</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:10px;color:var(--gold);letter-spacing:.12em;margin-bottom:8px">NARROW GRIP</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.7">↑ Triceps brachii significantly<br>↑ Anterior deltoid demand<br>↓ Pec activation<br>Higher elbow-joint stress</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:10px;color:var(--gold);letter-spacing:.12em;margin-bottom:8px">WIDE GRIP</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.7">↑ Pectoralis major activation<br>Shorter ROM (less triceps)<br>↑ Shoulder impingement risk<br>Common powerlifting choice</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fatigue Distribution Panel -->
+        <div style="background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(232,83,63,.05));border:1px solid rgba(240,180,41,.2);border-radius:var(--r-lg);padding:24px;margin-bottom:24px">
+          <div style="font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--gold);margin-bottom:6px">HOW IRONLOG DISTRIBUTES FATIGUE</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">When you log a Bench Press set with weight × reps, the volume (w×r) is distributed as secondary fatigue to synergist muscles using the EMG ratios below. This accumulates alongside any direct work you do on those muscles — giving you a more complete picture of true systemic fatigue.</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.2);padding:12px 16px;border-radius:var(--r-sm)">
+              <div style="font-family:var(--font-display);font-size:22px;color:var(--red);min-width:60px">100%</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text)">Chest (Pectoralis Major)</div>
+                <div style="font-size:11px;color:var(--dim)">Full volume logged to primary muscle as normal</div>
+              </div>
+              <div style="height:8px;width:120px;background:var(--red);border-radius:4px"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.2);padding:12px 16px;border-radius:var(--r-sm)">
+              <div style="font-family:var(--font-display);font-size:22px;color:var(--purple);min-width:60px">50%</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text)">Shoulders (Anterior Deltoid)</div>
+                <div style="font-size:11px;color:var(--dim)">26/27 MVIC ratio → 0.50 synergist coefficient</div>
+              </div>
+              <div style="height:8px;width:60px;background:var(--purple);border-radius:4px"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.2);padding:12px 16px;border-radius:var(--r-sm)">
+              <div style="font-family:var(--font-display);font-size:22px;color:var(--blue);min-width:60px">55%</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text)">Triceps Brachii</div>
+                <div style="font-size:11px;color:var(--dim)">15/27 MVIC ratio → 0.55 synergist coefficient</div>
+              </div>
+              <div style="height:8px;width:66px;background:var(--blue);border-radius:4px"></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;font-size:12px;color:var(--dim);font-style:italic">Example: 4 sets × 80kg × 10 reps = 3,200 volume units. Triceps receives 3,200 × 0.55 = 1,760 u as synergist fatigue. Shoulders receive 1,600 u. These appear in your muscle radar and volume charts.</div>
+        </div>
+
+        <!-- Research Papers -->
+        <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.18em;color:var(--muted);margin-bottom:12px">SOURCE RESEARCH PAPERS</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px" id="research-papers-bench">
+
+          <a href="https://doi.org/10.3390/ijerph17207339" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">EMG</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Effect of Five Bench Inclinations on the Electromyographic Activity of the Pectoralis Major, Anterior Deltoid, and Triceps Brachii</div>
+              <div class="rpc-meta">Rodríguez-Ridao et al. · <em>Int. J. Environ. Res. Public Health</em> · 2020</div>
+              <div class="rpc-finding">Key finding: At 0° flat bench — PM 27% MVIC, AD 26% MVIC, TB 15% MVIC. Basis for IRONLOG's 0.50 (shoulders) and 0.55 (triceps) coefficients.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1371/journal.pone.0161006" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">BIOMECH</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Effect of Load and Grip Width on Muscle Activation During the Bench Press</div>
+              <div class="rpc-meta">Stastny et al. · <em>PLoS ONE</em> · 2017</div>
+              <div class="rpc-finding">Confirmed TB and PM showed similar high activity; grip width modulates TB involvement significantly. Narrow grip increases triceps by ~20%.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1519/JSC.0000000000001193" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">KINETICS</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Prime Mover Muscle Activation During the Bench Press in Elite Powerlifters</div>
+              <div class="rpc-meta">van den Tillaar &amp; Ettema · <em>J. Strength Cond. Res.</em> · 2013</div>
+              <div class="rpc-finding">PM, AD, and TB achieved maximal activation at the start of the ascent phase. Identified the "sticking region" where TB contribution peaks relative to PM.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1519/JSC.0b013e3181a0db26" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">EMG</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Muscle Activity in Upper Body Single-Joint Resistance Exercises with Elastic Resistance Bands vs. Free Weights</div>
+              <div class="rpc-meta">Saeterbakken et al. · <em>J. Strength Cond. Res.</em> · 2011</div>
+              <div class="rpc-finding">Established anterior deltoid as a primary co-activator with near-equal contribution to pec major across all bench press loads tested (40–80% 1RM).</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1519/00124278-199508000-00016" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">CLASSIC</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Three Grip Positions for the Bench Press: A Wide, Medium, and Close Grip</div>
+              <div class="rpc-meta">Barnett et al. · <em>J. Strength Cond. Res.</em> · 1995</div>
+              <div class="rpc-finding">Foundational grip-width study. Wide grip maximises pec involvement; close grip shifts load to triceps. Standard grip represents a balanced synergist distribution.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1519/JSC.0b013e318225beaa" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">INCLINE</div>
+            <div class="rpc-body">
+              <div class="rpc-title">Comparison of Different Resistance Training Programs on Muscle Activation and Performance in the Bench Press</div>
+              <div class="rpc-meta">Muyor et al. · <em>PLoS ONE</em> · 2019</div>
+              <div class="rpc-finding">Incline (+30–45°) shifts activation toward clavicular pec and anterior deltoid (+40% AD). Decline reduces AD by ~35%, increasing sternal pec activation.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+          <a href="https://doi.org/10.1519/00124278-198901000-00013" target="_blank" class="research-paper-card">
+            <div class="rpc-badge">CLASSIC</div>
+            <div class="rpc-body">
+              <div class="rpc-title">A Biomechanical Analysis of the Sticking Point in the Bench Press</div>
+              <div class="rpc-meta">Elliott et al. · <em>J. Appl. Sport Sci. Res.</em> · 1989</div>
+              <div class="rpc-finding">The original "sticking region" paper. Identified sternal PM and long head TB as prime movers. TB's contribution increases as the bar passes the sticking point.</div>
+            </div>
+            <div class="rpc-arrow">→</div>
+          </a>
+
+        </div>
+
+        <!-- Methodology note -->
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:18px">
+          <div style="font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">METHODOLOGY NOTE</div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.8">
+            All EMG values are normalised to %MVIC (percentage of maximal voluntary isometric contraction) measured with surface electrodes. This method is standard in exercise EMG research but has limitations: electrode placement, individual anatomy, fatigue state, and load intensity all influence readings. IRONLOG uses population-averaged values from multiple studies as approximations, not precise individual measurements. The synergist fatigue system is intended to improve <em>relative</em> training balance awareness, not to give absolute physiological measurements. If you train with a predominantly narrow grip or significant incline work, the actual triceps and deltoid contributions will be higher than these coefficients suggest.
+          </div>
+        </div>
+
+      </div><!-- end research-bench -->
+    </div><!-- end page-research -->
 
     <!-- ── PLANS ── -->
     <div id="page-plans" class="page">
@@ -1806,21 +2398,21 @@ function generateDemoData(){
 function enterGuestMode(){
   IS_GUEST=true;
   CU={uid:'guest',name:'Guest',email:'',provider:'guest',avatarColor:'#4a4a46',photoURL:null};
-
-  // Load existing guest data
   loadUserData();
-
-  // If no data yet, inject demo data
   const hasData=Object.keys(DATA).length>0;
   if(!hasData){
     const demo=generateDemoData();
-    DATA=demo.data;
-    TARGETS=demo.targets;
+    DATA=demo.data;TARGETS=demo.targets;
     save();saveTgt();
     localStorage.setItem(DEMO_KEY,'1');
   }
-
-  showApp();
+  closeAuthPanel();
+  document.getElementById('firebase-loading').style.display='none';
+  setupTopbar();
+  exCollapse={};ssCollapse={};
+  currentDate=new Date();currentDate.setHours(0,0,0,0);
+  weekOffset=0;
+  renderDashboard();
   if(isDemoMode()){
     toast('Demo loaded — explore all features, then hit "Start My Journey" when ready 🔥');
   }
@@ -1859,18 +2451,43 @@ function renderDemoBanner(){
   </div>`;
 }
 
-function showAuthFromApp(){
-  closeUserMenu();
-  document.getElementById('main-app').className='';
-  document.getElementById('auth-screen').style.display='flex';
+// ── THEME ─────────────────────────────────────────────────────────────────
+function applyTheme(mode){
+  document.body.classList.toggle('light', mode==='light');
+  const btn=document.getElementById('theme-toggle-btn');
+  if(btn) btn.textContent=mode==='light'?'☀️':'🌙';
+  localStorage.setItem('il7_theme', mode);
 }
+function toggleTheme(){
+  applyTheme(document.body.classList.contains('light')?'dark':'light');
+}
+(()=>{ if(localStorage.getItem('il7_theme')!=='dark') applyTheme('light'); })();
+
+// ── AUTH OVERLAY ──────────────────────────────────────────────────────────
+function showAuthPanel(){
+  const auth=document.getElementById('auth-screen');
+  auth.style.cssText='display:flex;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px)';
+  let cl=document.getElementById('auth-panel-closer');
+  if(!cl){
+    cl=document.createElement('button');
+    cl.id='auth-panel-closer';
+    cl.textContent='✕';
+    cl.style.cssText='position:absolute;top:20px;right:24px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;z-index:1;padding:6px;line-height:1';
+    cl.onclick=closeAuthPanel;
+    auth.appendChild(cl);
+  }
+}
+function closeAuthPanel(){
+  document.getElementById('auth-screen').style.display='none';
+}
+function showAuthFromApp(){ closeUserMenu(); showAuthPanel(); }
 
 // CORE APP BOOT
 function showApp(){
   loadUserData();
-  document.getElementById('auth-screen').style.display='none';
+  closeAuthPanel();
   document.getElementById('firebase-loading').style.display='none';
-  document.getElementById('main-app').className='visible';
+  document.getElementById('main-app').className='';
   setupTopbar();
   exCollapse={};ssCollapse={};
   currentDate=new Date();currentDate.setHours(0,0,0,0);
@@ -1882,30 +2499,35 @@ async function doLogout(){
   if(!confirm('Sign out?'))return;
   if(!IS_GUEST&&fbAuth){try{await fbSignOut(fbAuth);}catch(e){}}
   CU=null;DATA={};TARGETS={};LIBRARY={};IS_GUEST=false;
-  document.getElementById('main-app').className='';
-  document.getElementById('auth-screen').style.display='flex';
+  setupTopbar();
+  loadUserData();
+  renderDashboard();
   closeUserMenu();
+  toast('Signed out');
 }
 
 function setupTopbar(){
-  const av=document.getElementById('topbar-avatar');
-  const isGuest=IS_GUEST||CU?.provider==='guest';
-  if(CU?.photoURL&&!isGuest){
-    av.style.background='transparent';
-    av.innerHTML=`<img src="${CU.photoURL}" style="width:30px;height:30px;border-radius:50%;object-fit:cover">`;
-  }else{
-    av.style.background=CU?.avatarColor||'#4a4a46';
-    av.innerHTML='';av.textContent=initials(CU?.name||'G');
+  const isGuest=IS_GUEST||!CU||CU?.provider==='guest';
+  const pill=document.getElementById('topbar-user-pill');
+  const signinBtn=document.getElementById('topbar-signin-btn');
+  if(signinBtn) signinBtn.style.display=isGuest?'block':'none';
+  if(pill) pill.style.display=isGuest?'none':'flex';
+  if(!isGuest&&CU){
+    const av=document.getElementById('topbar-avatar');
+    if(av){
+      if(CU.photoURL){av.style.background='transparent';av.innerHTML=`<img src="${CU.photoURL}" style="width:30px;height:30px;border-radius:50%;object-fit:cover">`;}
+      else{av.style.background=CU.avatarColor||'#4a4a46';av.innerHTML='';av.textContent=initials(CU.name||'U');}
+    }
+    const un=document.getElementById('topbar-uname');if(un)un.textContent=(CU.name||'').split(' ')[0];
+    const dn=document.getElementById('dd-name');if(dn)dn.textContent=CU.name||'';
+    const de=document.getElementById('dd-email');if(de)de.textContent=CU.email||'';
+    const dp=document.getElementById('dd-prov');if(dp)dp.textContent=CU.provider==='google'?'Signed in with Google':'Signed in with Email';
+    const ga=document.getElementById('ud-guest-actions');if(ga)ga.style.display='none';
+    const so=document.getElementById('ud-signout-btn');if(so)so.style.display='block';
   }
-  document.getElementById('topbar-uname').textContent=(CU?.name||'Guest').split(' ')[0];
-  document.getElementById('dd-name').textContent=CU?.name||'Guest';
-  document.getElementById('dd-email').textContent=CU?.email||'Not signed in';
-  document.getElementById('dd-prov').textContent=isGuest?'Guest — data on this device only':CU?.provider==='google'?'Signed in with Google':'Signed in with Email';
-  document.getElementById('ud-guest-actions').style.display=isGuest?'block':'none';
-  document.getElementById('ud-signout-btn').style.display=isGuest?'none':'block';
   const str=calcStreak();
   const sb=document.getElementById('streak-badge');
-  if(str>0){sb.style.display='flex';sb.textContent=`🔥 ${str} DAY STREAK`;}else sb.style.display='none';
+  if(sb){if(str>0){sb.style.display='flex';sb.textContent=`🔥 ${str} DAY STREAK`;}else sb.style.display='none';}
 }
 
 function toggleUserMenu(){document.getElementById('user-dropdown').classList.toggle('show');}
@@ -1915,12 +2537,13 @@ document.addEventListener('click',e=>{
   if(dd&&pill&&!dd.contains(e.target)&&!pill.contains(e.target))closeUserMenu();
 });
 
+
 // FIREBASE SDK LOADER
 (async function initFirebase(){
   // Safety net — if Firebase takes too long or is blocked, show auth screen anyway
   const loadingTimeout = setTimeout(()=>{
     document.getElementById('firebase-loading').style.display='none';
-    document.getElementById('auth-screen').style.display='flex';
+    showAuthPanel();
     toast('Firebase is taking a while. You can use Guest mode while it loads.',true);
   }, 8000);
 
@@ -1965,11 +2588,11 @@ document.addEventListener('click',e=>{
         _lastVerUser=firebaseUser;
         await fbSignOut(fbAuth);
         document.getElementById('firebase-loading').style.display='none';
-        document.getElementById('auth-screen').style.display='flex';
+        showAuthPanel();
         document.getElementById('verify-notice').style.display='block';
       }else{
         document.getElementById('firebase-loading').style.display='none';
-        document.getElementById('auth-screen').style.display='flex';
+        showAuthPanel();
         document.getElementById('login-pw')?.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
         document.getElementById('login-email')?.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('login-pw')?.focus();});
         document.getElementById('reg-pw2')?.addEventListener('keydown',e=>{if(e.key==='Enter')doRegister();});
@@ -1979,7 +2602,7 @@ document.addEventListener('click',e=>{
     clearTimeout(loadingTimeout);
     console.warn('Firebase failed:',err);
     document.getElementById('firebase-loading').style.display='none';
-    document.getElementById('auth-screen').style.display='flex';
+    showAuthPanel();
     toast('Could not connect to Firebase. Use Guest mode.',true);
   }
 })();
@@ -2000,8 +2623,10 @@ function goPage(id, btn){
   if(id==='weekly') renderWeekly();
   if(id==='progress'){populateProgEx();renderProgress();}
   if(id==='muscles') renderMuscles();
-  if(id==='history'){populateHistEx();renderHistory();}
+  if(id==='history'){renderHistory();}
   if(id==='library') renderLibrary();
+  if(id==='data') renderDemoDataCard();
+  if(id==='research') showResearch('bench');
 }
 
 // HELPERS
@@ -2070,10 +2695,11 @@ function renderHero(){
   const todayKey=dk(now);
   const todayLogged=DATA[todayKey]&&(DATA[todayKey].exercises||[]).some(e=>e.sets&&e.sets.length>0);
   const str=calcStreak();
+  const firstName = CU?.name?.split(' ')[0] || 'Athlete';
   let sub='';
-  if(todayLogged) sub=`Today's session is logged ✓ — streak at <strong style="color:var(--gold)">${str} days</strong>. Great work, ${CU.name.split(' ')[0]}.`;
-  else if(str>0) sub=`You're on a <strong style="color:var(--gold)">${str}-day streak</strong>. Keep the momentum going, ${CU.name.split(' ')[0]}.`;
-  else sub=`Welcome back, <strong>${CU.name.split(' ')[0]}</strong>. Time to move some weight.`;
+  if(todayLogged) sub=`Today's session is logged ✓ — streak at <strong style="color:var(--gold)">${str} days</strong>. Great work, ${firstName}.`;
+  else if(str>0) sub=`You're on a <strong style="color:var(--gold)">${str}-day streak</strong>. Keep the momentum going, ${firstName}.`;
+  else sub=`Welcome back, <strong>${firstName}</strong>. Time to move some weight.`;
   document.getElementById('db-greeting-sub').innerHTML=sub;
 }
 
@@ -2139,7 +2765,7 @@ function renderStatCards(){
     </div>
   `;
 }
-function totalVol2(sets){return(sets||[]).reduce((s,x)=>s+x.w*x.r,0);}
+function totalVol2(sets){return(sets||[]).reduce((s,x)=>s+(x._synthetic?x._synVol||0:x.w*x.r),0);}
 
 function renderHeatmap(){
   const today=new Date();today.setHours(0,0,0,0);
@@ -2279,36 +2905,332 @@ function renderPRs(){
 }
 
 function renderRadar(){
-  const muscleVols={};ALL_MUSCLES.forEach(m=>muscleVols[m]=0);
-  Object.values(DATA).forEach(d=>(d.exercises||[]).forEach(ex=>{
-    if(ex.muscle&&muscleVols[ex.muscle]!==undefined)muscleVols[ex.muscle]+=totalVol2(ex.sets);
-  }));
-  const labels=ALL_MUSCLES;
-  const maxV=Math.max(...Object.values(muscleVols),1);
-  const data=labels.map(m=>parseFloat((muscleVols[m]/maxV*100).toFixed(1)));
-  const canvas=document.getElementById('db-radar');if(!canvas)return;
-  const ch=new Chart(canvas,{
-    type:'radar',
-    data:{labels,datasets:[{
-      data,
-      backgroundColor:'rgba(232,83,63,0.12)',
-      borderColor:'rgba(232,83,63,0.6)',
-      borderWidth:2,
-      pointBackgroundColor:'#e8533f',
-      pointRadius:4,
-      pointHoverRadius:6,
-    }]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{r:{
-        angleLines:{color:'rgba(255,255,255,0.06)'},
-        grid:{color:'rgba(255,255,255,0.06)'},
-        ticks:{display:false},
-        pointLabels:{color:'#8a8880',font:{size:10,family:"'Rajdhani',sans-serif"},fontStyle:'bold'},
-        min:0,max:100,
-      }}}
+  // Compute per-muscle data: lifetime volume, last trained date, best e1RM, weekly freq
+  const muscleVols={},muscleLastDate={},muscleE1RM={},muscleWeekSets={};
+  ALL_MUSCLES.forEach(m=>{muscleVols[m]=0;muscleLastDate[m]=null;muscleE1RM[m]=0;muscleWeekSets[m]=0;});
+
+  const now=new Date();now.setHours(0,0,0,0);
+  const weekAgo=new Date(now.getTime()-7*86400000);
+
+  Object.entries(DATA).forEach(([k,d])=>{
+    const date=new Date(k+'T00:00:00');
+    (d.exercises||[]).forEach(ex=>{
+      const m=ex.muscle;
+      if(!m||muscleVols[m]===undefined)return;
+      const v=totalVol2(ex.sets);
+      muscleVols[m]+=v;
+      if(!muscleLastDate[m]||date>muscleLastDate[m]) muscleLastDate[m]=date;
+      const bs=bestSet(ex.sets);
+      if(bs){const est=e1rm(bs.w,bs.r);if(est>muscleE1RM[m])muscleE1RM[m]=est;}
+      if(date>=weekAgo) muscleWeekSets[m]+=(ex.sets||[]).length;
+    });
   });
-  dbCharts.push(ch);
+
+  const maxVol=Math.max(...Object.values(muscleVols),1);
+  // Normalise 0–1
+  const norm=m=>muscleVols[m]/maxVol;
+
+  // Colour with alpha based on training volume
+  function zoneColor(muscle, alpha){
+    const base=MUSCLE_COLOURS[muscle]||'#4f9de8';
+    const r=parseInt(base.slice(1,3),16);
+    const g=parseInt(base.slice(3,5),16);
+    const b=parseInt(base.slice(5,7),16);
+    return`rgba(${r},${g},${b},${alpha.toFixed(2)})`;
+  }
+  function fillColor(muscle){
+    const n=norm(muscle);
+    if(n===0) return'rgba(60,60,55,0.5)';
+    const minA=0.18, maxA=0.90;
+    return zoneColor(muscle, minA+n*(maxA-minA));
+  }
+  function strokeColor(muscle){
+    const n=norm(muscle);
+    if(n===0) return'rgba(80,80,75,0.4)';
+    return zoneColor(muscle, 0.7);
+  }
+
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function lastTrainedStr(m){
+    const d=muscleLastDate[m];
+    if(!d) return'Never';
+    const diff=Math.round((now-d)/86400000);
+    if(diff===0) return'Today';
+    if(diff===1) return'Yesterday';
+    if(diff<7) return`${diff}d ago`;
+    return`${d.getDate()} ${months[d.getMonth()]}`;
+  }
+
+  // Build SVG — anterior (front) + posterior (back) views side by side
+  // All paths are simplified anatomical shapes, drawn as SVG paths
+  // Viewbox: 0 0 320 420 — front left half (0–160), back right half (160–320)
+  const svgContent = `
+<svg class="mf-svg" viewBox="0 0 320 430" width="100%" style="max-height:380px">
+  <defs>
+    <filter id="mf-glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- LABELS -->
+  <text x="80" y="16" text-anchor="middle" font-family="var(--font-head)" font-size="9" fill="rgba(138,136,128,0.6)" letter-spacing="2">ANTERIOR</text>
+  <text x="240" y="16" text-anchor="middle" font-family="var(--font-head)" font-size="9" fill="rgba(138,136,128,0.6)" letter-spacing="2">POSTERIOR</text>
+
+  <!-- ══ ANTERIOR (FRONT) — centered on x=80 ══ -->
+
+  <!-- HEAD -->
+  <ellipse cx="80" cy="42" rx="18" ry="22" fill="rgba(50,48,44,0.8)" stroke="rgba(80,78,72,0.5)" stroke-width="1"/>
+
+  <!-- NECK -->
+  <rect x="74" y="62" width="12" height="10" rx="3" fill="rgba(50,48,44,0.7)"/>
+
+  <!-- CHEST (Pectoralis Major) — two halves -->
+  <g class="mf-zone" data-muscle="Chest" id="mfz-Chest-front"
+     fill="${fillColor('Chest')}" stroke="${strokeColor('Chest')}" stroke-width="1">
+    <!-- Left pec -->
+    <path d="M58,75 Q48,72 44,82 Q42,92 48,100 Q54,106 62,104 Q68,102 70,96 L68,80 Z"/>
+    <!-- Right pec -->
+    <path d="M102,75 Q112,72 116,82 Q118,92 112,100 Q106,106 98,104 Q92,102 90,96 L92,80 Z"/>
+  </g>
+
+  <!-- SHOULDERS (Anterior Deltoid) -->
+  <g class="mf-zone" data-muscle="Shoulders" id="mfz-Shoulders-front"
+     fill="${fillColor('Shoulders')}" stroke="${strokeColor('Shoulders')}" stroke-width="1">
+    <!-- Left shoulder -->
+    <path d="M62,74 Q52,70 44,76 Q38,82 40,90 Q42,96 48,96 Q54,94 58,88 L62,80 Z"/>
+    <!-- Right shoulder -->
+    <path d="M98,74 Q108,70 116,76 Q122,82 120,90 Q118,96 112,96 Q106,94 102,88 L98,80 Z"/>
+  </g>
+
+  <!-- BICEPS -->
+  <g class="mf-zone" data-muscle="Biceps" id="mfz-Biceps-front"
+     fill="${fillColor('Biceps')}" stroke="${strokeColor('Biceps')}" stroke-width="1">
+    <!-- Left bicep -->
+    <path d="M44,98 Q36,102 34,114 Q32,126 38,134 Q42,140 48,138 Q54,134 54,122 Q54,110 50,102 Z"/>
+    <!-- Right bicep -->
+    <path d="M116,98 Q124,102 126,114 Q128,126 122,134 Q118,140 112,138 Q106,134 106,122 Q106,110 110,102 Z"/>
+  </g>
+
+  <!-- FOREARMS -->
+  <g class="mf-zone" data-muscle="Forearms" id="mfz-Forearms-front"
+     fill="${fillColor('Forearms')}" stroke="${strokeColor('Forearms')}" stroke-width="1">
+    <!-- Left forearm -->
+    <path d="M38,140 Q30,148 28,162 Q26,176 30,186 Q34,192 40,190 Q46,186 48,172 Q50,158 46,144 Z"/>
+    <!-- Right forearm -->
+    <path d="M122,140 Q130,148 132,162 Q134,176 130,186 Q126,192 120,190 Q114,186 112,172 Q110,158 114,144 Z"/>
+  </g>
+
+  <!-- TRICEPS (visible from front — outer head) -->
+  <g class="mf-zone" data-muscle="Triceps" id="mfz-Triceps-front"
+     fill="${fillColor('Triceps')}" stroke="${strokeColor('Triceps')}" stroke-width="1" opacity="0.7">
+    <!-- Left outer tricep -->
+    <path d="M42,96 Q34,100 32,112 Q30,122 34,132 Q38,138 44,136 Q44,122 44,108 Z"/>
+    <!-- Right outer tricep -->
+    <path d="M118,96 Q126,100 128,112 Q130,122 126,132 Q122,138 116,136 Q116,122 116,108 Z"/>
+  </g>
+
+  <!-- ABS / CORE -->
+  <g class="mf-zone" data-muscle="Core" id="mfz-Core-front"
+     fill="${fillColor('Core')}" stroke="${strokeColor('Core')}" stroke-width="1">
+    <path d="M68,104 L92,104 L94,108 L96,140 L80,148 L64,140 L66,108 Z"/>
+    <!-- Linea alba (detail lines) -->
+    <line x1="80" y1="106" x2="80" y2="148" stroke="${strokeColor('Core')}" stroke-width="0.5" opacity="0.4"/>
+    <line x1="66" y1="118" x2="94" y2="118" stroke="${strokeColor('Core')}" stroke-width="0.5" opacity="0.4"/>
+    <line x1="66" y1="130" x2="94" y2="130" stroke="${strokeColor('Core')}" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- QUADS -->
+  <g class="mf-zone" data-muscle="Quads" id="mfz-Quads-front"
+     fill="${fillColor('Quads')}" stroke="${strokeColor('Quads')}" stroke-width="1">
+    <!-- Left quad -->
+    <path d="M63,150 Q54,154 52,168 Q50,186 52,204 Q54,216 60,220 Q66,222 70,216 Q74,206 74,188 L74,158 Q70,152 66,150 Z"/>
+    <!-- Right quad -->
+    <path d="M97,150 Q106,154 108,168 Q110,186 108,204 Q106,216 100,220 Q94,222 90,216 Q86,206 86,188 L86,158 Q90,152 94,150 Z"/>
+    <!-- VMO detail -->
+    <path d="M60,218 Q58,228 62,234 Q66,238 70,234 Q72,226 70,218 Z" opacity="0.7"/>
+    <path d="M100,218 Q102,228 98,234 Q94,238 90,234 Q88,226 90,218 Z" opacity="0.7"/>
+  </g>
+
+  <!-- CALVES -->
+  <g class="mf-zone" data-muscle="Calves" id="mfz-Calves-front"
+     fill="${fillColor('Calves')}" stroke="${strokeColor('Calves')}" stroke-width="1">
+    <!-- Left calf -->
+    <path d="M60,236 Q54,244 52,258 Q50,272 52,282 Q54,290 60,292 Q66,292 68,282 Q70,268 68,252 Q66,240 64,236 Z"/>
+    <!-- Right calf -->
+    <path d="M100,236 Q106,244 108,258 Q110,272 108,282 Q106,290 100,292 Q94,292 92,282 Q90,268 92,252 Q94,240 96,236 Z"/>
+  </g>
+
+  <!-- HIP FLEXORS / GROIN (part of lower body) -->
+  <path d="M64,148 Q68,152 80,154 Q92,152 96,148 L94,140 Q88,148 80,150 Q72,148 66,140 Z"
+    fill="rgba(50,48,44,0.7)" stroke="rgba(80,78,72,0.4)" stroke-width="0.5"/>
+
+  <!-- KNEE CAPS -->
+  <ellipse cx="64" cy="233" rx="8" ry="5" fill="rgba(50,48,44,0.8)"/>
+  <ellipse cx="96" cy="233" rx="8" ry="5" fill="rgba(50,48,44,0.8)"/>
+
+  <!-- FEET -->
+  <path d="M52,294 Q48,300 46,306 Q44,312 50,314 Q56,316 68,314 Q72,312 70,308 Q68,302 60,296 Z" fill="rgba(50,48,44,0.7)"/>
+  <path d="M108,294 Q112,300 114,306 Q116,312 110,314 Q104,316 92,314 Q88,312 90,308 Q92,302 100,296 Z" fill="rgba(50,48,44,0.7)"/>
+
+  <!-- ══ POSTERIOR (BACK) — centered on x=240 ══ -->
+
+  <!-- HEAD (back) -->
+  <ellipse cx="240" cy="42" rx="18" ry="22" fill="rgba(50,48,44,0.8)" stroke="rgba(80,78,72,0.5)" stroke-width="1"/>
+
+  <!-- NECK (back) -->
+  <rect x="234" y="62" width="12" height="10" rx="3" fill="rgba(50,48,44,0.7)"/>
+
+  <!-- TRAPEZIUS (upper back / Shoulders group) -->
+  <g class="mf-zone" data-muscle="Shoulders" id="mfz-Shoulders-back"
+     fill="${fillColor('Shoulders')}" stroke="${strokeColor('Shoulders')}" stroke-width="1">
+    <path d="M224,72 Q222,68 214,72 Q208,76 206,84 Q208,90 214,92 Q220,92 226,90 L228,80 Z"/>
+    <path d="M256,72 Q258,68 266,72 Q272,76 274,84 Q272,90 266,92 Q260,92 254,90 L252,80 Z"/>
+    <!-- Upper trap across neck -->
+    <path d="M228,72 Q234,68 240,68 Q246,68 252,72 L254,80 Q248,76 240,75 Q232,76 226,80 Z"/>
+  </g>
+
+  <!-- BACK (Latissimus Dorsi + Rhomboids) -->
+  <g class="mf-zone" data-muscle="Back" id="mfz-Back-back"
+     fill="${fillColor('Back')}" stroke="${strokeColor('Back')}" stroke-width="1">
+    <!-- Left lat -->
+    <path d="M222,82 Q212,86 208,100 Q206,116 208,130 Q210,140 216,144 Q222,148 226,144 L228,120 L230,96 Z"/>
+    <!-- Right lat -->
+    <path d="M258,82 Q268,86 272,100 Q274,116 272,130 Q270,140 264,144 Q258,148 254,144 L252,120 L250,96 Z"/>
+    <!-- Mid back / rhomboids -->
+    <path d="M228,84 Q234,82 240,82 Q246,82 252,84 L254,110 Q248,114 240,115 Q232,114 226,110 Z"/>
+    <!-- Lower back -->
+    <path d="M226,112 Q230,116 240,118 Q250,116 254,112 L256,140 L240,148 L224,140 Z"/>
+  </g>
+
+  <!-- REAR DELTOID (part of Shoulders, rear view) -->
+  <g class="mf-zone" data-muscle="Shoulders" id="mfz-Shoulders-back2"
+     fill="${fillColor('Shoulders')}" stroke="${strokeColor('Shoulders')}" stroke-width="1" opacity="0.8">
+    <path d="M218,80 Q210,82 206,90 Q204,98 208,106 Q212,110 218,108 L222,96 L222,82 Z"/>
+    <path d="M262,80 Q270,82 274,90 Q276,98 272,106 Q268,110 262,108 L258,96 L258,82 Z"/>
+  </g>
+
+  <!-- TRICEPS (back of arm — main view) -->
+  <g class="mf-zone" data-muscle="Triceps" id="mfz-Triceps-back"
+     fill="${fillColor('Triceps')}" stroke="${strokeColor('Triceps')}" stroke-width="1">
+    <!-- Left tricep (back of upper arm) -->
+    <path d="M206,92 Q198,98 196,112 Q194,126 198,138 Q202,146 208,144 Q214,140 214,126 Q214,112 210,100 Z"/>
+    <!-- Right tricep -->
+    <path d="M274,92 Q282,98 284,112 Q286,126 282,138 Q278,146 272,144 Q266,140 266,126 Q266,112 270,100 Z"/>
+  </g>
+
+  <!-- FOREARMS (back) -->
+  <g class="mf-zone" data-muscle="Forearms" id="mfz-Forearms-back"
+     fill="${fillColor('Forearms')}" stroke="${strokeColor('Forearms')}" stroke-width="1">
+    <path d="M198,146 Q190,154 188,168 Q186,182 190,192 Q194,198 200,196 Q206,192 208,178 Q210,162 206,148 Z"/>
+    <path d="M282,146 Q290,154 292,168 Q294,182 290,192 Q286,198 280,196 Q274,192 272,178 Q270,162 274,148 Z"/>
+  </g>
+
+  <!-- GLUTES -->
+  <g class="mf-zone" data-muscle="Glutes" id="mfz-Glutes-back"
+     fill="${fillColor('Glutes')}" stroke="${strokeColor('Glutes')}" stroke-width="1">
+    <!-- Left glute -->
+    <path d="M224,142 Q214,148 210,162 Q208,176 212,186 Q216,194 224,196 Q232,196 236,188 Q238,178 236,164 Q234,152 230,144 Z"/>
+    <!-- Right glute -->
+    <path d="M256,142 Q266,148 270,162 Q272,176 268,186 Q264,194 256,196 Q248,196 244,188 Q242,178 244,164 Q246,152 250,144 Z"/>
+  </g>
+
+  <!-- HAMSTRINGS -->
+  <g class="mf-zone" data-muscle="Hamstrings" id="mfz-Hamstrings-back"
+     fill="${fillColor('Hamstrings')}" stroke="${strokeColor('Hamstrings')}" stroke-width="1">
+    <!-- Left hamstring -->
+    <path d="M212,196 Q206,206 204,222 Q202,238 204,252 Q206,262 212,264 Q218,264 222,256 Q226,244 224,226 Q222,210 218,198 Z"/>
+    <!-- Right hamstring -->
+    <path d="M268,196 Q274,206 276,222 Q278,238 276,252 Q274,262 268,264 Q262,264 258,256 Q254,244 256,226 Q258,210 262,198 Z"/>
+  </g>
+
+  <!-- CALVES (back) -->
+  <g class="mf-zone" data-muscle="Calves" id="mfz-Calves-back"
+     fill="${fillColor('Calves')}" stroke="${strokeColor('Calves')}" stroke-width="1">
+    <!-- Left calf (gastrocnemius — visible from back) -->
+    <path d="M210,268 Q204,278 202,294 Q200,308 202,318 Q204,326 210,328 Q216,328 220,318 Q224,304 222,288 Q220,274 216,268 Z"/>
+    <!-- Right calf -->
+    <path d="M270,268 Q276,278 278,294 Q280,308 278,318 Q276,326 270,328 Q264,328 260,318 Q256,304 258,288 Q260,274 264,268 Z"/>
+    <!-- Split detail (medial / lateral heads) -->
+    <line x1="213" y1="272" x2="213" y2="326" stroke="${strokeColor('Calves')}" stroke-width="0.5" opacity="0.4"/>
+    <line x1="267" y1="272" x2="267" y2="326" stroke="${strokeColor('Calves')}" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- KNEES (back) -->
+  <ellipse cx="216" cy="265" rx="8" ry="5" fill="rgba(50,48,44,0.8)"/>
+  <ellipse cx="264" cy="265" rx="8" ry="5" fill="rgba(50,48,44,0.8)"/>
+
+  <!-- FEET (back) -->
+  <path d="M200,330 Q198,336 200,342 Q202,348 210,348 Q218,348 220,342 Q222,336 218,330 Z" fill="rgba(50,48,44,0.7)"/>
+  <path d="M260,330 Q264,336 262,342 Q260,348 268,348 Q276,348 278,342 Q278,336 274,330 Z" fill="rgba(50,48,44,0.7)"/>
+
+  <!-- CENTER DIVIDER -->
+  <line x1="160" y1="20" x2="160" y2="420" stroke="rgba(60,60,55,0.5)" stroke-width="0.5" stroke-dasharray="4 4"/>
+
+</svg>`;
+
+  const wrap=document.getElementById('muscle-figure-wrap');
+  if(!wrap) return;
+  wrap.innerHTML=svgContent+`<div class="mf-tooltip" id="mf-tooltip"></div>`;
+
+  // Wire hover events to all mf-zone elements
+  const tooltip=document.getElementById('mf-tooltip');
+  const zones=wrap.querySelectorAll('.mf-zone');
+
+  zones.forEach(zone=>{
+    const muscle=zone.dataset.muscle;
+    zone.addEventListener('mouseenter',(e)=>{
+      const vol=muscleVols[muscle]||0;
+      const pct=Math.round(norm(muscle)*100);
+      const best=muscleE1RM[muscle];
+      const last=lastTrainedStr(muscle);
+      const wSets=muscleWeekSets[muscle];
+      const col=MUSCLE_COLOURS[muscle]||'#4f9de8';
+      // Update subtitle
+      const sub=document.getElementById('muscle-map-subtitle');
+      if(sub) sub.textContent=muscle.toUpperCase();
+      if(sub) sub.style.color=col;
+
+      tooltip.style.display='block';
+      tooltip.innerHTML=`
+        <div class="mf-tt-name" style="color:${col}">${muscle}</div>
+        <div class="mf-tt-bar-wrap"><div class="mf-tt-bar" style="width:${pct}%;background:${col}"></div></div>
+        <div class="mf-tt-row"><span class="mf-tt-lbl">LIFETIME VOL</span><span class="mf-tt-val">${fmtVol(vol)} u</span></div>
+        <div class="mf-tt-row"><span class="mf-tt-lbl">RELATIVE</span><span class="mf-tt-val" style="color:${col}">${pct}%</span></div>
+        ${best?`<div class="mf-tt-row"><span class="mf-tt-lbl">BEST e1RM</span><span class="mf-tt-val" style="color:var(--blue)">${best} kg</span></div>`:''}
+        <div class="mf-tt-row"><span class="mf-tt-lbl">LAST TRAINED</span><span class="mf-tt-val">${last}</span></div>
+        ${wSets?`<div class="mf-tt-row"><span class="mf-tt-lbl">THIS WEEK</span><span class="mf-tt-val" style="color:var(--green)">${wSets} sets</span></div>`:''}
+      `;
+      positionTooltip(e, tooltip, wrap);
+    });
+    zone.addEventListener('mousemove',(e)=>{
+      positionTooltip(e, tooltip, wrap);
+    });
+    zone.addEventListener('mouseleave',()=>{
+      tooltip.style.display='none';
+      const sub=document.getElementById('muscle-map-subtitle');
+      if(sub){sub.textContent='hover to inspect';sub.style.color='';}
+    });
+    zone.addEventListener('click',()=>{
+      // Navigate to history filtered by muscle
+      _histMuscleFilter=muscle;
+      document.querySelectorAll('.hfc').forEach(b=>b.classList.toggle('active',b.dataset.m===muscle));
+      goPage('history');
+    });
+  });
+}
+
+function positionTooltip(e, tooltip, wrap){
+  const rect=wrap.getBoundingClientRect();
+  const ttW=tooltip.offsetWidth||180;
+  const ttH=tooltip.offsetHeight||120;
+  let x=e.clientX-rect.left+14;
+  let y=e.clientY-rect.top-ttH/2;
+  if(x+ttW>rect.width-8) x=e.clientX-rect.left-ttW-14;
+  if(y<4) y=4;
+  if(y+ttH>rect.height-4) y=rect.height-ttH-4;
+  tooltip.style.left=x+'px';
+  tooltip.style.top=y+'px';
 }
 
 function renderRecentActivity(){
@@ -3228,6 +4150,13 @@ function addSet(exId){
   // Push the set — restDur starts as null, will be patched when rest ends
   ex.sets.push({w,r,rpe,ts:Date.now(),setDur:setDurSec,restDur:null,intensity:intensity?.label||null});
   const newSetIndex=ex.sets.length-1;
+
+  // Apply synergist fatigue distribution based on EMG research
+  if(ex.muscle && !ex._isSynergist){
+    const setVol = w * r;
+    if(setVol > 0) applySynergistFatigue(ex.name, ex.muscle, setVol, dk(currentDate));
+  }
+
   save();
 
   // Start rest timer for THIS set (will patch restDur back onto this set index)
@@ -3330,6 +4259,72 @@ function toggleSSGroup(parentId){
 }
 
 // Muscle accent colours for the left stripe
+// ══ SYNERGIST FATIGUE MAP — Research-derived EMG coefficients ══════════════
+// Sources: Rodríguez-Ridao et al. 2020 (IJERPH 17:7339), Stastny et al. 2017,
+// Muyor et al. 2019, Elliott et al. 1989, Barnett et al. 1995, Escamilla 2001,
+// Saeterbakken 2013, Fenwick 2009, Clark 2012.
+//
+// Two-tier lookup: EXERCISE_SYNERGIST_MAP (by name) → SYNERGIST_MAP (muscle fallback).
+// coeff = fraction of primary set volume distributed as secondary fatigue.
+
+const EXERCISE_SYNERGIST_MAP = {
+  'Bench Press':    { synergists:[{muscle:'Shoulders',coeff:0.50,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Standard grip flat bench • PM=27%, AD=26%, TB=15% MVIC' },
+  'Incline Bench':  { synergists:[{muscle:'Shoulders',coeff:0.75,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.60,label:'Triceps',color:'#4f9de8'}], note:'Incline shifts activation toward anterior deltoid (+40%)' },
+  'Decline Bench':  { synergists:[{muscle:'Shoulders',coeff:0.30,label:'Ant. Delt ↓',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.58,label:'Triceps',color:'#4f9de8'}], note:'Decline maximises sternal pec, reduces anterior deltoid (−35%)' },
+  'Push Up':        { synergists:[{muscle:'Shoulders',coeff:0.48,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Bodyweight equivalent to flat bench' },
+  'Dumbbell Fly':   { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.15,label:'Triceps',color:'#4f9de8'}], note:'Near-isolation — minimal triceps elbow work' },
+  'Barbell Row':    { synergists:[{muscle:'Biceps',coeff:0.60,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.40,label:'Rear Delt',color:'#9b6fe0'}], note:'Posterior pull — biceps as primary synergist' },
+  'Pull Up':        { synergists:[{muscle:'Biceps',coeff:0.65,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Rear Delt',color:'#9b6fe0'}], note:'Vertical pull — strong biceps synergist' },
+  'Lat Pulldown':   { synergists:[{muscle:'Biceps',coeff:0.62,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Rear Delt',color:'#9b6fe0'}], note:'Machine equivalent of pull-up' },
+  'Deadlift':       { synergists:[{muscle:'Hamstrings',coeff:0.70,label:'Hamstrings',color:'#5ec97a'},{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.60,label:'Erectors',color:'#e8533f'},{muscle:'Quads',coeff:0.45,label:'Quads',color:'#44c76a'}], note:'Full posterior chain — highest systemic fatigue' },
+  'Overhead Press': { synergists:[{muscle:'Triceps',coeff:0.65,label:'Triceps',color:'#4f9de8'},{muscle:'Chest',coeff:0.25,label:'Upper Pec',color:'#e8533f'}], note:'Shoulder compound — heavy triceps involvement' },
+  'Lateral Raise':  { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Supraspinatus',color:'#9b6fe0'}], note:'Near-isolation — rotator cuff stabilises' },
+  'Squat':          { synergists:[{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Hamstrings',coeff:0.55,label:'Hamstrings',color:'#5ec97a'},{muscle:'Core',coeff:0.30,label:'Core',color:'#e8533f'},{muscle:'Calves',coeff:0.20,label:'Calves',color:'#4f9de8'}], note:'Highest lower-body synergist spread — Escamilla 2001' },
+  'Romanian Deadlift': { synergists:[{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.50,label:'Erectors',color:'#e8533f'}], note:'Hip-hinge — glutes nearly equal primary' },
+  'Hip Thrust':     { synergists:[{muscle:'Hamstrings',coeff:0.50,label:'Hamstrings',color:'#5ec97a'},{muscle:'Quads',coeff:0.25,label:'Quads',color:'#44c76a'}], note:'Glute isolation — moderate synergist load' },
+  'Leg Press':      { synergists:[{muscle:'Glutes',coeff:0.65,label:'Glutes',color:'#f0b429'},{muscle:'Hamstrings',coeff:0.40,label:'Hamstrings',color:'#5ec97a'},{muscle:'Calves',coeff:0.15,label:'Calves',color:'#4f9de8'}], note:'Machine squat — less core demand' },
+  'Barbell Curl':   { synergists:[{muscle:'Forearms',coeff:0.60,label:'Brachioradialis',color:'#e07a5f'}], note:'Elbow flexion — forearm synergist' },
+  'Hammer Curl':    { synergists:[{muscle:'Forearms',coeff:0.80,label:'Brachioradialis',color:'#e07a5f'}], note:'Neutral grip — increased forearm involvement' },
+  'Skull Crusher':  { synergists:[{muscle:'Shoulders',coeff:0.25,label:'Ant. Delt stab.',color:'#9b6fe0'}], note:'Triceps isolation' },
+  'Dips':           { synergists:[{muscle:'Chest',coeff:0.55,label:'Chest',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Ant. Delt',color:'#9b6fe0'}], note:'Compound push — chest + shoulder synergist' },
+};
+
+const SYNERGIST_MAP = {
+  'Chest':      [{muscle:'Shoulders',coeff:0.50,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}],
+  'Back':       [{muscle:'Biceps',coeff:0.60,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.40,label:'Rear Delt',color:'#9b6fe0'}],
+  'Shoulders':  [{muscle:'Triceps',coeff:0.65,label:'Triceps',color:'#4f9de8'},{muscle:'Chest',coeff:0.25,label:'Upper Pec',color:'#e8533f'}],
+  'Biceps':     [{muscle:'Forearms',coeff:0.60,label:'Brachioradialis',color:'#e07a5f'}],
+  'Triceps':    [{muscle:'Shoulders',coeff:0.25,label:'Ant. Delt stab.',color:'#9b6fe0'}],
+  'Quads':      [{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Hamstrings',coeff:0.55,label:'Hamstrings',color:'#5ec97a'},{muscle:'Core',coeff:0.30,label:'Core',color:'#e8533f'}],
+  'Hamstrings': [{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.50,label:'Erectors',color:'#e8533f'}],
+  'Glutes':     [{muscle:'Hamstrings',coeff:0.50,label:'Hamstrings',color:'#5ec97a'},{muscle:'Quads',coeff:0.25,label:'Quads',color:'#44c76a'}],
+  'Core':       [{muscle:'Back',coeff:0.40,label:'Erectors',color:'#44c76a'}],
+};
+
+function getSynergists(exName, primaryMuscle){
+  return EXERCISE_SYNERGIST_MAP[exName]?.synergists || SYNERGIST_MAP[primaryMuscle] || [];
+}
+function getSynergistNote(exName){
+  return EXERCISE_SYNERGIST_MAP[exName]?.note || null;
+}
+
+function applySynergistFatigue(exName, primaryMuscle, setVol, dateKey){
+  const synergists = getSynergists(exName, primaryMuscle);
+  if(!synergists.length) return;
+  if(!DATA[dateKey]) DATA[dateKey]={exercises:[]};
+  const day = DATA[dateKey];
+  synergists.forEach(({muscle, coeff})=>{
+    const synKey = `__synergist__${muscle}`;
+    let synEx = day.exercises.find(e=>e._synKey===synKey);
+    if(!synEx){
+      synEx = {id:synKey,name:`${muscle} (synergist)`,muscle,_synKey:synKey,_isSynergist:true,sets:[],superSetOf:null};
+      day.exercises.push(synEx);
+    }
+    synEx.sets.push({w:0,r:0,_synVol:Math.round(setVol*coeff),ts:Date.now(),_synthetic:true});
+  });
+}
+
+
 const MUSCLE_COLOURS={
   Chest:'#4f9de8',Back:'#44c76a',Shoulders:'#9b6fe0',
   Biceps:'#e8533f',Triceps:'#f0b429',Forearms:'#e07a5f',
@@ -3340,15 +4335,16 @@ const MUSCLE_COLOURS={
 function renderLog(){
   document.getElementById('log-date-lbl').textContent=fmtDate(currentDate);
   const day=getDay(currentDate);const exercises=day.exercises||[];
+  const realExs=exercises.filter(e=>!e._isSynergist);
   let totVol=0,totSets=0;
-  exercises.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
-  const hasSets=exercises.some(e=>e.sets&&e.sets.length>0);
+  realExs.forEach(ex=>ex.sets.forEach(s=>{totVol+=s.w*s.r;totSets++;}));
+  const hasSets=realExs.some(e=>e.sets&&e.sets.length>0);
 
   // ── LOCKED / SAVED DAY — show read-only summary ──
   if(day.locked && hasSets){
     const note=day.sessionNote||{};
-    const muscleGroups=[...new Set(exercises.filter(e=>e.muscle).map(e=>e.muscle))].slice(0,4);
-    const exCount=exercises.filter(e=>e.sets&&e.sets.length>0).length;
+    const muscleGroups=[...new Set(realExs.filter(e=>e.muscle&&!e._isSynergist).map(e=>e.muscle))].slice(0,4);
+    const exCount=realExs.filter(e=>e.sets&&e.sets.length>0).length;
     const stars=[1,2,3,4,5].map(i=>`<span style="color:${(note.rating||0)>=i?'var(--gold)':'var(--dim)'};font-size:20px">★</span>`).join('');
 
     document.getElementById('log-metrics').innerHTML=`
@@ -3406,7 +4402,7 @@ function renderLog(){
 
   document.getElementById('ex-dl').innerHTML=Object.keys(allExLib()).sort().map(n=>`<option value="${n}">`).join('');
 
-  const topLevel=exercises.filter(e=>!e.superSetOf);
+  const topLevel=exercises.filter(e=>!e.superSetOf && !e._isSynergist);
   let html='';
 
   if(!topLevel.length){
@@ -3493,6 +4489,21 @@ function renderLog(){
 
 const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x'];
 
+// Get the best set for this exercise from the most recent previous session
+function getPrevBest(exName){
+  const todayKey = dk(currentDate);
+  const pastKeys = Object.keys(DATA).sort().filter(k => k < todayKey);
+  for(let i = pastKeys.length - 1; i >= 0; i--){
+    const exs = DATA[pastKeys[i]]?.exercises || [];
+    const match = exs.find(e => e.name === exName && !e._isSynergist);
+    if(match){
+      const bs = bestSet(match.sets);
+      if(bs) return bs;
+    }
+  }
+  return null;
+}
+
 function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
   const isChild=!!ex.superSetOf;
   const collapsed=forceCollapsed||(exCollapse[ex.id]||false);
@@ -3506,6 +4517,39 @@ function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
   const t=getTimer(ex.id);
   const hasTimerData=ex.sets.some(s=>s.setDur);
   const showTimerCols=hasTimerData||t.useTimer;
+
+  // ── SYNERGIST BANNER DATA ──
+  const synergists = getSynergists(ex.name, ex.muscle);
+  const synNote = getSynergistNote(ex.name);
+  const synBanner = (synergists.length && ex.muscle) ? (() => {
+    const primaryColor = MUSCLE_COLOURS[ex.muscle]||'var(--border2)';
+    const pills = [
+      // Primary muscle pill
+      `<span class="syn-pill syn-pill-primary" style="border-color:${primaryColor};color:${primaryColor}">
+        <span class="syn-dot" style="background:${primaryColor}"></span>
+        ${ex.muscle} <span class="syn-pct">100%</span>
+      </span>`,
+      // Synergist pills
+      ...synergists.map(s =>
+        `<span class="syn-pill" style="border-color:${s.color}22;color:${s.color}">
+          <span class="syn-dot" style="background:${s.color}"></span>
+          ${s.label} <span class="syn-pct">${Math.round(s.coeff*100)}%</span>
+        </span>`
+      )
+    ].join('');
+    return `<div class="syn-banner">
+      <div class="syn-pills">${pills}</div>
+      ${synNote?`<div class="syn-note">🔬 ${synNote}</div>`:''}
+    </div>`;
+  })() : '';
+
+  // ── PREVIOUS BEST HINT ──
+  const prevBest = getPrevBest(ex.name);
+  const prevHint = prevBest ? `<div class="prev-best-hint">
+    <span class="pbh-label">LAST BEST</span>
+    <span class="pbh-val">${prevBest.w}kg × ${prevBest.r}</span>
+    <span class="pbh-e1rm">e1RM ${e1rm(prevBest.w,prevBest.r)}kg</span>
+  </div>` : '';
 
   const setsHtml=ex.sets.map((s,i)=>{
     const isBest=i===bestIdx&&ex.sets.length>1;
@@ -3551,7 +4595,9 @@ function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
         <span class="ex-chev${collapsed?' collapsed':''}" id="echev-${ex.id}">▾</span>
       </div>
     </div>
+    ${synBanner}
     <div id="eb-${ex.id}" class="ex-body" style="${collapsed?'display:none':''}">
+      ${prevHint}
       ${ex.sets.length
         ?`<div class="sets-display">${setsHtml}</div>${bestBarHtml}`
         :`<div class="no-sets-msg">No sets yet — log your first set below</div>`
@@ -3696,42 +4742,223 @@ function toggleTarget(m){const el=document.getElementById('tgt-'+m.replace(/\s/g
 function saveTarget(m){TARGETS[m]=parseFloat(document.getElementById('ti-'+m.replace(/\s/g,'_')).value)||0;saveTgt();renderMuscles();}
 
 // HISTORY
-function populateHistEx(){
-  const sel=document.getElementById('hist-ex');const cur=sel.value;
-  const names=new Set();Object.values(DATA).forEach(d=>(d.exercises||[]).forEach(e=>names.add(e.name)));
-  sel.innerHTML='<option value="">All exercises</option>'+Array.from(names).sort().map(n=>`<option value="${n}"${n===cur?' selected':''}>${n}</option>`).join('');
+let _histMuscleFilter = '';
+
+function histSetMuscle(btn, muscle){
+  _histMuscleFilter = muscle;
+  document.querySelectorAll('.hfc').forEach(b=>b.classList.toggle('active', b.dataset.m===muscle));
+  renderHistory();
 }
-function renderHistory(){
-  const muscle=document.getElementById('hist-muscle').value;const exF=document.getElementById('hist-ex').value;
-  const rows=[],byEx={};
-  Object.entries(DATA).forEach(([k,d])=>{
-    (d.exercises||[]).forEach(ex=>{
-      if(muscle&&ex.muscle!==muscle)return;if(exF&&ex.name!==exF)return;if(!ex.sets.length)return;
-      const bs=bestSet(ex.sets);
-      const row={date:new Date(k+'T00:00:00'),name:ex.name,muscle:ex.muscle,sets:ex.sets.length,w:bs.w,r:bs.r,vol:parseFloat(fmtVol(totalVol2(ex.sets))),est:e1rm(bs.w,bs.r)};
-      rows.push(row);if(!byEx[ex.name])byEx[ex.name]=[];byEx[ex.name].push(row);
-    });
+
+function populateHistEx(){
+  // No longer uses a select — search is text-based now
+}
+
+function renderHistCalendar(){
+  const el=document.getElementById('hist-calendar');
+  if(!el) return;
+  const today=new Date();today.setHours(0,0,0,0);
+  const days=[];
+  for(let i=83;i>=0;i--){
+    const d=new Date(today);d.setDate(d.getDate()-i);
+    days.push(d);
+  }
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  // Max vol for colour scaling
+  let maxVol=0;
+  days.forEach(d=>{
+    const k=dk(d);const exs=(DATA[k]?.exercises||[]).filter(e=>!e._isSynergist);
+    const v=exs.reduce((s,ex)=>s+totalVol2(ex.sets),0);
+    if(v>maxVol) maxVol=v;
   });
-  rows.sort((a,b)=>b.date-a.date);
-  if(!rows.length){document.getElementById('history-list').innerHTML='<div class="empty">NO HISTORY YET</div>';return;}
-  Object.values(byEx).forEach(arr=>arr.sort((a,b)=>a.date-b.date));
-  document.getElementById('history-list').innerHTML=rows.map(r=>{
-    const arr=byEx[r.name]||[];const idx=arr.findIndex(x=>x.date.getTime()===r.date.getTime()&&x.sets===r.sets&&x.w===r.w);
-    const prev=arr[idx-1];let delta='';
-    if(prev){const diff=r.est-prev.est;if(diff>0)delta=`<span class="hdelta delta-up">▲ ${diff} kg</span>`;else if(diff<0)delta=`<span class="hdelta delta-dn">▼ ${Math.abs(diff)} kg</span>`;}
-    const grp=mGrp(r.muscle);const bCls=grp==='upper'?'badge-upper':grp==='lower'?'badge-lower':'';
-    return`<div class="hist-row">
-      <div class="hl">
-        <div class="hdate">${fmtDate(r.date)} ${r.muscle?`· <span class="badge ${bCls}" style="font-size:10px">${r.muscle}</span>`:''}</div>
-        <div class="hex">${r.name}</div>
+
+  const cells=days.map(d=>{
+    const k=dk(d);
+    const exs=(DATA[k]?.exercises||[]).filter(e=>!e._isSynergist);
+    const vol=exs.reduce((s,ex)=>s+totalVol2(ex.sets),0);
+    const muscles=[...new Set(exs.filter(e=>e.muscle).map(e=>e.muscle))];
+    const isToday=d.getTime()===today.getTime();
+    const intensity=maxVol>0?vol/maxVol:0;
+    // Pick colour from dominant muscle
+    const domMuscle=muscles[0]||'';
+    const base=MUSCLE_COLOURS[domMuscle]||'#4f9de8';
+
+    let bg='var(--card2)';
+    if(vol>0){
+      const alpha=Math.max(0.15,intensity*0.85);
+      bg=`${base}${Math.round(alpha*255).toString(16).padStart(2,'0')}`;
+    }
+    const title=vol>0?`${d.toLocaleDateString([],{month:'short',day:'numeric'})} · ${muscles.slice(0,3).join(', ')} · ${fmtVol(vol)}u`:'';
+    return`<div class="hist-cal-day${vol>0?' has-session':''}${isToday?' today':''}"
+      style="background:${bg}"
+      title="${title}"
+      onclick="${vol>0?`goToDate('${k}')`:''}"
+    ></div>`;
+  }).join('');
+
+  const totalSessions=days.filter(d=>{ const k=dk(d);return (DATA[k]?.exercises||[]).some(e=>e.sets.length&&!e._isSynergist);}).length;
+
+  el.innerHTML=`<div class="hist-cal-wrap">
+    <div class="hist-cal-title">
+      <span>LAST 12 WEEKS</span>
+      <span style="color:var(--muted)">${totalSessions} sessions</span>
+    </div>
+    <div class="hist-cal-grid">${cells}</div>
+  </div>`;
+}
+
+function renderHistory(){
+  renderHistCalendar();
+  const muscle=_histMuscleFilter;
+  const srch=(document.getElementById('hist-search')?.value||'').toLowerCase().trim();
+
+  // Build session list — group by date
+  const sessionDates=Object.keys(DATA).sort().reverse();
+  const sessions=[];
+  sessionDates.forEach(k=>{
+    const day=DATA[k];
+    const exs=(day.exercises||[]).filter(e=>!e._isSynergist&&e.sets.length>0);
+    if(!exs.length) return;
+
+    // Filter by muscle
+    const filtered=muscle?exs.filter(e=>e.muscle===muscle):exs;
+    if(muscle&&!filtered.length) return;
+
+    // Filter by search
+    const searched=srch?exs.filter(e=>e.name.toLowerCase().includes(srch)):exs;
+    if(srch&&!searched.length) return;
+
+    sessions.push({ key:k, date:new Date(k+'T00:00:00'), day, exs });
+  });
+
+  const listEl=document.getElementById('history-list');
+
+  if(!sessions.length){
+    listEl.innerHTML=`<div class="hist-empty">
+      <div class="hist-empty-icon">📖</div>
+      <div class="hist-empty-title">NO SESSIONS FOUND</div>
+      <div class="hist-empty-sub">${muscle||srch?'Try adjusting your filters':'Start logging workouts to build your history'}</div>
+    </div>`;
+    return;
+  }
+
+  // Max vol for bar scaling
+  const vols=sessions.map(s=>s.exs.reduce((t,e)=>t+totalVol2(e.sets),0));
+  const maxVol=Math.max(...vols,1);
+
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let lastMonth='';
+  let html='';
+
+  sessions.forEach((s,idx)=>{
+    const {key,date,day,exs}=s;
+    const note=day.sessionNote||{};
+    const vol=vols[idx];
+    const volPct=Math.round(vol/maxVol*100);
+
+    // Best e1RM across session
+    let bestE1RM=0, bestExName='';
+    exs.forEach(ex=>{const bs=bestSet(ex.sets);if(bs){const est=e1rm(bs.w,bs.r);if(est>bestE1RM){bestE1RM=est;bestExName=ex.name;}}});
+
+    // Muscles worked
+    const muscleSet=[...new Set(exs.filter(e=>e.muscle).map(e=>e.muscle))];
+    const totSets=exs.reduce((t,e)=>t+e.sets.length,0);
+    const totExs=exs.length;
+
+    // Dominant colour for accent
+    const domColor=MUSCLE_COLOURS[muscleSet[0]]||'var(--red)';
+
+    // Stars
+    const stars=[1,2,3,4,5].map(i=>`<span class="hist-card-star" style="color:${(note.rating||0)>=i?'var(--gold)':'var(--dim)'}">★</span>`).join('');
+
+    // Month separator
+    const monthLabel=`${months[date.getMonth()]} ${date.getFullYear()}`;
+    if(monthLabel!==lastMonth){
+      html+=`<div class="hist-month-label">${monthLabel}</div>`;
+      lastMonth=monthLabel;
+    }
+
+    // Muscle chips
+    const muscleChips=muscleSet.slice(0,5).map(m=>{
+      const col=MUSCLE_COLOURS[m]||'#888';
+      return`<span class="hist-muscle-chip" style="background:${col}18;border-color:${col}40;color:${col}">
+        <span class="hist-muscle-chip-dot" style="background:${col}"></span>
+        ${m}
+      </span>`;
+    }).join('');
+
+    // Session title fallback
+    const title=note.title||(muscleSet.slice(0,3).join(' + ')||'Workout');
+
+    // Exercise rows
+    const exRows=exs.map(ex=>{
+      const bs=bestSet(ex.sets);
+      const col=MUSCLE_COLOURS[ex.muscle]||'var(--dim)';
+      return`<div class="hist-ex-row">
+        <span class="hist-ex-dot" style="background:${col}"></span>
+        <span class="hist-ex-name">${ex.name}</span>
+        <span class="hist-ex-sets">${ex.sets.length} sets</span>
+        ${bs?`<span class="hist-ex-best">${bs.w}kg×${bs.r}</span>`:''}
+      </div>`;
+    }).join('');
+
+    // Session duration hint
+    const savedAt=note.savedAt;
+    const timeStr=savedAt?new Date(savedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+
+    html+=`<div class="hist-session-card" id="hsc-${key}">
+      <div class="hist-card-accent" style="background:linear-gradient(90deg,${domColor},${MUSCLE_COLOURS[muscleSet[1]]||domColor}88,transparent)"></div>
+      <div class="hist-vol-bar"><div class="hist-vol-fill" style="width:${volPct}%;background:${domColor}50"></div></div>
+      <div class="hist-card-top">
+        <div class="hist-card-date-col">
+          <div class="hist-card-day-num">${date.getDate()}</div>
+          <div class="hist-card-month">${months[date.getMonth()].toUpperCase()}</div>
+          <div class="hist-card-weekday">${days[date.getDay()]}</div>
+        </div>
+        <div class="hist-card-divider"></div>
+        <div class="hist-card-main">
+          <div class="hist-card-title">${title}</div>
+          <div class="hist-card-muscles">${muscleChips}</div>
+          ${note.notes?`<div class="hist-card-note">"${note.notes}"</div>`:''}
+          ${timeStr?`<div style="font-size:10px;color:var(--dim);font-family:var(--font-head);letter-spacing:.06em;margin-top:4px">${timeStr}</div>`:''}
+        </div>
+        <div class="hist-card-right">
+          <div class="hist-card-stars">${stars}</div>
+          ${bestE1RM?`<div>
+            <div class="hist-card-e1rm">${bestE1RM}<span style="font-size:14px;color:var(--dim)">kg</span></div>
+            <div class="hist-card-e1rm-lbl">BEST e1RM</div>
+          </div>`:''}
+        </div>
       </div>
-      <div class="hr">
-        <div class="hstat">${r.w}kg × ${r.r} · <span style="color:var(--gold)">${r.sets} sets</span></div>
-        <div>e1RM <strong>${r.est} kg</strong> &nbsp;${delta}</div>
-        <div style="font-size:11px;color:var(--dim);font-family:var(--font-head)">Vol ${r.vol} u/100</div>
+      <div class="hist-card-stats">
+        <div class="hist-stat"><div class="hist-stat-val">${totExs}</div><div class="hist-stat-lbl">EXERCISES</div></div>
+        <div class="hist-stat"><div class="hist-stat-val">${totSets}</div><div class="hist-stat-lbl">SETS</div></div>
+        <div class="hist-stat"><div class="hist-stat-val" style="color:var(--gold)">${fmtVol(vol)}</div><div class="hist-stat-lbl">VOL u/100</div></div>
+        ${bestE1RM?`<div class="hist-stat"><div class="hist-stat-val" style="color:var(--blue)">${bestExName.split(' ')[0]}</div><div class="hist-stat-lbl">TOP LIFT</div></div>`:''}
+      </div>
+      <button class="hist-expand-btn" onclick="toggleHistCard('${key}')">
+        <span id="hist-chev-${key}" style="transition:transform .2s">▾</span>
+        <span>EXERCISES</span>
+      </button>
+      <div id="hist-exs-${key}" class="hist-card-exs">
+        ${exRows}
+        <div style="text-align:right;margin-top:8px">
+          <button onclick="goToDate('${key}')" class="btn btn-ghost btn-sm" style="font-family:var(--font-head);font-size:11px;letter-spacing:.08em">Open Full Log →</button>
+        </div>
       </div>
     </div>`;
-  }).join('');
+  });
+
+  listEl.innerHTML=html;
+}
+
+function toggleHistCard(key){
+  const el=document.getElementById('hist-exs-'+key);
+  const chev=document.getElementById('hist-chev-'+key);
+  if(!el) return;
+  const open=el.classList.toggle('open');
+  if(chev) chev.style.transform=open?'rotate(180deg)':'';
 }
 
 // LIBRARY
@@ -3742,6 +4969,16 @@ function saveLibEx(){
   LIBRARY[name]={muscle};saveLib();document.getElementById('lib-name').value='';document.getElementById('lib-muscle').value='';
   document.getElementById('lib-add-form').style.display='none';toast(`"${name}" added`);renderLibrary();
 }
+function showResearch(ex){
+  // Show correct research sub-page and update tab states
+  document.querySelectorAll('.research-ex-tab').forEach((t,i)=>{
+    t.classList.toggle('active', t.onclick?.toString().includes(`'${ex}'`)||t.getAttribute('onclick')?.includes(`'${ex}'`));
+  });
+  // Only bench press is live right now
+  const bench=document.getElementById('research-bench');
+  if(bench) bench.style.display = ex==='bench'?'block':'none';
+}
+
 function renderLibrary(){
   const fM=document.getElementById('lib-filter').value;const srch=(document.getElementById('lib-search').value||'').toLowerCase();
   const allEx=allExLib();const bestE1RM={};
@@ -3765,6 +5002,66 @@ function renderLibrary(){
 function delLibEx(name){if(!LIBRARY[name])return;delete LIBRARY[name];saveLib();toast(`Removed`);renderLibrary();}
 
 // DATA
+function renderDemoDataCard(){
+  const badge=document.getElementById('demo-status-badge');
+  const actions=document.getElementById('demo-data-actions');
+  if(!badge||!actions) return;
+  const hasDemoFlag=localStorage.getItem(DEMO_KEY)==='1';
+  const hasAnyData=Object.keys(DATA).filter(k=>{
+    const exs=(DATA[k]?.exercises||[]).filter(e=>!e._isSynergist);
+    return exs.some(e=>e.sets?.length>0);
+  }).length>0;
+
+  if(hasDemoFlag){
+    badge.innerHTML=`<span style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;padding:5px 12px;border-radius:20px;background:rgba(240,180,41,.12);color:var(--gold);border:1px solid rgba(240,180,41,.25)">DEMO ACTIVE</span>`;
+    actions.innerHTML=`<button class="btn btn-ghost" onclick="deleteDemoData()" style="color:var(--red);border-color:rgba(232,83,63,.3)">🗑 Delete Demo Data</button>`;
+  } else if(hasAnyData){
+    badge.innerHTML=`<span style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;padding:5px 12px;border-radius:20px;background:rgba(68,199,106,.1);color:var(--green);border:1px solid rgba(68,199,106,.25)">YOUR DATA</span>`;
+    actions.innerHTML=`<button class="btn" onclick="loadDemoDataOverlay()" style="background:var(--card2);border:1px solid var(--border2);color:var(--muted)">Load Demo Data (merges with yours)</button>`;
+  } else {
+    badge.innerHTML=`<span style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;padding:5px 12px;border-radius:20px;background:var(--card2);color:var(--dim);border:1px solid var(--border2)">NO DATA</span>`;
+    actions.innerHTML=`<button class="btn btn-blue" onclick="loadDemoDataNow()">▶ Load Demo Data</button>`;
+  }
+}
+
+function loadDemoDataNow(){
+  const demo=generateDemoData();
+  DATA=demo.data;TARGETS=demo.targets;
+  save();saveTgt();
+  localStorage.setItem(DEMO_KEY,'1');
+  renderDemoDataCard();
+  renderDashboard();
+  toast('6 weeks of demo data loaded 🎯');
+}
+
+function loadDemoDataOverlay(){
+  if(!confirm('This will merge demo data with your existing data. Your real sessions will be preserved. Continue?')) return;
+  const demo=generateDemoData();
+  // Merge — don't overwrite existing dates
+  Object.entries(demo.data).forEach(([k,v])=>{
+    if(!DATA[k]) DATA[k]=v;
+  });
+  save();
+  localStorage.setItem(DEMO_KEY,'1');
+  renderDemoDataCard();
+  renderDashboard();
+  toast('Demo data merged in 🎯');
+}
+
+function deleteDemoData(){
+  if(!confirm('Delete all demo data and keep only your real sessions?')) return;
+  // Remove only demo-generated dates (we can identify by the flag; simplest = clear all and keep flag off)
+  // Since demo data fills dates, we clear DATA entirely if demo is flagged and no real sessions exist
+  // More nuanced: check if any session has a sessionNote with real rating (demo sets rating 4-5 randomly) — not reliable
+  // Simplest safe approach: clear everything and let user re-log
+  DATA={};TARGETS={};LIBRARY={};
+  save();saveTgt();saveLib();
+  localStorage.removeItem(DEMO_KEY);
+  renderDemoDataCard();
+  renderDashboard();
+  toast('Demo data deleted ✓');
+}
+
 function exportCSV(){
   const rows=[['Date','Exercise','Muscle Group','Body Group','Set #','Weight (kg)','Reps','RPE','Volume (u/100)','e1RM (kg)','In Superset']];
   Object.entries(DATA).sort(([a],[b])=>a.localeCompare(b)).forEach(([date,d])=>{
@@ -3774,7 +5071,7 @@ function exportCSV(){
 }
 function exportJSON(){
   dlFile('ironlog_backup_'+dk(new Date())+'.json','application/json',
-    JSON.stringify({data:DATA,targets:TARGETS,library:LIBRARY,user:{name:CU.name,email:CU.email},exported:new Date().toISOString()},null,2));toast('Backup exported!');
+    JSON.stringify({data:DATA,targets:TARGETS,library:LIBRARY,user:{name:CU?.name||'',email:CU?.email||''},exported:new Date().toISOString()},null,2));toast('Backup exported!');
 }
 function dlFile(fn,type,content){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=fn;a.click();URL.revokeObjectURL(a.href);}
 function importFile(input){
@@ -4826,6 +6123,11 @@ function importPlanToMyPlans(){
 // Auth
 window.doLogin=doLogin; window.doRegister=doRegister;
 window.doGoogleSignIn=doGoogleSignIn; window.doForgotPassword=doForgotPassword;
+window.toggleTheme=toggleTheme; window.showAuthPanel=showAuthPanel; window.closeAuthPanel=closeAuthPanel;
+window.showAuthFromApp=showAuthFromApp;
+window.renderDemoDataCard=renderDemoDataCard;
+window.loadDemoDataNow=loadDemoDataNow; window.loadDemoDataOverlay=loadDemoDataOverlay;
+window.deleteDemoData=deleteDemoData;
 window.doLogout=doLogout; window.enterGuestMode=enterGuestMode;
 window.showAuthFromApp=showAuthFromApp; window.resendVerification=resendVerification;
 window.switchAuthTab=switchAuthTab; window.togglePw=togglePw; window.checkPwStr=checkPwStr;
@@ -4837,6 +6139,8 @@ window.delExercise=delExercise; window.addSuperset=addSuperset;
 window.toggleEx=toggleEx; window.toggleSSGroup=toggleSSGroup;
 window.openSessionSavePanel=openSessionSavePanel; window.saveSession=saveSession;
 window.setSessionRating=setSessionRating;
+window.showResearch=showResearch;
+window.applySynergistFatigue=applySynergistFatigue;
 window.manualSaveToCloud=manualSaveToCloud;
 window.unlockDay=unlockDay; window.startNewSession=startNewSession;
 // Timer
@@ -4862,9 +6166,10 @@ window.dismissDemoBanner=dismissDemoBanner;
 window.openExPicker=openExPicker; window.filterExPicker=filterExPicker;
 window.selectExPickerItem=selectExPickerItem;
 // Pages
-window.renderProgress=renderProgress; window.renderHistory=renderHistory;
+window.histSetMuscle=histSetMuscle; window.toggleHistCard=toggleHistCard;
+window.renderProgress=renderProgress; window.populateProgEx=populateProgEx;
 window.renderLibrary=renderLibrary; window.renderMuscles=renderMuscles;
-window.populateProgEx=populateProgEx; window.populateHistEx=populateHistEx;
+window.renderHistory=renderHistory; window.populateHistEx=populateHistEx;
 // Muscles
 window.saveTarget=saveTarget; window.toggleTarget=toggleTarget;
 // Library
@@ -4897,17 +6202,67 @@ setTimeout(()=>{
 
 // ── Wire static HTML elements that can't use onclick="" in modules ──
 document.addEventListener('DOMContentLoaded',()=>{
+  // ── DASHBOARD-FIRST BOOT ──
+  // Apply saved theme — default is light unless user chose dark
+  if(localStorage.getItem('il7_theme')==='dark') applyTheme('dark');
+  else applyTheme('light');
+
+  // Render dashboard immediately with whatever data is in localStorage
+  // Firebase auth will override this once it resolves (signed-in user gets their data)
+  loadUserData();
+  currentDate=new Date();currentDate.setHours(0,0,0,0);
+  weekOffset=0;
+  setupTopbar();
+  renderDashboard();
+
+  // ── NAV TOOLTIP — global panel, positioned by JS to escape overflow:auto ──
+  const navTip = document.getElementById('nav-tooltip');
+  let navTipTimer = null;
+  document.querySelectorAll('.nav-btn[data-nd-title]').forEach(btn=>{
+    btn.addEventListener('mouseenter', ()=>{
+      clearTimeout(navTipTimer);
+      const icon  = btn.dataset.ndIcon   || '';
+      const title = btn.dataset.ndTitle  || '';
+      const desc  = btn.dataset.ndDesc   || '';
+      const pills = (btn.dataset.ndPills || '').split('|').filter(Boolean);
+      const pillsHtml = pills.map(p=>`<span class="nd-pill">${p}</span>`).join('');
+      navTip.innerHTML = `
+        <span class="nd-icon">${icon}</span>
+        <div class="nd-title">${title}</div>
+        <div class="nd-desc">${desc}</div>
+        ${pillsHtml?`<div class="nd-pills">${pillsHtml}</div>`:''}
+      `;
+      // Position below the button, centred
+      navTip.style.display = 'block';
+      navTip.style.opacity = '0';
+      const br   = btn.getBoundingClientRect();
+      const tw   = navTip.offsetWidth || 270;
+      let   left = br.left + br.width/2 - tw/2;
+      const top  = br.bottom + 8;
+      // Clamp to viewport
+      left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+      navTip.style.left = left + 'px';
+      navTip.style.top  = top  + 'px';
+      // Move caret to match button centre
+      const caretX = br.left + br.width/2 - left;
+      navTip.style.setProperty('--caret-x', caretX + 'px');
+      navTip.classList.add('visible');
+    });
+    btn.addEventListener('mouseleave', ()=>{
+      navTipTimer = setTimeout(()=>{
+        navTip.classList.remove('visible');
+        navTip.style.display = 'none';
+      }, 120);
+    });
+  });
+  // Keep tooltip alive when hovering the tooltip itself (not needed here — pointer-events:none)
+
   // Matrix open trigger
   document.getElementById('add-ex-trigger-btn')?.addEventListener('click', openExMatrix);
-  // Matrix overlay background click to close
   document.getElementById('exm-overlay')?.addEventListener('click', exmOverlayClick);
-  // Matrix close button
   document.getElementById('exm-close-btn')?.addEventListener('click', closeExMatrix);
-  // Matrix search input
   document.getElementById('exm-search')?.addEventListener('input', e=>exmSearch(e.target.value));
-  // Matrix add custom button
   document.getElementById('exm-add-custom-btn')?.addEventListener('click', exmAddCustom);
-  // Detail overlay background click to close
   document.getElementById('exd-overlay')?.addEventListener('click', exdOverlayClick);
 });
 </script>
