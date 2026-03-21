@@ -44,6 +44,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .auth-box{width:100%;max-width:400px}
 .auth-logo{text-align:center;margin-bottom:36px}
 .auth-logo .wordmark{font-family:var(--font-display);font-size:52px;letter-spacing:.06em;line-height:1;color:var(--text)}
+.auth-logo .wordmark .iron{color:var(--red)}
 .auth-logo .wordmark em{color:var(--gold);font-style:normal}
 .auth-logo .tagline{font-family:var(--font-head);font-size:11px;letter-spacing:.22em;color:var(--dim);margin-top:8px}
 .auth-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:28px}
@@ -122,6 +123,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 }
 body.light .topbar{background:rgba(235,232,226,0.95)}
 .topbar-logo{font-family:var(--font-display);font-size:26px;letter-spacing:.08em;color:var(--text)}
+.topbar-logo .iron{color:var(--red)}
 .topbar-logo em{color:var(--gold);font-style:normal}
 .topbar-right{display:flex;gap:8px;align-items:center}
 /* Theme toggle */
@@ -680,7 +682,99 @@ select option{background:var(--card2)}
   font-family:var(--font-head);font-size:11px;color:var(--muted);
   letter-spacing:.04em;margin-left:auto;
 }
-.research-ex-tab{
+/* ── TRAINER TOGGLE IN AUTH ── */
+.trainer-toggle-row{padding:10px 0 14px;display:flex;flex-direction:column;gap:6px}
+.trainer-toggle-label{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.trainer-toggle-label input{position:absolute;opacity:0;width:0;height:0}
+.trainer-toggle-track{position:relative;width:38px;height:22px;background:var(--border2);border-radius:11px;transition:background .2s;flex-shrink:0}
+.trainer-toggle-label input:checked ~ .trainer-toggle-track{background:var(--blue)}
+.trainer-toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.trainer-toggle-label input:checked ~ .trainer-toggle-track .trainer-toggle-thumb{transform:translateX(16px)}
+.trainer-toggle-text{font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--text);letter-spacing:.04em}
+.trainer-toggle-hint{font-size:12px;color:var(--blue);font-family:var(--font-head);letter-spacing:.02em;line-height:1.5;padding-left:48px}
+
+/* ── TRAINER PAGE ── */
+.trainer-wrap{min-height:60vh}
+.trainer-role-banner{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:16px 20px;border-radius:var(--r-lg);margin-bottom:20px;
+}
+.trainer-role-banner.trainer{background:linear-gradient(135deg,rgba(79,157,232,.12),rgba(79,157,232,.04));border:1px solid rgba(79,157,232,.3)}
+.trainer-role-banner.student{background:linear-gradient(135deg,rgba(68,199,106,.1),rgba(68,199,106,.03));border:1px solid rgba(68,199,106,.3)}
+.trb-icon{font-size:32px;flex-shrink:0}
+.trb-body{flex:1;min-width:0}
+.trb-title{font-family:var(--font-display);font-size:22px;letter-spacing:.04em;color:var(--text);margin-bottom:3px}
+.trb-sub{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* Student cards on trainer view */
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:24px}
+.student-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);
+  padding:18px 20px;cursor:pointer;transition:all .15s;
+}
+.student-card:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.student-card.pending{opacity:.7;border-style:dashed}
+.sc-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sc-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;color:#fff;flex-shrink:0}
+.sc-name{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--text)}
+.sc-email{font-size:11px;color:var(--dim);font-family:var(--font-head);margin-top:2px}
+.sc-stats{display:flex;gap:12px;flex-wrap:wrap}
+.sc-stat{display:flex;flex-direction:column;gap:1px}
+.sc-stat-val{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text)}
+.sc-stat-lbl{font-size:9px;font-family:var(--font-head);color:var(--dim);letter-spacing:.1em}
+.sc-pending-badge{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:10px;background:rgba(240,180,41,.15);color:var(--gold);border:1px solid rgba(240,180,41,.3);margin-left:auto}
+.sc-accept-btn{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 14px;background:var(--green);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:all .15s;margin-top:10px;width:100%}
+.sc-accept-btn:hover{background:#2ea855}
+.sc-decline-btn{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 14px;background:none;color:var(--muted);border:1px solid var(--border2);border-radius:6px;cursor:pointer;transition:all .15s;margin-top:6px;width:100%}
+
+/* Student view — connect to trainer */
+.connect-trainer-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:22px 24px;margin-bottom:20px}
+.connect-trainer-card h4{font-family:var(--font-head);font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--text);margin-bottom:8px}
+.connect-trainer-card p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.trainer-search-row{display:flex;gap:10px;align-items:center}
+.trainer-search-input{flex:1;font-family:var(--font-body);font-size:13px;padding:9px 14px;background:var(--card2);border:1px solid var(--border2);border-radius:8px;color:var(--text);outline:none;transition:border-color .15s}
+.trainer-search-input:focus{border-color:var(--blue)}
+.trainer-search-input::placeholder{color:var(--dim)}
+.connected-trainer-card{background:linear-gradient(135deg,rgba(79,157,232,.1),rgba(79,157,232,.04));border:1px solid rgba(79,157,232,.3);border-radius:var(--r-lg);padding:16px 20px;display:flex;align-items:center;gap:14px}
+.ctc-avatar{width:44px;height:44px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;color:#fff;flex-shrink:0}
+.ctc-body{flex:1}
+.ctc-name{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text)}
+.ctc-status{font-size:12px;color:var(--muted);margin-top:2px}
+.ctc-pending{color:var(--gold)}
+.ctc-active{color:var(--green)}
+
+/* Trainer student detail view */
+.trainer-student-detail{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:20px;margin-bottom:20px}
+.tsd-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tsd-back{background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.08em;padding:4px 0;transition:color .15s}
+.tsd-back:hover{color:var(--text)}
+.log-help-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);background:var(--card);color:var(--muted);font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.log-help-btn:hover,.log-help-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.log-onboard-chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.lo-chip{font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 12px;border-radius:20px;background:var(--card2);border:1px solid var(--border2);color:var(--muted)}
+/* ── LOG GUIDE PANEL ── */
+.log-guide-wrap{background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;margin-bottom:20px;animation:fadeUp .2s ease both}
+.lg-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:linear-gradient(135deg,rgba(79,157,232,.1),rgba(79,157,232,.04));border-bottom:1px solid var(--border2)}
+.lg-title{font-family:var(--font-head);font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--text)}
+.lg-close{background:none;border:none;cursor:pointer;color:var(--dim);font-size:18px;line-height:1;padding:4px 6px;transition:color .12s}
+.lg-close:hover{color:var(--muted)}
+.lg-steps{padding:20px 20px 0;display:flex;flex-direction:column}
+.lg-step{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
+.lg-step:last-child{border-bottom:none}
+.lg-step-num{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:var(--blue);color:#fff;font-family:var(--font-display);font-size:16px;display:flex;align-items:center;justify-content:center;line-height:1;margin-top:1px}
+.lg-step-body{flex:1;min-width:0}
+.lg-step-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text);letter-spacing:.04em;margin-bottom:6px}
+.lg-step-desc{font-size:13px;color:var(--muted);line-height:1.75}
+.lg-step-desc strong{color:var(--text);font-weight:600}
+.lg-glossary{margin:20px 20px;padding:16px;background:var(--card2);border-radius:var(--r);border:1px solid var(--border)}
+.lg-gloss-title{font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--dim);margin-bottom:12px}
+.lg-gloss-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.lg-gloss-grid{grid-template-columns:1fr}}
+.lg-gloss-item{display:flex;gap:8px;align-items:baseline}
+.lg-term{font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.04em;flex-shrink:0;min-width:72px}
+.lg-def{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── RESEARCH PAGE ── */
   font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;
   padding:8px 18px;border-radius:8px;border:1px solid var(--border2);
   background:none;color:var(--muted);cursor:pointer;transition:all .15s;
@@ -1278,7 +1372,7 @@ select option{background:var(--card2)}
 <!-- = AUTH = -->
 <!-- = FIREBASE AUTH LOADING OVERLAY = -->
 <div id="firebase-loading" style="position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px">
-  <div style="font-family:var(--font-display);font-size:36px;letter-spacing:.12em;color:var(--text)">IRON<span style="color:var(--gold)">LOG</span></div>
+  <div style="font-family:var(--font-display);font-size:36px;letter-spacing:.12em"><span style="color:var(--red)">IRON</span><span style="color:var(--gold)">LOG</span></div>
   <div style="width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite"></div>
   <div style="font-family:var(--font-head);font-size:11px;letter-spacing:.12em;color:var(--dim)">CONNECTING TO FIREBASE...</div>
   <button id="skip-to-guest-btn" onclick="window.enterGuestMode&&window.enterGuestMode()" style="display:none;margin-top:8px;font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;background:none;border:1px solid var(--border2);border-radius:6px;color:var(--muted);cursor:pointer">
@@ -1290,7 +1384,7 @@ select option{background:var(--card2)}
 <div id="auth-screen" style="display:none">
   <div class="auth-box">
     <div class="auth-logo">
-      <div class="wordmark">IRON<em>LOG</em></div>
+      <div class="wordmark"><span class="iron">IRON</span><em>LOG</em></div>
       <div class="tagline">TRACK · PROGRESS · DOMINATE</div>
     </div>
 
@@ -1361,6 +1455,17 @@ select option{background:var(--card2)}
           </div>
         </div>
         <div class="auth-error" id="reg-err"></div>
+        <!-- Trainer toggle -->
+        <div class="trainer-toggle-row" id="trainer-toggle-row">
+          <label class="trainer-toggle-label">
+            <input type="checkbox" id="reg-is-trainer" onchange="toggleTrainerMode(this.checked)">
+            <span class="trainer-toggle-track">
+              <span class="trainer-toggle-thumb"></span>
+            </span>
+            <span class="trainer-toggle-text">I'm a Gym Trainer</span>
+          </label>
+          <div class="trainer-toggle-hint" id="trainer-toggle-hint" style="display:none">You'll get a trainer dashboard to monitor your students' progress.</div>
+        </div>
         <button class="btn-auth btn-auth-red" id="reg-btn" onclick="doRegister()">CREATE ACCOUNT</button>
         <div class="auth-divider"><span>OR</span></div>
         <button class="btn-google" onclick="doGoogleSignIn()">
@@ -1390,7 +1495,7 @@ select option{background:var(--card2)}
 <!-- = MAIN APP = -->
 <div id="main-app">
   <div class="topbar">
-    <div class="topbar-logo">IRON<em>LOG</em></div>
+    <div class="topbar-logo"><span class="iron">IRON</span><em>LOG</em></div>
     <div class="topbar-right">
       <div class="streak-badge" id="streak-badge"></div>
       <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
@@ -1492,6 +1597,13 @@ select option{background:var(--card2)}
       <span class="nb-icon">🔬</span>RESEARCH
     </button>
 
+    <button class="nav-btn" id="nav-trainer-btn" onclick="goPage('trainer',this)" style="display:none"
+      data-nd-icon="👥" data-nd-title="Trainer Dashboard"
+      data-nd-desc="View all your connected students' training history, progress charts, and workout logs. Accept student connection requests and monitor their programmes remotely."
+      data-nd-pills="STUDENTS|PROGRESS|HISTORY|PLANS">
+      <span class="nb-icon">👥</span>TRAINER
+    </button>
+
   </nav>
 
   <div class="main">
@@ -1502,6 +1614,110 @@ select option{background:var(--card2)}
       <!-- HERO -->
       <!-- DEMO MODE BANNER — shown when guest has demo data loaded -->
       <div id="demo-banner" style="display:none"></div>
+
+      <!-- Dashboard help button sits above the hero -->
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <button class="log-help-btn" onclick="toggleDashGuide()" id="dash-help-btn" title="What's on this page">?</button>
+      </div>
+
+      <!-- ── DASHBOARD GUIDE ── -->
+      <div id="dash-guide" style="display:none">
+        <div class="log-guide-wrap">
+          <div class="lg-header">
+            <div class="lg-title">📖 Understanding Your Dashboard</div>
+            <button class="lg-close" onclick="toggleDashGuide()">✕</button>
+          </div>
+          <div class="lg-steps">
+
+            <div class="lg-step">
+              <div class="lg-step-num">1</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Hero Card — Today's Overview</div>
+                <div class="lg-step-desc">The top card greets you with the time of day and shows your current streak. The <strong>START WORKOUT</strong> button takes you directly to today's log. The pill below it shows your current training split (Push / Pull / Legs / Rest) if you have a plan active.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">2</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Stat Cards</div>
+                <div class="lg-step-desc">Five numbers that summarise your entire training history at a glance:<br>
+                  <strong>Active Days</strong> — total number of days you've trained<br>
+                  <strong>Volume</strong> — lifetime total of weight × reps across all exercises (in units/100)<br>
+                  <strong>Total Sets</strong> — every set ever logged<br>
+                  <strong>Best e1RM</strong> — your highest estimated 1-rep max across all lifts<br>
+                  <strong>Streak</strong> — consecutive days trained. Miss a day and it resets to zero.
+                </div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">3</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Activity Heatmap — Last 13 Weeks</div>
+                <div class="lg-step-desc">84 small squares, one per day. Each square's colour shows how much volume you trained that day — darker and richer means more work. The colour also reflects the dominant muscle group trained. Rest days are flat grey. Hover a square to see the exact date, muscles, and volume. Click any trained day to jump to that session's log.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">4</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">This Week — Activity Rings</div>
+                <div class="lg-step-desc">Six rings showing how balanced your training was this week across muscle groups (Upper / Lower / Push / Pull / Core / Cardio). A full ring means you hit your weekly target for that category. The goal is to have all rings lit by Sunday. Gaps tell you what you haven't trained yet this week.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">5</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">30-Day Volume Trend</div>
+                <div class="lg-step-desc">A line chart showing your daily training volume for the last 30 days. An upward trend over time means progressive overload — you're doing more work than before. Flat lines mean maintenance. Drops can signal deload weeks, illness, or missed sessions. This is your most honest indicator of whether you're making progress.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">6</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">All-Time PRs — e1RM</div>
+                <div class="lg-step-desc">Your personal records. Each entry shows your strongest ever estimated 1-rep max for that exercise. These update automatically whenever you log a set that beats the previous best. Aim to beat at least one PR every 2–3 weeks — that's the clearest sign of strength progress.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">7</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Muscle Map — Interactive Anatomy</div>
+                <div class="lg-step-desc">An anatomical figure showing both the front and back of your body. Each muscle region lights up in its colour based on how much you've trained it — bright and saturated means lots of volume, dark grey means undertrained or never trained. <strong>Hover any muscle</strong> to see your lifetime volume, best e1RM, last trained date, and sets this week. <strong>Click any muscle</strong> to jump to History filtered for that muscle group.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">8</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Recent Sessions</div>
+                <div class="lg-step-desc">Your last 5 sessions shown as a compact list. Each row shows the date, exercises trained, total volume, and sets. Tap any row to open that session's full log. Tap <strong>VIEW ALL →</strong> to go to the full History journal.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="lg-glossary">
+            <div class="lg-gloss-title">QUICK GLOSSARY</div>
+            <div class="lg-gloss-grid">
+              <div class="lg-gloss-item"><span class="lg-term">Volume</span><span class="lg-def">Weight × reps for every set. Total load on your body</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">e1RM</span><span class="lg-def">Estimated max single rep from your sets (formula: w×(1+r/30))</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Streak</span><span class="lg-def">Consecutive days with at least one logged session</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">u/100</span><span class="lg-def">Volume units ÷ 100. Just a display shorthand for large numbers</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Heatmap</span><span class="lg-def">Visual calendar of your training frequency and intensity</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">PR</span><span class="lg-def">Personal Record — your best ever performance on a lift</span></div>
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:4px">
+            <button class="btn btn-ghost btn-sm" onclick="toggleDashGuide()" style="font-family:var(--font-head);letter-spacing:.08em">Got it — close guide</button>
+          </div>
+        </div>
+      </div>
 
       <div class="db-hero">
         <div class="db-hero-bg-text" id="db-bg-word">PUSH</div>
@@ -1576,8 +1792,114 @@ select option{background:var(--card2)}
           <div class="date-lbl" id="log-date-lbl"></div>
           <button onclick="changeDate(1)">&#8594;</button>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="goToday()">Today</button>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-ghost btn-sm" onclick="goToday()">Today</button>
+          <button class="log-help-btn" onclick="toggleLogGuide()" id="log-help-btn" title="How to use the log">?</button>
+        </div>
       </div>
+
+      <!-- ── COLLAPSIBLE HOW-TO GUIDE ── -->
+      <div id="log-guide" style="display:none">
+        <div class="log-guide-wrap">
+
+          <div class="lg-header">
+            <div class="lg-title">📖 How to Log a Workout</div>
+            <button class="lg-close" onclick="toggleLogGuide()">✕</button>
+          </div>
+
+          <!-- Step by step -->
+          <div class="lg-steps">
+
+            <div class="lg-step">
+              <div class="lg-step-num">1</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Tap "ADD EXERCISE"</div>
+                <div class="lg-step-desc">The big button at the bottom opens the exercise library. Exercises are grouped by muscle — Chest, Back, Shoulders, etc. Tap any exercise to add it to today's log. You can also search by name or add your own custom exercise.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">2</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Log a Set</div>
+                <div class="lg-step-desc">Each exercise card has three fields:<br>
+                  <strong>WEIGHT KG</strong> — how much you lifted (use 0 for bodyweight)<br>
+                  <strong>REPS</strong> — how many repetitions you completed<br>
+                  <strong>RPE</strong> — Rate of Perceived Exertion (1–10). How hard did that set feel? 6 = easy, 8 = hard but 2 reps left, 10 = absolute maximum. Leave blank if you don't use RPE.<br>
+                  Then tap <strong>+ SET</strong> to record it.
+                </div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">3</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">What is e1RM?</div>
+                <div class="lg-step-desc">Estimated 1-Rep Max — a calculation that estimates the heaviest single rep you could do based on the weight and reps you just lifted. Formula: weight × (1 + reps ÷ 30). If you lift 80 kg × 10 reps, your e1RM ≈ 107 kg. IRONLOG tracks this over time so you can see your strength progress even if you never actually test your max.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">4</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Use the Set Timer (optional)</div>
+                <div class="lg-step-desc">Tap <strong>⏱ Use set timer</strong> on any exercise to enable it. Then:<br>
+                  ▶ <strong>START SET</strong> — starts counting how long your set takes<br>
+                  ■ <strong>SET DONE</strong> — stops the set clock, starts counting rest time<br>
+                  ▶ <strong>NEXT SET</strong> — records the rest, starts the next set<br>
+                  ✓ <strong>EXERCISE DONE</strong> — starts a purple inter-exercise rest timer<br>
+                  This data is saved with each set and used to calculate your training intensity (Low / Med / High / Peak).
+                </div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">5</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Supersets</div>
+                <div class="lg-step-desc">A superset means doing two exercises back-to-back with no rest in between — like Bench Press then immediately Tricep Pushdown. At the bottom of any exercise card tap <strong>⚡ Pick from exercise library</strong> to pair it with another exercise. They'll be grouped and labelled (i) and (ii).</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">6</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Synergist Muscles</div>
+                <div class="lg-step-desc">Under each exercise name you'll see coloured pills — these show which muscles are also being worked based on EMG research. For example, Bench Press works your Chest (100%) but also your Shoulders (50%) and Triceps (55%). IRONLOG logs this secondary fatigue automatically — it shows up on your muscle map on the dashboard.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">7</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Save Your Session</div>
+                <div class="lg-step-desc">Once you've logged at least one set, a gold <strong>🏁 SAVE SESSION</strong> button appears. Tap it to give your session a title, write notes (injuries, how it felt, PRs), and rate it 1–5 stars. After saving, your session appears in History and on the Dashboard heatmap and charts.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Glossary -->
+          <div class="lg-glossary">
+            <div class="lg-gloss-title">QUICK GLOSSARY</div>
+            <div class="lg-gloss-grid">
+              <div class="lg-gloss-item"><span class="lg-term">Set</span><span class="lg-def">One group of repetitions of an exercise before resting</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Rep</span><span class="lg-def">One complete movement — one push up, one squat, one curl</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">RPE</span><span class="lg-def">Rate of Perceived Exertion. 1 = trivial, 10 = absolute max effort</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">e1RM</span><span class="lg-def">Estimated maximum weight you could lift for a single rep</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Volume</span><span class="lg-def">Total work done: weight × reps. Higher = more training stress</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Superset</span><span class="lg-def">Two exercises done back-to-back with no rest between them</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Synergist</span><span class="lg-def">A muscle that assists the primary muscle during an exercise</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">PPL</span><span class="lg-def">Push / Pull / Legs — a popular 3-day training split</span></div>
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:4px">
+            <button class="btn btn-ghost btn-sm" onclick="toggleLogGuide()" style="font-family:var(--font-head);letter-spacing:.08em">Got it — close guide</button>
+          </div>
+        </div>
+      </div>
+
       <div class="log-stats-bar" id="log-metrics"></div>
       <div class="ex-list" id="ex-list"></div>
       <!-- EXERCISE MATRIX TRIGGER -->
@@ -1678,7 +2000,92 @@ select option{background:var(--card2)}
         <button class="btn btn-ghost btn-sm" onclick="changeWeek(-1)">&#8592; Prev</button>
         <div style="font-family:var(--font-head);font-weight:700;font-size:16px;flex:1;text-align:center" id="week-label"></div>
         <button class="btn btn-ghost btn-sm" onclick="changeWeek(1)">Next &#8594;</button>
+        <button class="log-help-btn" onclick="toggleWeeklyGuide()" id="weekly-help-btn" title="How to read the weekly view">?</button>
       </div>
+
+      <!-- ── WEEKLY GUIDE ── -->
+      <div id="weekly-guide" style="display:none">
+        <div class="log-guide-wrap">
+          <div class="lg-header">
+            <div class="lg-title">📖 Understanding Your Weekly View</div>
+            <button class="lg-close" onclick="toggleWeeklyGuide()">✕</button>
+          </div>
+          <div class="lg-steps">
+
+            <div class="lg-step">
+              <div class="lg-step-num">1</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Navigate Between Weeks</div>
+                <div class="lg-step-desc">Use the <strong>← Prev</strong> and <strong>Next →</strong> buttons to move between weeks. The label shows the date range of the current week (Monday to Sunday). You can go back as far as your training history goes to compare old weeks with new ones.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">2</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Day Pills — Mon to Sun</div>
+                <div class="lg-step-desc">Seven pill buttons, one per day of the week. Days where you trained are highlighted with a coloured dot at the bottom. Today's pill has a gold border. Tap any trained day to open its full log. Rest days are plain and dim. Aim to have at least 3–5 active days per week depending on your programme.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">3</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Weekly Summary Cards</div>
+                <div class="lg-step-desc">Four numbers that summarise the whole week:<br>
+                  <strong>Active Days</strong> — how many days you trained out of 7<br>
+                  <strong>Total Sets</strong> — all sets logged across the week<br>
+                  <strong>Volume</strong> — total weight × reps for the week (u/100)<br>
+                  <strong>Exercises</strong> — unique exercises performed this week<br>
+                  Compare these numbers week-over-week to spot if your workload is growing, staying flat, or dropping.
+                </div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">4</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Daily Volume Chart</div>
+                <div class="lg-step-desc">A bar chart showing how much volume (weight × reps) you did each day this week. Taller bars = harder sessions. This helps you see if your training load is spread evenly or heavily front-loaded. Most programmes aim for balanced distribution rather than two huge days and five rest days.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">5</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Volume by Muscle Group</div>
+                <div class="lg-step-desc">A bar chart showing how much total volume each muscle group received this week — including <strong>synergist fatigue</strong>. For example, if you did Bench Press, your Chest bar will be tallest, but Shoulders and Triceps also get a portion automatically based on EMG research. This gives you the most honest picture of muscle balance and whether you're neglecting anything.</div>
+              </div>
+            </div>
+
+            <div class="lg-step">
+              <div class="lg-step-num">6</div>
+              <div class="lg-step-body">
+                <div class="lg-step-title">Using It for Planning</div>
+                <div class="lg-step-desc">The weekly view is your planning tool. If you see that Back volume is low mid-week, schedule a pull session. If legs are empty all week, add a squat or deadlift day. Compare the current week's volume chart with last week to make sure you're doing <strong>slightly more</strong> over time — that consistent small increase is what drives muscle growth and strength gain.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="lg-glossary">
+            <div class="lg-gloss-title">TRAINING SPLIT GUIDE</div>
+            <div class="lg-gloss-grid">
+              <div class="lg-gloss-item"><span class="lg-term">Push day</span><span class="lg-def">Chest, Shoulders, Triceps — pressing and pushing movements</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Pull day</span><span class="lg-def">Back, Biceps — rowing and pulling movements</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Legs day</span><span class="lg-def">Quads, Hamstrings, Glutes, Calves</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">PPL</span><span class="lg-def">Push / Pull / Legs — train all 3 twice per week (6 days)</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Volume</span><span class="lg-def">Weight × reps. The primary driver of muscle growth</span></div>
+              <div class="lg-gloss-item"><span class="lg-term">Synergist</span><span class="lg-def">Secondary muscle automatically stressed by a compound lift</span></div>
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:4px">
+            <button class="btn btn-ghost btn-sm" onclick="toggleWeeklyGuide()" style="font-family:var(--font-head);letter-spacing:.08em">Got it — close guide</button>
+          </div>
+        </div>
+      </div>
+
       <div class="week-days" id="week-days"></div>
       <div class="week-summary" id="week-summary"></div>
       <div class="chart-card"><h3>DAILY VOLUME (u/100)</h3><div class="chart-wrap-tall"><canvas id="wk-vol"></canvas></div></div>
@@ -1797,6 +2204,11 @@ select option{background:var(--card2)}
         <p>Permanently delete all your workout data for this account. This cannot be undone.</p>
         <button class="btn btn-ghost" onclick="clearAllData()" style="color:var(--red);border-color:rgba(232,83,63,.3)">Delete All My Data</button>
       </div>
+    </div>
+
+    <!-- ── TRAINER ── -->
+    <div id="page-trainer" class="page">
+      <div class="trainer-wrap" id="trainer-wrap"></div>
     </div>
 
     <!-- ── RESEARCH ── -->
@@ -2272,6 +2684,22 @@ async function doRegister(){
     const cred=await fbCreateUserWithEmailAndPassword(fbAuth,email,pw);
     await cred.user.updateProfile({displayName:name});
     await fbSendEmailVerification(cred.user);
+
+    // Save trainer/student profile to Firestore immediately while we have the uid
+    if(fbDb){
+      const role = _registerAsTrainer ? 'trainer' : 'student';
+      const profile = { role, name, email, uid:cred.user.uid, createdAt:Date.now() };
+      try{
+        await fbSetDoc(fbDoc(fbDb,'users',cred.user.uid,'meta','profile'), profile);
+        // If trainer: write email lookup so students can find them
+        if(_registerAsTrainer){
+          await fbSetDoc(fbDoc(fbDb,'trainerEmails',email.replace(/\./g,'_')),
+            { uid:cred.user.uid, name, email });
+          await fbSetDoc(fbDoc(fbDb,'trainers',cred.user.uid), { name, email, students:{} });
+        }
+      }catch(e){ console.warn('Profile write failed (verify then sign in):', e); }
+    }
+
     await fbSignOut(fbAuth);
     btn.disabled=false;btn.innerHTML='CREATE ACCOUNT';
     switchAuthTab('login');
@@ -2493,6 +2921,8 @@ function showApp(){
   currentDate=new Date();currentDate.setHours(0,0,0,0);
   weekOffset=0;
   renderDashboard();
+  // Load trainer profile in background — updates nav if user is a trainer
+  loadProfile().then(()=>updateTrainerNav());
 }
 
 async function doLogout(){
@@ -2607,6 +3037,7 @@ document.addEventListener('click',e=>{
   }
 })();
 
+
 // NAV
 
 
@@ -2627,6 +3058,7 @@ function goPage(id, btn){
   if(id==='library') renderLibrary();
   if(id==='data') renderDemoDataCard();
   if(id==='research') showResearch('bench');
+  if(id==='trainer') renderTrainerPage();
 }
 
 // HELPERS
@@ -4408,8 +4840,15 @@ function renderLog(){
   if(!topLevel.length){
     html=`<div class="log-empty">
       <div class="log-empty-icon">🏋️</div>
-      <div class="log-empty-title">NO EXERCISES YET</div>
-      <div class="log-empty-sub">Add your first exercise below to start today's session</div>
+      <div class="log-empty-title">START YOUR SESSION</div>
+      <div class="log-empty-sub">Tap <strong>ADD EXERCISE</strong> below to pick your first movement.<br>New here? Tap the <strong>?</strong> button top-right for a full walkthrough.</div>
+      <div class="log-onboard-chips">
+        <span class="lo-chip">📋 Track sets &amp; reps</span>
+        <span class="lo-chip">⏱ Set timer</span>
+        <span class="lo-chip">📊 Live e1RM</span>
+        <span class="lo-chip">⚡ Supersets</span>
+        <span class="lo-chip">🔬 Muscle fatigue</span>
+      </div>
     </div>`;
   } else {
     topLevel.forEach(ex=>{
@@ -4969,6 +5408,395 @@ function saveLibEx(){
   LIBRARY[name]={muscle};saveLib();document.getElementById('lib-name').value='';document.getElementById('lib-muscle').value='';
   document.getElementById('lib-add-form').style.display='none';toast(`"${name}" added`);renderLibrary();
 }
+
+// ══ TRAINER FEATURE ══════════════════════════════════════════════════════════
+// Firestore structure:
+//   users/{uid}/meta/profile  → { role:'trainer'|'student', name, email, isTrainer }
+//   trainers/{trainerUid}/students/{studentUid} → { status:'pending'|'active', name, email, requestedAt }
+//   users/{studentUid}/meta/trainer → { trainerUid, trainerName, status:'pending'|'active' }
+
+let _trainerProfile = null;      // current user's profile {role, isTrainer}
+let _trainerStudents = [];        // trainer: list of connected students
+let _studentTrainer = null;       // student: their connected trainer
+let _isTrainer = false;           // flag
+let _registerAsTrainer = false;   // set by toggle in register form
+let _viewingStudentUid = null;    // trainer: currently viewing this student's data
+let _studentDataCache = {};       // cache of student DATA objects
+
+function toggleTrainerMode(checked){
+  _registerAsTrainer = checked;
+  const hint = document.getElementById('trainer-toggle-hint');
+  if(hint) hint.style.display = checked ? 'block' : 'none';
+}
+
+// Save profile to Firestore
+async function saveProfile(role){
+  if(IS_GUEST||!fbDb||!CU) return;
+  const profile = { role, name:CU.name, email:CU.email, uid:CU.uid, updatedAt:Date.now() };
+  try{
+    await fbSetDoc(fbDoc(fbDb,'users',CU.uid,'meta','profile'), profile);
+    _trainerProfile = profile;
+    _isTrainer = role==='trainer';
+  }catch(e){ console.error('saveProfile',e); }
+}
+
+// Load profile from Firestore
+async function loadProfile(){
+  if(IS_GUEST||!fbDb||!CU) return null;
+  try{
+    const snap = await fbGetDoc(fbDoc(fbDb,'users',CU.uid,'meta','profile'));
+    if(snap.exists()){ _trainerProfile = snap.data(); _isTrainer = _trainerProfile.role==='trainer'; }
+    else { _trainerProfile = {role:'student'}; _isTrainer = false; }
+    return _trainerProfile;
+  }catch(e){ return null; }
+}
+
+// Show/hide trainer nav button
+function updateTrainerNav(){
+  const btn = document.getElementById('nav-trainer-btn');
+  if(btn) btn.style.display = _isTrainer ? 'flex' : 'none';
+}
+
+// ── TRAINER: load all students ─────────────────────────────────────────────
+async function loadStudents(){
+  if(!fbDb||!CU||!_isTrainer) return;
+  try{
+    const snap = await fbGetDoc(fbDoc(fbDb,'trainers',CU.uid));
+    if(!snap.exists()){ _trainerStudents=[]; return; }
+    const data = snap.data();
+    _trainerStudents = Object.entries(data.students||{}).map(([uid,info])=>({uid,...info}));
+  }catch(e){ console.error('loadStudents',e); }
+}
+
+// ── STUDENT: send request to trainer ──────────────────────────────────────
+async function sendTrainerRequest(){
+  const input = document.getElementById('trainer-email-input');
+  const email = input?.value?.trim().toLowerCase();
+  if(!email){ toast('Enter the trainer\'s email address',true); return; }
+  if(!fbDb||!CU){ toast('Sign in to connect with a trainer',true); return; }
+
+  const btn = document.getElementById('trainer-request-btn');
+  if(btn){ btn.disabled=true; btn.textContent='Searching...'; }
+
+  try{
+    // Look up trainer by email — we store trainer emails in a lookup collection
+    // trainers/{trainerUid} has an 'email' field we can match against
+    // Since Firestore can't query subcollections easily without collection group queries,
+    // we store a lookup: trainerEmails/{email} → {uid}
+    const lookupSnap = await fbGetDoc(fbDoc(fbDb,'trainerEmails',email.replace(/\./g,'_')));
+    if(!lookupSnap.exists()){
+      toast('No trainer found with that email. Check they are registered as a trainer.',true);
+      if(btn){ btn.disabled=false; btn.textContent='Send Request'; }
+      return;
+    }
+    const trainerUid = lookupSnap.data().uid;
+    const trainerName = lookupSnap.data().name || email;
+
+    // Save request on trainer's side
+    const studentsRef = fbDoc(fbDb,'trainers',trainerUid);
+    const trainerSnap = await fbGetDoc(studentsRef);
+    const existing = trainerSnap.exists() ? trainerSnap.data() : {};
+    await fbSetDoc(studentsRef, {
+      ...existing,
+      students: {
+        ...(existing.students||{}),
+        [CU.uid]: { name:CU.name, email:CU.email, status:'pending', requestedAt:Date.now() }
+      }
+    });
+
+    // Save on student's side
+    await fbSetDoc(fbDoc(fbDb,'users',CU.uid,'meta','trainer'), {
+      trainerUid, trainerName, status:'pending', requestedAt:Date.now()
+    });
+
+    _studentTrainer = { trainerUid, trainerName, status:'pending' };
+    toast(`Request sent to ${trainerName} ✓`);
+    renderTrainerPage();
+  }catch(e){
+    console.error('sendTrainerRequest',e);
+    toast('Could not send request. Check the email and try again.',true);
+  } finally {
+    if(btn){ btn.disabled=false; btn.textContent='Send Request'; }
+  }
+}
+
+// ── TRAINER: accept a student ──────────────────────────────────────────────
+async function acceptStudent(studentUid){
+  if(!fbDb||!CU||!_isTrainer) return;
+  try{
+    // Update on trainer side
+    const studentsRef = fbDoc(fbDb,'trainers',CU.uid);
+    const snap = await fbGetDoc(studentsRef);
+    const data = snap.exists() ? snap.data() : {};
+    const students = data.students||{};
+    students[studentUid] = { ...(students[studentUid]||{}), status:'active', acceptedAt:Date.now() };
+    await fbSetDoc(studentsRef, { ...data, students });
+
+    // Update on student side
+    await fbSetDoc(fbDoc(fbDb,'users',studentUid,'meta','trainer'), {
+      trainerUid:CU.uid, trainerName:CU.name, status:'active', acceptedAt:Date.now()
+    });
+
+    // Update local cache
+    const s = _trainerStudents.find(x=>x.uid===studentUid);
+    if(s) s.status='active';
+    toast('Student accepted ✓');
+    renderTrainerPage();
+  }catch(e){ toast('Could not accept student',true); }
+}
+
+// ── TRAINER: decline/remove a student ─────────────────────────────────────
+async function removeStudent(studentUid){
+  if(!confirm('Remove this student?')) return;
+  if(!fbDb||!CU||!_isTrainer) return;
+  try{
+    const studentsRef = fbDoc(fbDb,'trainers',CU.uid);
+    const snap = await fbGetDoc(studentsRef);
+    const data = snap.exists() ? snap.data() : {};
+    const students = data.students||{};
+    delete students[studentUid];
+    await fbSetDoc(studentsRef, { ...data, students });
+    _trainerStudents = _trainerStudents.filter(s=>s.uid!==studentUid);
+    toast('Student removed');
+    renderTrainerPage();
+  }catch(e){ toast('Could not remove student',true); }
+}
+
+// ── TRAINER: load a student's workout data ─────────────────────────────────
+async function loadStudentData(studentUid){
+  if(_studentDataCache[studentUid]) return _studentDataCache[studentUid];
+  try{
+    const snap = await fbGetDoc(fbDoc(fbDb,'users',studentUid,'meta','data'));
+    if(snap.exists()){
+      _studentDataCache[studentUid] = snap.data().workouts || {};
+      return _studentDataCache[studentUid];
+    }
+  }catch(e){ console.error('loadStudentData',e); }
+  return {};
+}
+
+async function viewStudent(studentUid){
+  _viewingStudentUid = studentUid;
+  const wrap = document.getElementById('trainer-wrap');
+  if(wrap) wrap.innerHTML = `<div style="text-align:center;padding:40px;color:var(--muted);font-family:var(--font-head);letter-spacing:.08em">Loading student data...</div>`;
+  const studentData = await loadStudentData(studentUid);
+  const student = _trainerStudents.find(s=>s.uid===studentUid)||{};
+  renderStudentDetail(student, studentData);
+}
+
+function renderStudentDetail(student, studentData){
+  const exs = Object.values(studentData||{}).flatMap(d=>(d.exercises||[]).filter(e=>!e._isSynergist&&e.sets?.length>0));
+  const totalSets = exs.reduce((t,e)=>t+e.sets.length,0);
+  const days = Object.keys(studentData||{}).filter(k=>(studentData[k]?.exercises||[]).some(e=>e.sets?.length>0));
+  let bestE1RM=0, bestExName='';
+  exs.forEach(ex=>{const bs=bestSet(ex.sets);if(bs){const est=e1rm(bs.w,bs.r);if(est>bestE1RM){bestE1RM=est;bestExName=ex.name;}}});
+
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const recentDays = days.sort().reverse().slice(0,5);
+  const recentHtml = recentDays.map(k=>{
+    const d = new Date(k+'T00:00:00');
+    const dayExs = (studentData[k]?.exercises||[]).filter(e=>!e._isSynergist&&e.sets?.length>0);
+    const vol = dayExs.reduce((t,e)=>t+totalVol2(e.sets),0);
+    const muscles = [...new Set(dayExs.filter(e=>e.muscle).map(e=>e.muscle))].slice(0,3);
+    return `<div class="act-row" style="padding:10px 0;border-bottom:1px solid var(--border)">
+      <div class="act-dot" style="background:var(--blue)"></div>
+      <div class="act-info">
+        <div class="act-date">${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}</div>
+        <div class="act-exercises">${muscles.join(', ')||'Workout'}</div>
+      </div>
+      <div class="act-stats">
+        <div class="act-vol">${fmtVol(vol)}<span style="font-size:10px;color:var(--dim);font-family:var(--font-head)">u</span></div>
+        <div class="act-sets">${dayExs.reduce((t,e)=>t+e.sets.length,0)} SETS</div>
+      </div>
+    </div>`;
+  }).join('') || '<div style="padding:20px;color:var(--dim);text-align:center;font-family:var(--font-head);font-size:12px">No sessions yet</div>';
+
+  const initials_str = (student.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const col = avatarColor(student.email||'a');
+
+  const wrap = document.getElementById('trainer-wrap');
+  if(!wrap) return;
+  wrap.innerHTML = `
+    <button class="tsd-back" onclick="_viewingStudentUid=null;renderTrainerPage()">← All Students</button>
+    <div class="trainer-student-detail" style="margin-top:12px">
+      <div class="tsd-header">
+        <div class="sc-avatar" style="background:${col};width:50px;height:50px;font-size:22px">${initials_str}</div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:24px;letter-spacing:.04em;color:var(--text)">${student.name||'Student'}</div>
+          <div style="font-size:12px;color:var(--dim);font-family:var(--font-head)">${student.email||''}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:20px">
+        <div class="log-stat"><div class="ls-val">${days.length}</div><div class="ls-lbl">SESSIONS</div></div>
+        <div class="log-stat"><div class="ls-val">${totalSets}</div><div class="ls-lbl">TOTAL SETS</div></div>
+        <div class="log-stat"><div class="ls-val" style="color:var(--blue)">${bestE1RM||'—'}</div><div class="ls-lbl">BEST e1RM</div></div>
+        <div class="log-stat"><div class="ls-val" style="font-size:13px;color:var(--muted)">${bestExName||'—'}</div><div class="ls-lbl">TOP LIFT</div></div>
+      </div>
+      <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.14em;color:var(--dim);margin-bottom:10px">RECENT SESSIONS</div>
+      <div>${recentHtml}</div>
+    </div>`;
+}
+
+// ── RENDER TRAINER PAGE ────────────────────────────────────────────────────
+async function renderTrainerPage(){
+  const wrap = document.getElementById('trainer-wrap');
+  if(!wrap) return;
+  if(IS_GUEST||!CU){
+    wrap.innerHTML=`<div style="text-align:center;padding:60px 20px">
+      <div style="font-size:40px;margin-bottom:12px">👥</div>
+      <div style="font-family:var(--font-display);font-size:28px;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">SIGN IN TO ACCESS</div>
+      <div style="font-size:13px;color:var(--dim)">Sign in to use the trainer feature</div>
+      <button onclick="showAuthPanel()" class="btn btn-blue" style="margin-top:16px">Sign In</button>
+    </div>`;
+    return;
+  }
+
+  // Load profile if not yet loaded
+  if(!_trainerProfile) await loadProfile();
+
+  wrap.innerHTML = `<div style="text-align:center;padding:40px;color:var(--muted);font-family:var(--font-head);letter-spacing:.08em">Loading...</div>`;
+
+  if(_isTrainer){
+    await loadStudents();
+    renderTrainerDashboard();
+  } else {
+    await loadStudentTrainerInfo();
+    renderStudentConnectView();
+  }
+}
+
+async function loadStudentTrainerInfo(){
+  if(!fbDb||!CU) return;
+  try{
+    const snap = await fbGetDoc(fbDoc(fbDb,'users',CU.uid,'meta','trainer'));
+    _studentTrainer = snap.exists() ? snap.data() : null;
+  }catch(e){}
+}
+
+function renderTrainerDashboard(){
+  const wrap = document.getElementById('trainer-wrap');
+  if(!wrap) return;
+
+  if(_viewingStudentUid){ viewStudent(_viewingStudentUid); return; }
+
+  const active = _trainerStudents.filter(s=>s.status==='active');
+  const pending = _trainerStudents.filter(s=>s.status==='pending');
+
+  const studentCards = (arr, isPending) => arr.map(s=>{
+    const initials_str=(s.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const col=avatarColor(s.email||'a');
+    return `<div class="student-card${isPending?' pending':''}" onclick="${isPending?'':'viewStudent(\''+s.uid+'\')'}">
+      <div class="sc-header">
+        <div class="sc-avatar" style="background:${col}">${initials_str}</div>
+        <div>
+          <div class="sc-name">${s.name||'Student'}</div>
+          <div class="sc-email">${s.email||''}</div>
+        </div>
+        ${isPending?'<span class="sc-pending-badge">PENDING</span>':''}
+      </div>
+      ${isPending?`
+        <button class="sc-accept-btn" onclick="event.stopPropagation();acceptStudent('${s.uid}')">✓ Accept Student</button>
+        <button class="sc-decline-btn" onclick="event.stopPropagation();removeStudent('${s.uid}')">Decline</button>
+      `:'<div style="font-size:12px;color:var(--muted);font-family:var(--font-head)">Tap to view training data →</div>'}
+    </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="trainer-role-banner trainer">
+      <div class="trb-icon">👥</div>
+      <div class="trb-body">
+        <div class="trb-title">Trainer Dashboard</div>
+        <div class="trb-sub">You have <strong>${active.length}</strong> active student${active.length!==1?'s':''}.${pending.length>0?` <strong style="color:var(--gold)">${pending.length} pending request${pending.length!==1?'s':''}</strong>.`:''}</div>
+      </div>
+    </div>
+
+    ${pending.length?`
+      <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.14em;color:var(--gold);margin-bottom:10px">PENDING REQUESTS</div>
+      <div class="student-grid">${studentCards(pending,true)}</div>
+    `:''}
+
+    ${active.length?`
+      <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.14em;color:var(--dim);margin-bottom:10px">YOUR STUDENTS</div>
+      <div class="student-grid">${studentCards(active,false)}</div>
+    `:''}
+
+    ${!active.length&&!pending.length?`
+      <div style="text-align:center;padding:40px 20px">
+        <div style="font-size:40px;margin-bottom:12px">🎯</div>
+        <div style="font-family:var(--font-display);font-size:24px;letter-spacing:.06em;color:var(--muted);margin-bottom:8px">NO STUDENTS YET</div>
+        <div style="font-size:13px;color:var(--dim);max-width:320px;margin:0 auto;line-height:1.6">Share your email with your students so they can send you a connection request from the Trainer tab.</div>
+        <div style="margin-top:16px;padding:12px 20px;background:var(--card2);border-radius:10px;font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.04em;display:inline-block">${CU?.email||''}</div>
+      </div>
+    `:''}
+  `;
+}
+
+function renderStudentConnectView(){
+  const wrap = document.getElementById('trainer-wrap');
+  if(!wrap) return;
+
+  const hasTrainer = _studentTrainer && _studentTrainer.trainerUid;
+
+  wrap.innerHTML = `
+    <div class="trainer-role-banner student">
+      <div class="trb-icon">🎓</div>
+      <div class="trb-body">
+        <div class="trb-title">Connect with a Trainer</div>
+        <div class="trb-sub">Your trainer can monitor your workouts, track your progress, and guide your programme remotely.</div>
+      </div>
+    </div>
+
+    ${hasTrainer ? `
+      <div style="font-family:var(--font-head);font-size:10px;letter-spacing:.14em;color:var(--dim);margin-bottom:10px">YOUR TRAINER</div>
+      <div class="connected-trainer-card">
+        <div class="ctc-avatar">${(_studentTrainer.trainerName||'T')[0].toUpperCase()}</div>
+        <div class="ctc-body">
+          <div class="ctc-name">${_studentTrainer.trainerName||'Trainer'}</div>
+          <div class="ctc-status ${_studentTrainer.status==='active'?'ctc-active':'ctc-pending'}">
+            ${_studentTrainer.status==='active'?'✓ Connected — trainer can view your progress':'⏳ Request sent — waiting for trainer to accept'}
+          </div>
+        </div>
+        ${_studentTrainer.status==='active'?'<span style="font-size:20px">✓</span>':'<span style="font-size:20px">⏳</span>'}
+      </div>
+      <button onclick="disconnectTrainer()" class="btn btn-ghost btn-sm" style="margin-top:10px;color:var(--dim);border-color:var(--border2)">Remove trainer connection</button>
+    ` : `
+      <div class="connect-trainer-card">
+        <h4>Add Your Trainer</h4>
+        <p>Enter your trainer's email address. They'll receive a connection request and can accept it from their Trainer dashboard. Once accepted, they can see your training history and progress.</p>
+        <div class="trainer-search-row">
+          <input type="email" class="trainer-search-input" id="trainer-email-input" placeholder="trainer@gym.com">
+          <button id="trainer-request-btn" class="btn btn-blue btn-sm" onclick="sendTrainerRequest()">Send Request</button>
+        </div>
+      </div>
+    `}
+
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-top:10px">
+      <div style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--dim);margin-bottom:6px">ARE YOU A TRAINER?</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px">To create a trainer account, sign out and register again using the <strong>"I'm a Gym Trainer"</strong> toggle on the registration form.</div>
+    </div>
+  `;
+}
+
+async function disconnectTrainer(){
+  if(!confirm('Remove your trainer connection?')) return;
+  if(!fbDb||!CU) return;
+  try{
+    await fbSetDoc(fbDoc(fbDb,'users',CU.uid,'meta','trainer'), {removed:true, removedAt:Date.now()});
+    _studentTrainer = null;
+    toast('Trainer connection removed');
+    renderStudentConnectView();
+  }catch(e){ toast('Could not remove connection',true); }
+}
+
+window.renderTrainerPage=renderTrainerPage; window.updateTrainerNav=updateTrainerNav;
+window.renderStudentConnectView=renderStudentConnectView;
+window.toggleTrainerMode=toggleTrainerMode;
+window.sendTrainerRequest=sendTrainerRequest;
+window.acceptStudent=acceptStudent;
+window.removeStudent=removeStudent;
+window.viewStudent=viewStudent;
+window.disconnectTrainer=disconnectTrainer;
+
 function showResearch(ex){
   // Show correct research sub-page and update tab states
   document.querySelectorAll('.research-ex-tab').forEach((t,i)=>{
@@ -5836,6 +6664,33 @@ function saveSession(){
   sessionRating=0;
 }
 
+function toggleLogGuide(){
+  const guide=document.getElementById('log-guide');
+  const btn=document.getElementById('log-help-btn');
+  if(!guide) return;
+  const open=guide.style.display==='none'||guide.style.display==='';
+  guide.style.display=open?'block':'none';
+  if(btn) btn.classList.toggle('active',open);
+}
+
+function toggleDashGuide(){
+  const guide=document.getElementById('dash-guide');
+  const btn=document.getElementById('dash-help-btn');
+  if(!guide) return;
+  const open=guide.style.display==='none'||guide.style.display==='';
+  guide.style.display=open?'block':'none';
+  if(btn) btn.classList.toggle('active',open);
+}
+
+function toggleWeeklyGuide(){
+  const guide=document.getElementById('weekly-guide');
+  const btn=document.getElementById('weekly-help-btn');
+  if(!guide) return;
+  const open=guide.style.display==='none'||guide.style.display==='';
+  guide.style.display=open?'block':'none';
+  if(btn) btn.classList.toggle('active',open);
+}
+
 function unlockDay(){
   const day=getDay(currentDate);
   day.locked=false;
@@ -6143,6 +6998,9 @@ window.showResearch=showResearch;
 window.applySynergistFatigue=applySynergistFatigue;
 window.manualSaveToCloud=manualSaveToCloud;
 window.unlockDay=unlockDay; window.startNewSession=startNewSession;
+window.toggleLogGuide=toggleLogGuide;
+window.toggleDashGuide=toggleDashGuide;
+window.toggleWeeklyGuide=toggleWeeklyGuide;
 // Timer
 window.enableTimer=enableTimer; window.disableTimer=disableTimer;
 window.timerStart=timerStart; window.timerStop=timerStop; window.timerReset=timerReset;
