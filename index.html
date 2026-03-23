@@ -547,6 +547,13 @@ select option{background:var(--card2)}
 .ex-head-left{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;padding-left:8px}
 .ex-name{font-family:var(--font-display);font-size:24px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ex-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ex-variant-badge{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;
+  padding:2px 8px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(240,180,41,.15),rgba(232,83,63,.10));
+  border:1px solid rgba(240,180,41,.35);color:var(--gold);
+  display:inline-flex;align-items:center;gap:3px;
+}
 .ex-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
 .ex-sets-count{font-family:var(--font-display);font-size:30px;letter-spacing:.02em;color:var(--text);line-height:1}
 .ex-sets-label{font-size:9px;font-family:var(--font-head);color:var(--muted);letter-spacing:.12em;font-weight:700}
@@ -759,6 +766,14 @@ select option{background:var(--card2)}
 .syn-note{
   font-size:10px;color:var(--muted);font-style:italic;letter-spacing:.02em;
   line-height:1.4;
+}
+.syn-variant-label{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;
+  padding:2px 8px;border-radius:10px;margin-right:2px;
+  background:linear-gradient(135deg,rgba(240,180,41,.15),rgba(232,83,63,.10));
+  border:1px solid rgba(240,180,41,.35);color:var(--gold);
+  display:inline-flex;align-items:center;gap:3px;white-space:nowrap;
+}
 }
 
 /* ── PREVIOUS BEST HINT ── */
@@ -1203,12 +1218,135 @@ body.light .auth-welcome-title{color:var(--red)}
 .target-input-row input{width:80px;font-size:13px;padding:5px 8px}
 .target-input-row label{font-size:10px;font-family:var(--font-head);color:var(--dim)}
 .pr-pill{display:inline-flex;align-items:center;background:var(--gold);color:#1a0800;font-size:10px;font-family:var(--font-head);font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em}
-.lib-table{width:100%;border-collapse:collapse}
-.lib-table th{font-size:10px;font-family:var(--font-head);letter-spacing:.1em;color:var(--dim);padding:10px 14px;text-align:left;background:var(--card2);border-bottom:1px solid var(--border)}
-.lib-table td{padding:10px 14px;font-size:14px;border-bottom:1px solid var(--border);vertical-align:middle}
-.lib-table tr:last-child td{border-bottom:none}
-.lib-table tr:hover td{background:var(--card2)}
-.lib-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+/* ── LIBRARY ── */
+.lib-muscle-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.lib-mtab{
+  font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;
+  padding:6px 14px;border-radius:20px;border:1.5px solid var(--border2);
+  background:transparent;color:var(--muted);cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.lib-mtab:hover{border-color:var(--border3);color:var(--text)}
+.lib-mtab.active{color:#fff;border-color:transparent}
+.lib-mtab .lib-mtab-count{
+  font-size:9px;font-weight:700;margin-left:4px;
+  opacity:0.7;font-family:var(--font-head);
+}
+.lib-stats-bar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:10px;margin-bottom:24px;
+}
+.lib-stat-pill{
+  background:var(--card);border:1px solid var(--border2);border-radius:var(--r);
+  padding:12px 14px;display:flex;flex-direction:column;gap:3px;
+}
+.lib-stat-pill-val{
+  font-family:var(--font-display);font-size:28px;letter-spacing:.02em;color:var(--text);line-height:1;
+}
+.lib-stat-pill-lbl{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--label);
+}
+.lib-search-wrap{
+  position:relative;margin-bottom:20px;
+}
+.lib-search-input{
+  width:100%;padding:10px 16px 10px 38px;
+  background:var(--card);border:1px solid var(--border2);border-radius:24px;
+  font-size:13px;color:var(--text);font-family:var(--font-body);
+  transition:border-color .15s;box-sizing:border-box;
+}
+.lib-search-input:focus{border-color:var(--border3);outline:none}
+.lib-search-input::placeholder{color:var(--dim)}
+.lib-search-icon{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  font-size:14px;color:var(--dim);pointer-events:none;
+}
+.lib-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(168px,1fr));
+  gap:12px;
+}
+.lib-ex-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:var(--r);overflow:hidden;
+  cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s;
+  position:relative;
+}
+.lib-ex-card:hover{
+  transform:translateY(-2px);border-color:var(--border3);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.lib-ex-card.has-pr{box-shadow:0 0 0 1.5px var(--lib-accent,var(--border2))}
+.lib-ex-card.has-pr:hover{box-shadow:0 6px 20px rgba(0,0,0,.3),0 0 0 1.5px var(--lib-accent,var(--border2))}
+.lib-card-stripe{height:4px;width:100%}
+.lib-card-body{padding:14px 14px 12px}
+.lib-card-icon{
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;margin-bottom:10px;flex-shrink:0;
+}
+.lib-card-name{
+  font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.02em;
+  color:var(--text);line-height:1.3;margin-bottom:8px;
+}
+.lib-card-tags{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.lib-card-tag{
+  font-family:var(--font-head);font-size:8.5px;font-weight:700;letter-spacing:.1em;
+  padding:2px 7px;border-radius:10px;
+}
+.lib-card-pr{
+  display:flex;align-items:baseline;gap:4px;
+  padding-top:10px;border-top:1px solid var(--border);
+}
+.lib-card-pr-val{
+  font-family:var(--font-display);font-size:22px;letter-spacing:.02em;
+  line-height:1;
+}
+.lib-card-pr-lbl{
+  font-family:var(--font-head);font-size:8px;font-weight:700;letter-spacing:.1em;
+  color:var(--label);padding-bottom:2px;
+}
+.lib-card-no-pr{
+  font-family:var(--font-head);font-size:10px;letter-spacing:.06em;
+  color:var(--dim);padding-top:10px;border-top:1px solid var(--border);
+}
+.lib-card-del{
+  position:absolute;top:8px;right:8px;
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(0,0,0,.3);border:none;cursor:pointer;
+  font-size:10px;color:var(--dim);display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .15s;
+}
+.lib-ex-card:hover .lib-card-del{opacity:1}
+.lib-card-del:hover{background:var(--red);color:#fff}
+.lib-add-card{
+  background:var(--card);border:2px dashed var(--border2);
+  border-radius:var(--r);padding:20px 14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;cursor:pointer;min-height:140px;
+  transition:border-color .15s,background .15s;
+}
+.lib-add-card:hover{border-color:var(--border3);background:var(--card2)}
+.lib-add-card-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--card2);border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--muted);
+}
+.lib-add-card-lbl{
+  font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--muted);
+}
+.lib-add-form-card{
+  background:var(--card);border:1.5px solid var(--gold);
+  border-radius:var(--r);padding:18px;
+  grid-column:span 2;
+}
+@media(max-width:480px){.lib-add-form-card{grid-column:span 1}}
+.lib-empty{
+  grid-column:1/-1;padding:48px;text-align:center;
+  font-family:var(--font-head);font-size:13px;letter-spacing:.08em;color:var(--dim);
+}
+
 .data-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px}
 .data-card h3{font-family:var(--font-head);font-size:16px;font-weight:700;letter-spacing:.06em;margin-bottom:8px}
 .data-card p{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
@@ -1444,6 +1582,103 @@ body.light .auth-welcome-title{color:var(--red)}
 .exm-chip.custom-chip{border-style:dashed}
 .exm-chip .chip-detail-btn{display:none;position:absolute;right:-1px;top:-1px;bottom:-1px;padding:0 10px;background:rgba(79,157,232,.15);border:1px solid rgba(79,157,232,.3);border-radius:0 10px 10px 0;cursor:pointer;color:var(--blue);font-size:10px;font-family:var(--font-head);font-weight:700;letter-spacing:.06em;align-items:center}
 .exm-chip:hover .chip-detail-btn{display:flex}
+
+/* ── VARIANT PICKER (PRO MODE) ── */
+.vp-overlay{
+  position:fixed;inset:0;z-index:850;background:rgba(0,0,0,0.82);
+  display:none;align-items:flex-end;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.vp-overlay.open{display:flex}
+.vp-sheet{
+  width:100%;max-width:700px;
+  background:var(--surface);border-radius:24px 24px 0 0;
+  border-top:1px solid var(--border2);
+  max-height:82vh;overflow-y:auto;
+  box-shadow:0 -24px 80px rgba(0,0,0,.6);
+  animation:sheetUp .22s cubic-bezier(.22,.68,0,1.2) both;
+  padding:0 0 env(safe-area-inset-bottom,0);
+}
+.vp-header{
+  padding:20px 22px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:12px;position:sticky;top:0;background:var(--surface);z-index:2;
+}
+.vp-header-left{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vp-ex-icon{font-size:28px;margin-bottom:4px}
+.vp-ex-name{
+  font-family:var(--font-display);font-size:30px;letter-spacing:.03em;
+  color:var(--text);line-height:1;
+}
+.vp-ex-muscle{
+  font-family:var(--font-head);font-size:10px;font-weight:700;
+  letter-spacing:.14em;margin-top:4px;
+}
+.vp-pro-badge{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;
+  padding:3px 8px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(240,180,41,.2),rgba(232,83,63,.15));
+  border:1px solid rgba(240,180,41,.4);color:var(--gold);
+  white-space:nowrap;margin-top:6px;display:inline-block;
+}
+.vp-close{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);
+  background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .15s;margin-top:4px;
+}
+.vp-close:hover{background:var(--card2);color:var(--text)}
+.vp-body{padding:16px 22px 24px}
+.vp-section-title{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.16em;
+  color:var(--label);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.vp-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.vp-equip-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.vp-equip-tab{
+  font-family:var(--font-head);font-size:9px;font-weight:700;letter-spacing:.1em;
+  padding:5px 11px;border-radius:14px;border:1.5px solid var(--border2);
+  background:var(--card);color:var(--muted);cursor:pointer;transition:all .12s;
+  display:flex;align-items:center;gap:5px;
+}
+.vp-equip-tab:hover{border-color:var(--border3);color:var(--text)}
+.vp-equip-tab.active{background:var(--card2);border-color:var(--gold);color:var(--gold)}
+.vp-variant-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:20px}
+.vp-variant-card{
+  background:var(--card);border:1.5px solid var(--border2);border-radius:14px;
+  padding:14px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;
+}
+.vp-variant-card:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.vp-variant-card.selected{border-color:var(--gold);background:rgba(240,180,41,.06)}
+.vp-vc-stripe{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.vp-vc-equip{
+  font-family:var(--font-head);font-size:8px;font-weight:700;letter-spacing:.12em;
+  color:var(--dim);display:flex;align-items:center;gap:4px;margin-bottom:6px;
+}
+.vp-vc-label{
+  font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.02em;
+  color:var(--text);margin-bottom:6px;line-height:1.3;
+}
+.vp-vc-focus{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.vp-vc-syns{display:flex;flex-wrap:wrap;gap:4px}
+.vp-vc-angle{
+  font-family:var(--font-head);font-size:8px;font-weight:700;letter-spacing:.1em;
+  padding:1px 5px;border-radius:6px;background:var(--card3);color:var(--muted);
+  margin-left:3px;
+}
+.vp-vc-syn{
+  font-family:var(--font-head);font-size:8px;font-weight:700;letter-spacing:.06em;
+  padding:2px 6px;border-radius:6px;
+}
+.vp-no-variant{padding:24px;text-align:center;color:var(--dim);font-family:var(--font-head);font-size:12px;letter-spacing:.08em}
+.vp-add-anyway{
+  width:100%;padding:13px;border-radius:12px;
+  background:var(--card2);border:1px solid var(--border2);
+  font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.1em;
+  color:var(--muted);cursor:pointer;transition:all .15s;margin-top:4px;
+}
+.vp-add-anyway:hover{border-color:var(--border3);color:var(--text);background:var(--card3)}
 
 /* Custom add box */
 .exm-custom-add{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:0 16px 16px;flex-shrink:0}
@@ -1768,7 +2003,7 @@ body.light .auth-welcome-title{color:var(--red)}
     <div class="topbar-logo"><span class="iron">IRON</span><em>LOG</em></div>
     <div class="topbar-right">
       <div class="streak-badge" id="streak-badge"></div>
-      <button class="pro-mode-btn" id="pro-mode-btn" onclick="toggleProMode()" title="Switch between Beginner and Pro mode">BASIC</button>
+      <button class="pro-mode-btn" id="pro-mode-btn" onclick="toggleProMode()" title="PRO unlocks: Exercise variants, RPE tracking, Set timer, Drop sets">BASIC</button>
       <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
       <button class="topbar-signin-btn" id="topbar-signin-btn" onclick="showAuthPanel()" style="display:none">SIGN IN</button>
       <div class="user-pill" onclick="toggleUserMenu()" id="topbar-user-pill" style="display:none">
@@ -2264,6 +2499,22 @@ body.light .auth-welcome-title{color:var(--red)}
       <div class="exd-sheet" id="exd-sheet"></div>
     </div>
 
+    <!-- VARIANT PICKER OVERLAY (PRO MODE) -->
+    <div class="vp-overlay" id="vp-overlay" onclick="vpOverlayClick(event)">
+      <div class="vp-sheet" id="vp-sheet">
+        <div class="vp-header">
+          <div class="vp-header-left">
+            <div class="vp-ex-icon" id="vp-ex-icon">🏋️</div>
+            <div class="vp-ex-name" id="vp-ex-name">Bench Press</div>
+            <div class="vp-ex-muscle" id="vp-ex-muscle"></div>
+            <div class="vp-pro-badge">⚡ PRO — VARIANT SELECT</div>
+          </div>
+          <button class="vp-close" onclick="closeVariantPicker()">✕</button>
+        </div>
+        <div class="vp-body" id="vp-body"></div>
+      </div>
+    </div>
+
 
     <!-- ── WEEKLY ── -->
     <div id="page-weekly" class="page">
@@ -2533,47 +2784,62 @@ body.light .auth-welcome-title{color:var(--red)}
         <h3>EXERCISE LIBRARY</h3>
         <div style="display:flex;align-items:center;gap:8px">
           <button class="log-help-btn" onclick="toggleGuide('library-guide','library-help-btn')" id="library-help-btn" title="About the Exercise Library">?</button>
-          <button class="btn btn-red btn-sm" onclick="toggleAddLib()">＋ New Exercise</button>
         </div>
       </div>
       <div id="library-guide" style="display:none"><div class="log-guide-wrap">
-        <div class="lg-header"><div class="lg-title">📖 Exercise Library</div><button class="lg-close" onclick="toggleGuide('library-guide','library-help-btn')">✕</button></div>
+        <div class="lg-header"><div class="lg-title">📚 Exercise Library</div><button class="lg-close" onclick="toggleGuide('library-guide','library-help-btn')">✕</button></div>
         <div class="lg-steps">
           <div class="lg-step"><div class="lg-step-num">1</div><div class="lg-step-body">
-            <div class="lg-step-title">Browse Built-in Exercises</div>
-            <div class="lg-step-desc">IRONLOG ships with a comprehensive library of exercises across every major muscle group — Bench Press, Squat, Deadlift, OHP, Pull Ups, Rows, and dozens more. Use the <strong>FILTER</strong> dropdown to narrow by muscle group, or the <strong>SEARCH</strong> box to find any exercise by name. The <strong>BEST e1RM</strong> column shows your all-time personal best for each lift.</div>
+            <div class="lg-step-title">Browse by Muscle Group</div>
+            <div class="lg-step-desc">Tap any muscle tab at the top to filter the card grid. Each tab shows how many exercises are in that group. Tap <strong>ALL</strong> to see everything, or use the search bar to find any exercise by name.</div>
           </div></div>
           <div class="lg-step"><div class="lg-step-num">2</div><div class="lg-step-body">
-            <div class="lg-step-title">Adding a Custom Exercise</div>
-            <div class="lg-step-desc">Tap <strong>＋ New Exercise</strong> to add a movement not in the built-in list. Give it a name and assign it to a muscle group. It will then appear in the exercise picker when logging, in the Progress chart dropdown, and in this table with a gold <strong>CUSTOM</strong> badge. Custom exercises support all the same features as built-in ones.</div>
+            <div class="lg-step-title">Personal Records on Every Card</div>
+            <div class="lg-step-desc">Each card shows your best estimated 1-rep max for that lift. Cards with a PR glow in the muscle's colour. Cards with no history yet show a dash — start logging to fill them in.</div>
           </div></div>
           <div class="lg-step"><div class="lg-step-num">3</div><div class="lg-step-body">
-            <div class="lg-step-title">Best e1RM Column</div>
-            <div class="lg-step-desc">This column automatically shows your highest ever estimated 1-rep max for each exercise across your entire training history. It updates every time you log a set that beats your previous best. Use it to gauge which lifts you've been prioritising and which ones need more attention.</div>
+            <div class="lg-step-title">Add a Custom Exercise</div>
+            <div class="lg-step-desc">Tap <strong>＋ ADD EXERCISE</strong> card at the end of the grid. Give it a name and pick a muscle group. Custom exercises get a gold CUSTOM badge and support all the same tracking features as built-ins.</div>
           </div></div>
           <div class="lg-step"><div class="lg-step-num">4</div><div class="lg-step-body">
-            <div class="lg-step-title">UPPER vs LOWER group</div>
-            <div class="lg-step-desc">The GROUP column classifies exercises as <strong>UPPER</strong> (chest, back, shoulders, arms) or <strong>LOWER</strong> (quads, hamstrings, glutes, calves). This categorisation is used by the weekly rings and muscle balance charts to track your upper/lower split balance over time.</div>
+            <div class="lg-step-title">Upper vs Lower</div>
+            <div class="lg-step-desc">Each card shows an UPPER or LOWER tag. This feeds into your weekly balance rings — the app tracks how much of your volume is upper vs lower body across each training week.</div>
           </div></div>
         </div>
         <div style="text-align:center;margin-top:4px"><button class="btn btn-ghost btn-sm" onclick="toggleGuide('library-guide','library-help-btn')" style="font-family:var(--font-head);letter-spacing:.08em">Got it — close guide</button></div>
       </div></div>
+
+      <!-- Stats banner -->
+      <div class="lib-stats-bar" id="lib-stats-bar"></div>
+
+      <!-- Muscle tabs -->
+      <div class="lib-muscle-tabs" id="lib-muscle-tabs"></div>
+
+      <!-- Search -->
+      <div class="lib-search-wrap">
+        <span class="lib-search-icon">⌕</span>
+        <input class="lib-search-input" id="lib-search" placeholder="Search exercises..." oninput="renderLibrary()">
+      </div>
+
+      <!-- Add form (hidden by default, shown inline in grid) -->
       <div id="lib-add-form" style="display:none;margin-bottom:16px">
-        <div class="data-card" style="padding:16px">
+        <div style="background:var(--card);border:1.5px solid var(--gold);border-radius:var(--r);padding:20px">
+          <div style="font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--gold);margin-bottom:14px">NEW EXERCISE</div>
           <div class="field-row">
-            <div class="field-group"><label>EXERCISE NAME</label><input type="text" id="lib-name" placeholder="e.g. Cable Lateral Raise"></div>
+            <div class="field-group"><label>NAME</label><input type="text" id="lib-name" placeholder="e.g. Cable Lateral Raise"></div>
             <div class="field-group" style="max-width:170px"><label>MUSCLE GROUP</label>
               <select id="lib-muscle"><option value="">Select...</option><option>Chest</option><option>Back</option><option>Shoulders</option><option>Biceps</option><option>Triceps</option><option>Forearms</option><option>Quads</option><option>Hamstrings</option><option>Glutes</option><option>Calves</option><option>Core</option></select>
             </div>
-            <div style="padding-top:18px;display:flex;gap:8px"><button class="btn btn-red" onclick="saveLibEx()">Save</button><button class="btn btn-ghost" onclick="toggleAddLib()">Cancel</button></div>
+            <div style="padding-top:18px;display:flex;gap:8px">
+              <button class="btn btn-red" onclick="saveLibEx()">Save</button>
+              <button class="btn btn-ghost" onclick="toggleAddLib()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="filter-row">
-        <div class="fi"><label>FILTER</label><select id="lib-filter" onchange="renderLibrary()"><option value="">All muscles</option><option>Chest</option><option>Back</option><option>Shoulders</option><option>Biceps</option><option>Triceps</option><option>Forearms</option><option>Quads</option><option>Hamstrings</option><option>Glutes</option><option>Calves</option><option>Core</option></select></div>
-        <div class="fi" style="flex:1;max-width:220px"><label>SEARCH</label><input type="text" id="lib-search" placeholder="Search..." oninput="renderLibrary()"></div>
-      </div>
-      <div class="lib-card"><table class="lib-table"><thead><tr><th>EXERCISE</th><th>MUSCLE</th><th>GROUP</th><th>BEST e1RM</th><th></th></tr></thead><tbody id="lib-tbody"></tbody></table></div>
+
+      <!-- Card grid -->
+      <div class="lib-grid" id="lib-grid"></div>
     </div>
 
     <!-- ── DATA ── -->
@@ -3018,20 +3284,463 @@ const LOWER=['Quads','Hamstrings','Glutes','Calves','Core'];
 const ALL_MUSCLES=[...UPPER,...LOWER];
 const UPPER_CLR='#4f9de8', LOWER_CLR='#44c76a';
 const BUILTIN={
-  'Bench Press':'Chest','Incline Bench':'Chest','Dumbbell Fly':'Chest','Pec Dec':'Chest','Push Up':'Chest','Cable Fly':'Chest','Decline Bench':'Chest',
-  'Pull Up':'Back','Deadlift':'Back','Barbell Row':'Back','Lat Pulldown':'Back','Seated Row':'Back','T-Bar Row':'Back','Single Arm Row':'Back',
-  'Overhead Press':'Shoulders','Lateral Raise':'Shoulders','Front Raise':'Shoulders','Face Pull':'Shoulders','Arnold Press':'Shoulders','Rear Delt Fly':'Shoulders',
-  'Barbell Curl':'Biceps','Dumbbell Curl':'Biceps','Hammer Curl':'Biceps','Preacher Curl':'Biceps','Cable Curl':'Biceps','Concentration Curl':'Biceps',
-  'Tricep Pushdown':'Triceps','Skull Crusher':'Triceps','Dips':'Triceps','Overhead Tricep Extension':'Triceps','Close Grip Bench':'Triceps',
-  'Wrist Curl':'Forearms','Reverse Curl':'Forearms',
-  'Squat':'Quads','Leg Press':'Quads','Leg Extension':'Quads','Bulgarian Split Squat':'Quads','Hack Squat':'Quads',
-  'Romanian Deadlift':'Hamstrings','Leg Curl':'Hamstrings','Good Morning':'Hamstrings','Nordic Curl':'Hamstrings',
-  'Hip Thrust':'Glutes','Glute Bridge':'Glutes','Sumo Deadlift':'Glutes','Cable Kickback':'Glutes',
+  // ── CHEST ── (movement patterns — variants handle equipment/angle)
+  'Bench Press':'Chest',          // flat/incline/decline × barbell/dumbbell/smith/machine
+  'Fly':'Chest',                  // flat/incline × dumbbell/cable/pec-dec
+  'Cable Crossover':'Chest',      // high-to-low / low-to-high / mid
+  'Push Up':'Chest',              // standard/wide/diamond/decline/incline
+  'Chest Dip':'Chest',            // bodyweight/weighted/assisted
+  'Chest Press Machine':'Chest',  // flat/incline machine
+
+  // ── BACK ── (movement patterns — variants handle grip/equipment/angle)
+  'Pull Up':'Back',          // overhand/neutral/wide/close × bodyweight/weighted/assisted
+  'Row':'Back',              // barbell/dumbbell/cable/machine/TBar × various grips
+  'Deadlift':'Back',         // conventional/sumo/romanian/stiff × barbell/trap/smith
+  'Lat Pulldown':'Back',     // wide/close/neutral/reverse × cable/machine
+  'Face Pull':'Back',        // cable/band × standing/seated
+
+  // ── SHOULDERS ── (movement patterns)
+  'Overhead Press':'Shoulders',  // barbell/dumbbell/smith/machine × seated/standing
+  'Lateral Raise':'Shoulders',   // dumbbell/cable/machine × strict/leaning
+  'Front Raise':'Shoulders',     // barbell/dumbbell/cable/plate
+  'Rear Delt Fly':'Shoulders',   // dumbbell/cable/machine/face pull × bent-over/lying
+  'Shrug':'Shoulders',           // barbell/dumbbell/cable/trap bar
+
+  // ── BICEPS ──
+  'Barbell Curl':'Biceps','Dumbbell Curl':'Biceps','Hammer Curl':'Biceps',
+  'Preacher Curl':'Biceps','Cable Curl':'Biceps','Concentration Curl':'Biceps',
+  'Spider Curl':'Biceps',
+
+  // ── TRICEPS ──
+  'Tricep Pushdown':'Triceps','Skull Crusher':'Triceps','Dips':'Triceps',
+  'Overhead Tricep Extension':'Triceps','Close Grip Bench':'Triceps',
+  'Cable Overhead Extension':'Triceps',
+
+  // ── FOREARMS ──
+  'Wrist Curl':'Forearms','Reverse Curl':'Forearms','Wrist Roller':'Forearms',
+
+  // ── QUADS ──
+  'Squat':'Quads','Leg Press':'Quads','Leg Extension':'Quads',
+  'Bulgarian Split Squat':'Quads','Hack Squat':'Quads',
+  'Front Squat':'Quads','Goblet Squat':'Quads',
+
+  // ── HAMSTRINGS ──
+  'Romanian Deadlift':'Hamstrings','Leg Curl':'Hamstrings',
+  'Good Morning':'Hamstrings','Nordic Curl':'Hamstrings','Stiff Leg Deadlift':'Hamstrings',
+
+  // ── GLUTES ──
+  'Hip Thrust':'Glutes','Glute Bridge':'Glutes','Sumo Deadlift':'Glutes',
+  'Cable Kickback':'Glutes','Step Up':'Glutes',
+
+  // ── CALVES ──
   'Calf Raise':'Calves','Seated Calf Raise':'Calves','Donkey Calf Raise':'Calves',
-  'Plank':'Core','Cable Crunch':'Core','Hanging Leg Raise':'Core','Ab Wheel':'Core','Crunches':'Core','Russian Twist':'Core'
+
+  // ── CORE ──
+  'Plank':'Core','Cable Crunch':'Core','Hanging Leg Raise':'Core',
+  'Ab Wheel':'Core','Crunches':'Core','Russian Twist':'Core',
+  'Dragon Flag':'Core','Hollow Hold':'Core','L-Sit':'Core','Leg Raise':'Core',
 };
 const AVATAR_COLORS=['#e8533f','#f0b429','#4f9de8','#44c76a','#9b6fe0','#e07a5f','#3d8a7c'];
 const DOT_COLORS=['#e8533f','#f0b429','#4f9de8','#44c76a','#9b6fe0','#e07a5f'];
+
+// ── EXERCISE VARIANTS ─────────────────────────────────────────────────────────
+// Pro mode feature: when adding an exercise, user picks equipment & style variant.
+// Each variant stores: label, equipment tag, focus note, synergist overrides.
+// equipment: 'barbell'|'dumbbell'|'cable'|'machine'|'bodyweight'|'smith'
+// focus: short note shown in picker about what changes vs base
+// coeffs: override synergist coefficients (undefined = use base exercise map)
+
+const EXERCISE_VARIANTS = {
+  // ─ BENCH PRESS ──────────────────────────────────────────────────────────────
+  // All variants log as "Bench Press" — PRs, volume, history all unified.
+  // The variant tag (angle + equipment) is stored on the set and shown as a badge.
+  'Bench Press': {
+    icon:'🏋️',
+    variants:[
+      // BARBELL
+      { id:'bb-flat',    label:'Flat',     equipment:'barbell',  angle:'flat',
+        focus:'Max load. Balanced lower + mid pec. The gold standard for chest strength.',
+        synergists:[{muscle:'Shoulders',coeff:0.50},{muscle:'Triceps',coeff:0.55}] },
+      { id:'bb-incline', label:'Incline',  equipment:'barbell',  angle:'incline',
+        focus:'Upper pec + anterior delt. Delt activation up 40% vs flat.',
+        synergists:[{muscle:'Shoulders',coeff:0.75},{muscle:'Triceps',coeff:0.60}] },
+      { id:'bb-decline', label:'Decline',  equipment:'barbell',  angle:'decline',
+        focus:'Lower sternal pec. Anterior delt down 35%. Heaviest press variation.',
+        synergists:[{muscle:'Shoulders',coeff:0.30},{muscle:'Triceps',coeff:0.58}] },
+      // DUMBBELL
+      { id:'db-flat',    label:'Flat',     equipment:'dumbbell', angle:'flat',
+        focus:'Greater ROM at bottom. Unilateral demand. Better stretch than barbell.',
+        synergists:[{muscle:'Shoulders',coeff:0.48},{muscle:'Triceps',coeff:0.52}] },
+      { id:'db-incline', label:'Incline',  equipment:'dumbbell', angle:'incline',
+        focus:'Deepest stretch. Highest upper pec + front delt activation of all variations.',
+        synergists:[{muscle:'Shoulders',coeff:0.72},{muscle:'Triceps',coeff:0.55}] },
+      { id:'db-decline', label:'Decline',  equipment:'dumbbell', angle:'decline',
+        focus:'Lower pec. Reduced shoulder. Excellent for full pec development.',
+        synergists:[{muscle:'Shoulders',coeff:0.28},{muscle:'Triceps',coeff:0.50}] },
+      // SMITH MACHINE
+      { id:'sm-flat',    label:'Flat',     equipment:'smith',    angle:'flat',
+        focus:'Fixed bar path removes stabiliser demand. Good for injury rehab or isolation.',
+        synergists:[{muscle:'Shoulders',coeff:0.45},{muscle:'Triceps',coeff:0.55}] },
+      { id:'sm-incline', label:'Incline',  equipment:'smith',    angle:'incline',
+        focus:'Guided incline. Useful when fatigued or training alone.',
+        synergists:[{muscle:'Shoulders',coeff:0.68},{muscle:'Triceps',coeff:0.58}] },
+      // MACHINE
+      { id:'machine-flat',   label:'Flat',    equipment:'machine', angle:'flat',
+        focus:'Constant tension curve. No stabiliser work. Safer for joints.',
+        synergists:[{muscle:'Shoulders',coeff:0.42},{muscle:'Triceps',coeff:0.50}] },
+      { id:'machine-incline',label:'Incline', equipment:'machine', angle:'incline',
+        focus:'Upper pec emphasis with machine safety and constant tension.',
+        synergists:[{muscle:'Shoulders',coeff:0.65},{muscle:'Triceps',coeff:0.52}] },
+    ]
+  },
+
+  // ─ FLY ──────────────────────────────────────────────────────────────────────
+  'Fly': {
+    icon:'🦋',
+    variants:[
+      { id:'db-flat',    label:'Flat',     equipment:'dumbbell', angle:'flat',
+        focus:'Full pec stretch at bottom. Minimal triceps involvement.',
+        synergists:[{muscle:'Shoulders',coeff:0.40},{muscle:'Triceps',coeff:0.12}] },
+      { id:'db-incline', label:'Incline',  equipment:'dumbbell', angle:'incline',
+        focus:'Upper pec focus. Highest stretch ROM of all fly variations.',
+        synergists:[{muscle:'Shoulders',coeff:0.55},{muscle:'Triceps',coeff:0.10}] },
+      { id:'pec-dec',    label:'Flat',     equipment:'machine',  angle:'flat',
+        focus:'Pure pec isolation. No stabiliser demand. Great for pump work.',
+        synergists:[{muscle:'Shoulders',coeff:0.30},{muscle:'Triceps',coeff:0.08}] },
+    ]
+  },
+
+  // ─ CABLE CROSSOVER ─────────────────────────────────────────────────────────
+  'Cable Crossover': {
+    icon:'🔗',
+    variants:[
+      { id:'high-low',   label:'High to Low',   equipment:'cable', angle:'decline',
+        focus:'Hands start high, finish at hip. Lower pec sweep.',
+        synergists:[{muscle:'Shoulders',coeff:0.45},{muscle:'Triceps',coeff:0.10}] },
+      { id:'low-high',   label:'Low to High',   equipment:'cable', angle:'incline',
+        focus:'Hands start low, finish at chest. Upper chest emphasis.',
+        synergists:[{muscle:'Shoulders',coeff:0.35},{muscle:'Triceps',coeff:0.10}] },
+      { id:'mid',        label:'Mid / Neutral', equipment:'cable', angle:'flat',
+        focus:'Hands at chest height. Best stretch-to-squeeze. Classic pec isolation.',
+        synergists:[{muscle:'Shoulders',coeff:0.40},{muscle:'Triceps',coeff:0.12}] },
+      { id:'single-arm', label:'Single Arm',    equipment:'cable', angle:'flat',
+        focus:'Unilateral. Deep stretch. Anti-rotation core demand.',
+        synergists:[{muscle:'Shoulders',coeff:0.40},{muscle:'Triceps',coeff:0.10},{muscle:'Core',coeff:0.15}] },
+    ]
+  },
+
+  // ─ PUSH UP ──────────────────────────────────────────────────────────────────
+  'Push Up': {
+    icon:'🤸',
+    variants:[
+      { id:'standard',  label:'Standard',  equipment:'bodyweight', angle:'flat',
+        focus:'Balanced chest + delt + tricep. Scapular freedom. Most versatile.',
+        synergists:[{muscle:'Shoulders',coeff:0.48},{muscle:'Triceps',coeff:0.55},{muscle:'Core',coeff:0.18}] },
+      { id:'wide',      label:'Wide',      equipment:'bodyweight', angle:'flat',
+        focus:'Wide hands — greater pec stretch, more chest activation.',
+        synergists:[{muscle:'Shoulders',coeff:0.44},{muscle:'Triceps',coeff:0.45},{muscle:'Core',coeff:0.18}] },
+      { id:'diamond',   label:'Diamond',   equipment:'bodyweight', angle:'flat',
+        focus:'Narrow diamond hands — tricep dominant. Strong core demand.',
+        synergists:[{muscle:'Shoulders',coeff:0.45},{muscle:'Triceps',coeff:0.80},{muscle:'Core',coeff:0.20}] },
+      { id:'decline',   label:'Decline',   equipment:'bodyweight', angle:'decline',
+        focus:'Feet elevated — upper pec and anterior delt. Hard variation.',
+        synergists:[{muscle:'Shoulders',coeff:0.65},{muscle:'Triceps',coeff:0.55},{muscle:'Core',coeff:0.22}] },
+      { id:'incline',   label:'Incline',   equipment:'bodyweight', angle:'incline',
+        focus:'Hands elevated — lower chest focus. Easier for beginners.',
+        synergists:[{muscle:'Shoulders',coeff:0.38},{muscle:'Triceps',coeff:0.50},{muscle:'Core',coeff:0.15}] },
+    ]
+  },
+
+  // ─ CHEST DIP ────────────────────────────────────────────────────────────────
+  'Chest Dip': {
+    icon:'↕️',
+    variants:[
+      { id:'bodyweight', label:'Bodyweight',  equipment:'bodyweight', angle:'decline',
+        focus:'Lean forward 30°+ to bias chest over triceps.',
+        synergists:[{muscle:'Triceps',coeff:0.65},{muscle:'Shoulders',coeff:0.40}] },
+      { id:'weighted',   label:'Weighted',    equipment:'bodyweight', angle:'decline',
+        focus:'Belt or vest loading. Best overload method for chest dips.',
+        synergists:[{muscle:'Triceps',coeff:0.65},{muscle:'Shoulders',coeff:0.40}] },
+      { id:'assisted',   label:'Assisted',    equipment:'machine',    angle:'decline',
+        focus:'Machine counterweight. Good for beginners building to bodyweight.',
+        synergists:[{muscle:'Triceps',coeff:0.60},{muscle:'Shoulders',coeff:0.35}] },
+    ]
+  },
+
+  // ─ CHEST PRESS MACHINE ──────────────────────────────────────────────────────
+  'Chest Press Machine': {
+    icon:'⚙️',
+    variants:[
+      { id:'flat',    label:'Flat',    equipment:'machine', angle:'flat',
+        focus:'Horizontal push. Good for beginners or high-rep pump sets.',
+        synergists:[{muscle:'Shoulders',coeff:0.42},{muscle:'Triceps',coeff:0.50}] },
+      { id:'incline', label:'Incline', equipment:'machine', angle:'incline',
+        focus:'Upper chest with machine stability. Easy to isolate.',
+        synergists:[{muscle:'Shoulders',coeff:0.65},{muscle:'Triceps',coeff:0.52}] },
+    ]
+  },
+
+  // ─ PULL UP ──────────────────────────────────────────────────────────────────
+  'Pull Up': {
+    icon:'⬆️',
+    variants:[
+      { id:'overhand-wide',   label:'Wide',           equipment:'bodyweight', angle:'vertical',
+        focus:'Overhand wide grip. Maximum lat width. Hardest on the elbow.',
+        synergists:[{muscle:'Biceps',coeff:0.55},{muscle:'Shoulders',coeff:0.30}] },
+      { id:'overhand-med',    label:'Shoulder-Width', equipment:'bodyweight', angle:'vertical',
+        focus:'Standard overhand. Best balance of lat stretch and bicep pull.',
+        synergists:[{muscle:'Biceps',coeff:0.62},{muscle:'Shoulders',coeff:0.32}] },
+      { id:'neutral',         label:'Neutral Grip',   equipment:'bodyweight', angle:'vertical',
+        focus:'Palms facing each other. Easiest on wrists, strong bicep position.',
+        synergists:[{muscle:'Biceps',coeff:0.72},{muscle:'Shoulders',coeff:0.28}] },
+      { id:'chinup',          label:'Chin Up',        equipment:'bodyweight', angle:'vertical',
+        focus:'Supinated/underhand grip. Highest bicep activation of all pull variations.',
+        synergists:[{muscle:'Biceps',coeff:0.82},{muscle:'Shoulders',coeff:0.25}] },
+      { id:'weighted',        label:'Weighted',       equipment:'bodyweight', angle:'vertical',
+        focus:'Belt or vest. Best overload method. Use any of the above grips.',
+        synergists:[{muscle:'Biceps',coeff:0.65},{muscle:'Shoulders',coeff:0.30}] },
+      { id:'assisted',        label:'Assisted Machine',equipment:'machine',   angle:'vertical',
+        focus:'Counter-weight machine. Good for building to bodyweight.',
+        synergists:[{muscle:'Biceps',coeff:0.55},{muscle:'Shoulders',coeff:0.28}] },
+    ]
+  },
+
+  // ─ ROW ──────────────────────────────────────────────────────────────────────
+  'Row': {
+    icon:'↩️',
+    variants:[
+      // BARBELL
+      { id:'bb-overhand',     label:'Pronated (Overhand)',  equipment:'barbell', angle:'horizontal',
+        focus:'Overhand grip. Hits upper back + rhomboids harder. Standard powerlifting row.',
+        synergists:[{muscle:'Biceps',coeff:0.50},{muscle:'Shoulders',coeff:0.40}] },
+      { id:'bb-underhand',    label:'Supinated (Underhand)', equipment:'barbell', angle:'horizontal',
+        focus:'Underhand grip. Stronger bicep drive. More lat activation at bottom.',
+        synergists:[{muscle:'Biceps',coeff:0.70},{muscle:'Shoulders',coeff:0.35}] },
+      { id:'bb-pendlay',      label:'Pendlay Row',          equipment:'barbell', angle:'horizontal',
+        focus:'Dead stop from floor. Maximises explosive back strength. No momentum.',
+        synergists:[{muscle:'Biceps',coeff:0.55},{muscle:'Shoulders',coeff:0.38}] },
+      // DUMBBELL
+      { id:'db-single',       label:'Single Arm',           equipment:'dumbbell', angle:'horizontal',
+        focus:'Greatest ROM. Reduces lower back load. Strong anti-rotation core demand.',
+        synergists:[{muscle:'Biceps',coeff:0.60},{muscle:'Shoulders',coeff:0.35},{muscle:'Core',coeff:0.25}] },
+      { id:'db-chest-sup',    label:'Chest Supported',      equipment:'dumbbell', angle:'horizontal',
+        focus:'Chest on incline bench. Removes lower back entirely. Pure back isolation.',
+        synergists:[{muscle:'Biceps',coeff:0.62},{muscle:'Shoulders',coeff:0.32}] },
+      { id:'db-meadows',      label:'Meadows Row',          equipment:'dumbbell', angle:'horizontal',
+        focus:'Landmine-style. High lat stretch. Great for thickness and lat-to-teres activation.',
+        synergists:[{muscle:'Biceps',coeff:0.58},{muscle:'Shoulders',coeff:0.35}] },
+      // CABLE
+      { id:'cable-seated',    label:'Seated Cable Row',     equipment:'cable', angle:'horizontal',
+        focus:'Constant tension. Close neutral or wide grip. Best for volume work.',
+        synergists:[{muscle:'Biceps',coeff:0.60},{muscle:'Shoulders',coeff:0.35}] },
+      { id:'cable-wide',      label:'Wide Grip Cable Row',  equipment:'cable', angle:'horizontal',
+        focus:'Wide bar. More upper back + rear delt. Less bicep.',
+        synergists:[{muscle:'Biceps',coeff:0.45},{muscle:'Shoulders',coeff:0.50}] },
+      { id:'cable-single',    label:'Single Arm Cable Row', equipment:'cable', angle:'horizontal',
+        focus:'Unilateral. Full ROM. Good for addressing left-right imbalances.',
+        synergists:[{muscle:'Biceps',coeff:0.60},{muscle:'Shoulders',coeff:0.35},{muscle:'Core',coeff:0.18}] },
+      // MACHINE
+      { id:'machine-seated',  label:'Seated Row Machine',   equipment:'machine', angle:'horizontal',
+        focus:'Chest pad support. Isolates mid-back. Beginner friendly.',
+        synergists:[{muscle:'Biceps',coeff:0.55},{muscle:'Shoulders',coeff:0.30}] },
+      { id:'tbar',            label:'T-Bar Row',            equipment:'barbell', angle:'horizontal',
+        focus:'Landmine or T-bar machine. Neutral grip. Great for mid-back thickness.',
+        synergists:[{muscle:'Biceps',coeff:0.58},{muscle:'Shoulders',coeff:0.36}] },
+      // BODYWEIGHT
+      { id:'inverted',        label:'Inverted Row',         equipment:'bodyweight', angle:'horizontal',
+        focus:'Feet on floor, body horizontal. Adjustable difficulty. Great for beginners.',
+        synergists:[{muscle:'Biceps',coeff:0.48},{muscle:'Shoulders',coeff:0.35},{muscle:'Core',coeff:0.20}] },
+    ]
+  },
+
+  // ─ DEADLIFT ─────────────────────────────────────────────────────────────────
+  'Deadlift': {
+    icon:'⚡',
+    variants:[
+      { id:'conventional',    label:'Conventional',         equipment:'barbell', angle:'hinge',
+        focus:'Hip-width stance, overhand or mixed grip. Maximum posterior chain. The king.',
+        synergists:[{muscle:'Hamstrings',coeff:0.70},{muscle:'Glutes',coeff:0.80},{muscle:'Core',coeff:0.60},{muscle:'Quads',coeff:0.45}] },
+      { id:'sumo',            label:'Sumo',                 equipment:'barbell', angle:'hinge',
+        focus:'Wide stance, vertical torso. More quad + glute, less lower back.',
+        synergists:[{muscle:'Glutes',coeff:0.85},{muscle:'Quads',coeff:0.65},{muscle:'Hamstrings',coeff:0.55},{muscle:'Core',coeff:0.45}] },
+      { id:'rdl',             label:'Romanian (RDL)',        equipment:'barbell', angle:'hinge',
+        focus:'Hips back, soft knees. Maximum hamstring stretch. Hip hinge pattern.',
+        synergists:[{muscle:'Hamstrings',coeff:0.90},{muscle:'Glutes',coeff:0.75},{muscle:'Core',coeff:0.55}] },
+      { id:'rdl-db',          label:'Romanian · Dumbbell',  equipment:'dumbbell', angle:'hinge',
+        focus:'Same pattern with dumbbells. Easier to maintain neutral spine.',
+        synergists:[{muscle:'Hamstrings',coeff:0.88},{muscle:'Glutes',coeff:0.72},{muscle:'Core',coeff:0.50}] },
+      { id:'stiff-leg',       label:'Stiff Leg',            equipment:'barbell', angle:'hinge',
+        focus:'Legs straighter than RDL. Deepest hamstring stretch. Higher injury risk.',
+        synergists:[{muscle:'Hamstrings',coeff:0.95},{muscle:'Glutes',coeff:0.65},{muscle:'Core',coeff:0.55}] },
+      { id:'trapbar',         label:'Trap Bar',             equipment:'barbell', angle:'hinge',
+        focus:'Neutral grip, upright torso. Most quad-friendly deadlift. Good for athletes.',
+        synergists:[{muscle:'Quads',coeff:0.70},{muscle:'Glutes',coeff:0.80},{muscle:'Hamstrings',coeff:0.60},{muscle:'Core',coeff:0.50}] },
+      { id:'smith',           label:'Smith Machine',        equipment:'smith', angle:'hinge',
+        focus:'Fixed bar path. Removes stabiliser demand. Good for rehab or learning.',
+        synergists:[{muscle:'Hamstrings',coeff:0.65},{muscle:'Glutes',coeff:0.75},{muscle:'Core',coeff:0.45},{muscle:'Quads',coeff:0.40}] },
+    ]
+  },
+
+  // ─ LAT PULLDOWN ─────────────────────────────────────────────────────────────
+  'Lat Pulldown': {
+    icon:'⬇️',
+    variants:[
+      { id:'wide-overhand',   label:'Wide Overhand',        equipment:'cable', angle:'vertical',
+        focus:'Classic wide grip pronated. Maximum lat width activation.',
+        synergists:[{muscle:'Biceps',coeff:0.58},{muscle:'Shoulders',coeff:0.35}] },
+      { id:'close-neutral',   label:'Close Neutral Grip',   equipment:'cable', angle:'vertical',
+        focus:'V-bar attachment. More bicep involvement. Easier on shoulder.',
+        synergists:[{muscle:'Biceps',coeff:0.70},{muscle:'Shoulders',coeff:0.28}] },
+      { id:'supinated',       label:'Reverse / Underhand',  equipment:'cable', angle:'vertical',
+        focus:'Underhand grip. Strongest bicep position. Similar to chin-up pattern.',
+        synergists:[{muscle:'Biceps',coeff:0.78},{muscle:'Shoulders',coeff:0.25}] },
+      { id:'wide-neutral',    label:'Wide Neutral',         equipment:'cable', angle:'vertical',
+        focus:'Neutral wide bar. Balances lat stretch with bicep contribution.',
+        synergists:[{muscle:'Biceps',coeff:0.62},{muscle:'Shoulders',coeff:0.32}] },
+      { id:'single-arm',      label:'Single Arm Cable',     equipment:'cable', angle:'vertical',
+        focus:'Full ROM unilateral. Great for targeting each lat independently.',
+        synergists:[{muscle:'Biceps',coeff:0.65},{muscle:'Shoulders',coeff:0.30},{muscle:'Core',coeff:0.15}] },
+      { id:'machine',         label:'Machine Pulldown',     equipment:'machine', angle:'vertical',
+        focus:'Fixed path machine. Consistent resistance curve. Good for pump work.',
+        synergists:[{muscle:'Biceps',coeff:0.55},{muscle:'Shoulders',coeff:0.30}] },
+    ]
+  },
+
+  // ─ FACE PULL ────────────────────────────────────────────────────────────────
+  'Face Pull': {
+    icon:'🎯',
+    variants:[
+      { id:'cable-high',      label:'Cable · High Pulley',  equipment:'cable', angle:'horizontal',
+        focus:'Rope attachment, pull to face height. Rear delt + external rotator focus.',
+        synergists:[{muscle:'Shoulders',coeff:0.65},{muscle:'Biceps',coeff:0.30}] },
+      { id:'cable-low',       label:'Cable · Low to High',  equipment:'cable', angle:'incline',
+        focus:'Lower pulley, pull upward to face. Hits lower traps more.',
+        synergists:[{muscle:'Shoulders',coeff:0.60},{muscle:'Biceps',coeff:0.28}] },
+      { id:'band',            label:'Band Pull Apart',      equipment:'bodyweight', angle:'horizontal',
+        focus:'Resistance band. High rep, great shoulder health exercise.',
+        synergists:[{muscle:'Shoulders',coeff:0.60},{muscle:'Biceps',coeff:0.20}] },
+    ]
+  },
+
+  // ─ OVERHEAD PRESS ───────────────────────────────────────────────────────────
+  'Overhead Press': {
+    icon:'☝️',
+    variants:[
+      { id:'bb-standing',     label:'Standing · Barbell',   equipment:'barbell', angle:'vertical',
+        focus:'Max load. Full-body stability demand. Builds true overhead strength.',
+        synergists:[{muscle:'Triceps',coeff:0.65},{muscle:'Chest',coeff:0.25},{muscle:'Core',coeff:0.30}] },
+      { id:'bb-seated',       label:'Seated · Barbell',     equipment:'barbell', angle:'vertical',
+        focus:'Seated removes leg drive. Stricter deltoid isolation. Heavier loads possible.',
+        synergists:[{muscle:'Triceps',coeff:0.68},{muscle:'Chest',coeff:0.22}] },
+      { id:'db-seated',       label:'Seated · Dumbbell',    equipment:'dumbbell', angle:'vertical',
+        focus:'Independent arms. Greater ROM. Addresses left-right imbalances.',
+        synergists:[{muscle:'Triceps',coeff:0.65},{muscle:'Chest',coeff:0.24}] },
+      { id:'db-standing',     label:'Standing · Dumbbell',  equipment:'dumbbell', angle:'vertical',
+        focus:'Maximum stability demand. Functional strength. More core activation.',
+        synergists:[{muscle:'Triceps',coeff:0.62},{muscle:'Chest',coeff:0.24},{muscle:'Core',coeff:0.32}] },
+      { id:'db-arnold',       label:'Arnold Press',         equipment:'dumbbell', angle:'vertical',
+        focus:'Rotating press. Hits all three delt heads through the full ROM.',
+        synergists:[{muscle:'Triceps',coeff:0.60},{muscle:'Chest',coeff:0.28}] },
+      { id:'smith',           label:'Smith Machine',        equipment:'smith', angle:'vertical',
+        focus:'Guided path. Removes stabiliser demand. Good for isolating deltoids.',
+        synergists:[{muscle:'Triceps',coeff:0.65},{muscle:'Chest',coeff:0.20}] },
+      { id:'machine',         label:'Shoulder Press Machine',equipment:'machine', angle:'vertical',
+        focus:'Fixed path, constant tension. Safest for joints. Good for high-rep work.',
+        synergists:[{muscle:'Triceps',coeff:0.60},{muscle:'Chest',coeff:0.18}] },
+    ]
+  },
+
+  // ─ LATERAL RAISE ────────────────────────────────────────────────────────────
+  'Lateral Raise': {
+    icon:'↔️',
+    variants:[
+      { id:'db-strict',       label:'Dumbbell · Strict',    equipment:'dumbbell', angle:'lateral',
+        focus:'No momentum. Pure medial delt isolation. Most common variation.',
+        synergists:[{muscle:'Shoulders',coeff:0.35}] },
+      { id:'db-lean',         label:'Dumbbell · Leaning',   equipment:'dumbbell', angle:'lateral',
+        focus:'Lean away from dumbbell. Better stretch at bottom, more ROM.',
+        synergists:[{muscle:'Shoulders',coeff:0.35}] },
+      { id:'cable-low',       label:'Cable · Low Pulley',   equipment:'cable', angle:'lateral',
+        focus:'Constant tension throughout full ROM. Best medial delt stimulus.',
+        synergists:[{muscle:'Shoulders',coeff:0.32}] },
+      { id:'cable-cross',     label:'Cable · Cross Body',   equipment:'cable', angle:'lateral',
+        focus:'Cable across body. Maximum stretch at start. Excellent for drop sets.',
+        synergists:[{muscle:'Shoulders',coeff:0.30}] },
+      { id:'machine',         label:'Lateral Raise Machine',equipment:'machine', angle:'lateral',
+        focus:'Fixed path, constant tension. Easiest to control for high reps.',
+        synergists:[{muscle:'Shoulders',coeff:0.30}] },
+      { id:'db-upright-row',  label:'Upright Row',          equipment:'dumbbell', angle:'vertical',
+        focus:'Vertical pull to chin. Medial delt + trap. Keep elbows above wrists.',
+        synergists:[{muscle:'Shoulders',coeff:0.45},{muscle:'Biceps',coeff:0.30}] },
+    ]
+  },
+
+  // ─ REAR DELT FLY ────────────────────────────────────────────────────────────
+  'Rear Delt Fly': {
+    icon:'🔙',
+    variants:[
+      { id:'db-bentover',     label:'Bent-Over · Dumbbell', equipment:'dumbbell', angle:'horizontal',
+        focus:'Hinge forward, raise to sides. Targets posterior delt + rhomboids.',
+        synergists:[{muscle:'Back',coeff:0.50},{muscle:'Biceps',coeff:0.20}] },
+      { id:'db-lying',        label:'Lying · Dumbbell',     equipment:'dumbbell', angle:'horizontal',
+        focus:'Face down on incline bench. Removes lower back load completely.',
+        synergists:[{muscle:'Back',coeff:0.48},{muscle:'Biceps',coeff:0.18}] },
+      { id:'cable-high',      label:'Cable · High to Low',  equipment:'cable', angle:'horizontal',
+        focus:'High pulley, pull across body. Constant tension rear delt fly.',
+        synergists:[{muscle:'Back',coeff:0.45},{muscle:'Biceps',coeff:0.22}] },
+      { id:'cable-low',       label:'Cable · Low to High',  equipment:'cable', angle:'horizontal',
+        focus:'Low pulley, pull upward and back. Hits lower fibres of rear delt.',
+        synergists:[{muscle:'Back',coeff:0.42},{muscle:'Biceps',coeff:0.22}] },
+      { id:'pec-dec-rev',     label:'Reverse Pec Dec',      equipment:'machine', angle:'horizontal',
+        focus:'Pec deck in reverse. Pure rear delt isolation. No lower back demand.',
+        synergists:[{muscle:'Back',coeff:0.40},{muscle:'Biceps',coeff:0.15}] },
+    ]
+  },
+
+  // ─ SHRUG ────────────────────────────────────────────────────────────────────
+  'Shrug': {
+    icon:'🔼',
+    variants:[
+      { id:'bb-shrug',        label:'Barbell',              equipment:'barbell', angle:'vertical',
+        focus:'Heaviest loading. Best for trap hypertrophy. Hold at top briefly.',
+        synergists:[{muscle:'Shoulders',coeff:0.20},{muscle:'Forearms',coeff:0.25}] },
+      { id:'db-shrug',        label:'Dumbbell',             equipment:'dumbbell', angle:'vertical',
+        focus:'Natural hand position. Better ROM. Can rotate at top for full trap sweep.',
+        synergists:[{muscle:'Shoulders',coeff:0.20},{muscle:'Forearms',coeff:0.25}] },
+      { id:'cable-shrug',     label:'Cable',                equipment:'cable', angle:'vertical',
+        focus:'Constant tension throughout ROM. Excellent for high-rep pump work.',
+        synergists:[{muscle:'Shoulders',coeff:0.18},{muscle:'Forearms',coeff:0.22}] },
+      { id:'trapbar-shrug',   label:'Trap Bar',             equipment:'barbell', angle:'vertical',
+        focus:'Neutral grip, natural arm position. Very heavy loading possible.',
+        synergists:[{muscle:'Shoulders',coeff:0.20},{muscle:'Forearms',coeff:0.28}] },
+    ]
+  },
+
+  // ─ FRONT RAISE ──────────────────────────────────────────────────────────────
+  'Front Raise': {
+    icon:'⬆️',
+    variants:[
+      { id:'db-alt',          label:'Alternating Dumbbell', equipment:'dumbbell', angle:'vertical',
+        focus:'One arm at a time. Best for control and isolating anterior delt.',
+        synergists:[{muscle:'Shoulders',coeff:0.30},{muscle:'Core',coeff:0.15}] },
+      { id:'bb',              label:'Barbell',              equipment:'barbell', angle:'vertical',
+        focus:'Both arms together. Heavier loading. Targets anterior delt bilaterally.',
+        synergists:[{muscle:'Shoulders',coeff:0.32}] },
+      { id:'plate',           label:'Plate Front Raise',    equipment:'bodyweight', angle:'vertical',
+        focus:'Weight plate. Neutral grip variation. Good for wrist comfort.',
+        synergists:[{muscle:'Shoulders',coeff:0.30}] },
+      { id:'cable',           label:'Cable',                equipment:'cable', angle:'vertical',
+        focus:'Constant tension. Better than dumbbells for muscle stimulus per rep.',
+        synergists:[{muscle:'Shoulders',coeff:0.28}] },
+    ]
+  },
+};
+
+// Equipment icons and labels for variant picker tabs
+const EQUIP_ICONS={ barbell:'🏋️', dumbbell:'🔩', cable:'🔗', machine:'⚙️', bodyweight:'🤸', smith:'🔧' };
+const EQUIP_LABELS={ barbell:'BARBELL', dumbbell:'DUMBBELL', cable:'CABLE', machine:'MACHINE', bodyweight:'BODYWEIGHT', smith:'SMITH' };
+
+
 
 // STATE
 let CU=null; // current user
@@ -5384,7 +6093,7 @@ function addSet(exId){
   // Apply synergist fatigue distribution based on EMG research
   if(ex.muscle && !ex._isSynergist){
     const setVol = w * r;
-    if(setVol > 0) applySynergistFatigue(ex.name, ex.muscle, setVol, dk(currentDate));
+    if(setVol > 0) applySynergistFatigue(ex.name, ex.muscle, setVol, dk(currentDate), ex.variantId);
   }
 
   save();
@@ -5504,40 +6213,219 @@ function openSupersetPick(parentId){
   setTimeout(()=>document.getElementById('exm-search')?.focus(),300);
 }
 
+// ── VARIANT PICKER ────────────────────────────────────────────────────────────
+// In Pro mode, selecting an exercise from the matrix opens the variant picker
+// instead of directly adding. The picker shows all equipment/style variants
+// with focus notes and synergist breakdowns.
+
+let _vpPendingName = null;
+let _vpPendingMuscle = null;
+let _vpEquipFilter = 'all';
+
+function openVariantPicker(name, muscle){
+  _vpPendingName = name;
+  _vpPendingMuscle = muscle;
+  _vpEquipFilter = 'all';
+  const variantData = EXERCISE_VARIANTS[name];
+  const col = MUSCLE_COLOURS[muscle] || '#888';
+
+  // Header
+  const iconEl = document.getElementById('vp-ex-icon');
+  const nameEl = document.getElementById('vp-ex-name');
+  const muscleEl = document.getElementById('vp-ex-muscle');
+  if(iconEl) iconEl.textContent = variantData?.icon || LIB_EX_ICONS[name] || LIB_ICONS[muscle] || '💪';
+  if(nameEl) nameEl.textContent = name;
+  if(muscleEl){ muscleEl.textContent = muscle.toUpperCase(); muscleEl.style.color = col; }
+
+  renderVariantBody(name, muscle, variantData, col);
+  document.getElementById('vp-overlay').classList.add('open');
+  closeExMatrix();
+}
+
+function closeVariantPicker(){
+  document.getElementById('vp-overlay').classList.remove('open');
+  _vpPendingName = null;
+  _vpPendingMuscle = null;
+}
+
+function vpOverlayClick(e){
+  if(e.target === document.getElementById('vp-overlay')) closeVariantPicker();
+}
+
+function vpSetEquipFilter(f){
+  _vpEquipFilter = f;
+  document.querySelectorAll('.vp-equip-tab').forEach(t => t.classList.toggle('active', t.dataset.equip === f));
+  renderVariantCards(_vpPendingName, _vpPendingMuscle, EXERCISE_VARIANTS[_vpPendingName], MUSCLE_COLOURS[_vpPendingMuscle]||'#888');
+}
+
+function renderVariantBody(name, muscle, variantData, col){
+  const body = document.getElementById('vp-body');
+  if(!body) return;
+
+  if(!variantData){
+    // No variants defined — show simple add button
+    body.innerHTML = `
+      <div class="vp-no-variant">No variants defined for this exercise yet.</div>
+      <button class="vp-add-anyway" onclick="vpAddBase()">＋ Add ${name} (standard)</button>`;
+    return;
+  }
+
+  // Build equipment filter tabs from available variants
+  const equipTypes = [...new Set(variantData.variants.map(v => v.equipment))];
+  const equipTabsHtml = `<div class="vp-equip-tabs" id="vp-equip-tabs">
+    <button class="vp-equip-tab active" data-equip="all" onclick="vpSetEquipFilter('all')">ALL</button>
+    ${equipTypes.map(eq => `<button class="vp-equip-tab" data-equip="${eq}" onclick="vpSetEquipFilter('${eq}')">${EQUIP_ICONS[eq]||''} ${EQUIP_LABELS[eq]||eq.toUpperCase()}</button>`).join('')}
+  </div>`;
+
+  body.innerHTML = `
+    <div class="vp-section-title">CHOOSE VARIANT</div>
+    ${equipTabsHtml}
+    <div class="vp-variant-grid" id="vp-variant-grid"></div>
+    <button class="vp-add-anyway" onclick="vpAddBase()">＋ Add without variant (${name})</button>`;
+
+  renderVariantCards(name, muscle, variantData, col);
+}
+
+function renderVariantCards(name, muscle, variantData, col){
+  const grid = document.getElementById('vp-variant-grid');
+  if(!grid || !variantData) return;
+  const [r,g,b] = hexToRgb3(col);
+
+  const filtered = _vpEquipFilter === 'all'
+    ? variantData.variants
+    : variantData.variants.filter(v => v.equipment === _vpEquipFilter);
+
+  if(!filtered.length){
+    grid.innerHTML = `<div class="vp-no-variant">No ${_vpEquipFilter} variants available.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(v => {
+    const equipIcon = EQUIP_ICONS[v.equipment] || '';
+    const equipLabel = EQUIP_LABELS[v.equipment] || v.equipment.toUpperCase();
+    const synHtml = (v.synergists||[]).map(s => {
+      const sc = MUSCLE_COLOURS[s.muscle] || '#888';
+      const [sr,sg,sb] = hexToRgb3(sc);
+      const pct = Math.round(s.coeff * 100);
+      return `<span class="vp-vc-syn" style="background:rgba(${sr},${sg},${sb},0.18);color:${sc}">${s.muscle} ${pct}%</span>`;
+    }).join('');
+    const safeName = name.replace(/'/g,"\\'");
+    const safeMusc = muscle.replace(/'/g,"\\'");
+    const angleTag = v.angle ? `<span class="vp-vc-angle">${v.angle.toUpperCase()}</span>` : '';
+    return `<div class="vp-variant-card" onclick="vpSelectVariant('${safeName}','${safeMusc}','${v.id}')">
+      <div class="vp-vc-stripe" style="background:linear-gradient(90deg,${col},${col}66)"></div>
+      <div class="vp-vc-equip">${equipIcon} ${equipLabel} ${angleTag}</div>
+      <div class="vp-vc-label">${v.label}</div>
+      <div class="vp-vc-focus">${v.focus}</div>
+      <div class="vp-vc-syns">${synHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function hexToRgb3(hex){
+  const h=(hex||'#888888').replace('#','');
+  return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];
+}
+
+function vpSelectVariant(baseName, muscle, variantId){
+  const variantData = EXERCISE_VARIANTS[baseName];
+  const variant = variantData?.variants.find(v => v.id === variantId);
+
+  // Register synergist overrides for this variant's specific coefficients.
+  // We key by a combo so that the coefficients are applied correctly even though
+  // the exercise name stays the same (we pass the variant id at log time).
+  if(variant?.synergists){
+    // Store in a temporary per-session override map keyed by variantId
+    _variantSynergistOverrides[variantId] = {
+      synergists: variant.synergists.map(s=>({
+        muscle:s.muscle, coeff:s.coeff,
+        label:s.muscle, color:MUSCLE_COLOURS[s.muscle]||'#888'
+      })),
+      note: `${variant.label} ${variant.equipment} — ${variant.focus}`
+    };
+  }
+
+  closeVariantPicker();
+  _doAddExercise(baseName, muscle, variant);
+}
+
+function vpAddBase(){
+  const name = _vpPendingName;
+  const muscle = _vpPendingMuscle;
+  closeVariantPicker();
+  _doAddExercise(name, muscle, null);
+}
+
+// Temporary map: variantId → synergist override (populated when variant is picked)
+const _variantSynergistOverrides = {};
+
+// Core add-to-log logic (shared by variant picker and direct select)
+// variant = variant object from EXERCISE_VARIANTS (or null for no variant)
+function _doAddExercise(name, muscle, variant){
+  const m = muscle || getMuscle(name) || '';
+  const exObj = {
+    id: Date.now(),
+    name,
+    muscle: m,
+    superSetOf: null,
+    sets: [],
+    // Variant metadata (Pro mode) — stored but doesn't change the exercise name
+    ...(variant ? {
+      variantId:   variant.id,
+      variantLabel: variant.label,
+      variantEquip: variant.equipment,
+      variantAngle: variant.angle || '',
+    } : {})
+  };
+
+  if(_supersetPickParentId !== null){
+    const parentId = _supersetPickParentId;
+    _supersetPickParentId = null;
+    const titleEl = document.querySelector('.exm-title');
+    if(titleEl) titleEl.textContent = 'ADD EXERCISE';
+    const day = getDay(currentDate);
+    const parent = day.exercises.find(e => e.id === parentId);
+    if(!parent) return;
+    exObj.superSetOf = parentId;
+    const pidx = day.exercises.indexOf(parent);
+    day.exercises.splice(pidx+1, 0, exObj);
+    save(); renderLog();
+    const label = variant ? `${name} · ${variant.label} (${variant.equipment})` : name;
+    toast(`${label} paired as superset`);
+  } else {
+    getDay(currentDate).exercises.push(exObj);
+    save(); closeExMatrix(); renderLog();
+    const label = variant ? `${name} · ${variant.label}` : name;
+    toast(`${label} added`);
+    updateAetCount();
+    setTimeout(()=>{
+      const cards = document.querySelectorAll('#ex-list .standalone-wrap, #ex-list .ss-group');
+      const last = cards[cards.length-1];
+      if(last) last.scrollIntoView({behavior:'smooth', block:'nearest'});
+      else window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
+    }, 120);
+  }
+}
+
+window.closeVariantPicker = closeVariantPicker;
+window.openVariantPicker = openVariantPicker;
+window.vpOverlayClick = vpOverlayClick;
+window.vpSetEquipFilter = vpSetEquipFilter;
+window.vpSelectVariant = vpSelectVariant;
+window.vpAddBase = vpAddBase;
+
 // Override exmSelectExercise to handle superset pick mode
 const _origExmSelect = exmSelectExercise;
 window._origExmSelect = _origExmSelect;
 
 function exmSelectExercise(name, muscle){
-  if(_supersetPickParentId !== null){
-    // Superset pick mode
-    const parentId = _supersetPickParentId;
-    _supersetPickParentId = null;
-    const titleEl=document.querySelector('.exm-title');
-    if(titleEl) titleEl.textContent='ADD EXERCISE';
-    closeExMatrix();
-    const m=muscle||getMuscle(name)||'';
-    const day=getDay(currentDate);
-    const parent=day.exercises.find(e=>e.id===parentId);
-    if(!parent)return;
-    const pidx=day.exercises.indexOf(parent);
-    day.exercises.splice(pidx+1,0,{id:Date.now(),name,muscle:m,superSetOf:parentId,sets:[]});
-    save();renderLog();
-    toast(`${name} paired as superset`);
-  } else {
-    // Normal add mode
-    const m=muscle||getMuscle(name)||'';
-    getDay(currentDate).exercises.push({id:Date.now(),name,muscle:m,superSetOf:null,sets:[]});
-    save();closeExMatrix();renderLog();
-    toast(`${name} added`);
-    updateAetCount();
-    setTimeout(()=>{
-      const cards=document.querySelectorAll('#ex-list .standalone-wrap, #ex-list .ss-group');
-      const last=cards[cards.length-1];
-      if(last) last.scrollIntoView({behavior:'smooth',block:'nearest'});
-      else window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    },120);
+  // In Pro mode AND exercise has variants → open variant picker
+  if(document.body.classList.contains('pro-mode') && EXERCISE_VARIANTS[name]){
+    openVariantPicker(name, muscle || getMuscle(name) || '');
+    return;
   }
+  // Otherwise add directly
+  _doAddExercise(name, muscle || getMuscle(name) || '');
 }
 
 function addSuperset(parentId){
@@ -5571,21 +6459,60 @@ function toggleSSGroup(parentId){
 // coeff = fraction of primary set volume distributed as secondary fatigue.
 
 const EXERCISE_SYNERGIST_MAP = {
-  'Bench Press':    { synergists:[{muscle:'Shoulders',coeff:0.50,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Standard grip flat bench • PM=27%, AD=26%, TB=15% MVIC' },
-  'Incline Bench':  { synergists:[{muscle:'Shoulders',coeff:0.75,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.60,label:'Triceps',color:'#4f9de8'}], note:'Incline shifts activation toward anterior deltoid (+40%)' },
-  'Decline Bench':  { synergists:[{muscle:'Shoulders',coeff:0.30,label:'Ant. Delt ↓',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.58,label:'Triceps',color:'#4f9de8'}], note:'Decline maximises sternal pec, reduces anterior deltoid (−35%)' },
-  'Push Up':        { synergists:[{muscle:'Shoulders',coeff:0.48,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Bodyweight equivalent to flat bench' },
-  'Dumbbell Fly':   { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.15,label:'Triceps',color:'#4f9de8'}], note:'Near-isolation — minimal triceps elbow work' },
-  'Barbell Row':    { synergists:[{muscle:'Biceps',coeff:0.60,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.40,label:'Rear Delt',color:'#9b6fe0'}], note:'Posterior pull — biceps as primary synergist' },
-  'Pull Up':        { synergists:[{muscle:'Biceps',coeff:0.65,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Rear Delt',color:'#9b6fe0'}], note:'Vertical pull — strong biceps synergist' },
-  'Lat Pulldown':   { synergists:[{muscle:'Biceps',coeff:0.62,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Rear Delt',color:'#9b6fe0'}], note:'Machine equivalent of pull-up' },
-  'Deadlift':       { synergists:[{muscle:'Hamstrings',coeff:0.70,label:'Hamstrings',color:'#5ec97a'},{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.60,label:'Erectors',color:'#e8533f'},{muscle:'Quads',coeff:0.45,label:'Quads',color:'#44c76a'}], note:'Full posterior chain — highest systemic fatigue' },
-  'Overhead Press': { synergists:[{muscle:'Triceps',coeff:0.65,label:'Triceps',color:'#4f9de8'},{muscle:'Chest',coeff:0.25,label:'Upper Pec',color:'#e8533f'}], note:'Shoulder compound — heavy triceps involvement' },
-  'Lateral Raise':  { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Supraspinatus',color:'#9b6fe0'}], note:'Near-isolation — rotator cuff stabilises' },
+  // ── CHEST PRESS VARIANTS ──
+  'Bench Press':                { synergists:[{muscle:'Shoulders',coeff:0.50,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Standard grip flat bench • PM=27%, AD=26%, TB=15% MVIC' },
+  'Incline Bench':              { synergists:[{muscle:'Shoulders',coeff:0.75,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.60,label:'Triceps',color:'#4f9de8'}], note:'Incline shifts activation toward anterior deltoid (+40%)' },
+  'Decline Bench':              { synergists:[{muscle:'Shoulders',coeff:0.30,label:'Ant. Delt ↓',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.58,label:'Triceps',color:'#4f9de8'}], note:'Decline maximises sternal pec, reduces anterior deltoid (−35%)' },
+  'Dumbbell Bench Press':       { synergists:[{muscle:'Shoulders',coeff:0.48,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.52,label:'Triceps',color:'#4f9de8'}], note:'Dumbbell flat — greater ROM and unilateral stability demand' },
+  'Incline Dumbbell Press':     { synergists:[{muscle:'Shoulders',coeff:0.72,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Highest anterior delt activation of all press variants' },
+  'Decline Dumbbell Press':     { synergists:[{muscle:'Shoulders',coeff:0.28,label:'Ant. Delt ↓',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.50,label:'Triceps',color:'#4f9de8'}], note:'Lower sternal pec. Minimal shoulder involvement.' },
+  'Smith Machine Bench':        { synergists:[{muscle:'Shoulders',coeff:0.45,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Fixed bar path reduces stabiliser demand vs free barbell' },
+  'Smith Machine Incline':      { synergists:[{muscle:'Shoulders',coeff:0.68,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.58,label:'Triceps',color:'#4f9de8'}], note:'Guided incline — good isolation focus' },
+  'Chest Press Machine':        { synergists:[{muscle:'Shoulders',coeff:0.42,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.50,label:'Triceps',color:'#4f9de8'}], note:'Machine press — constant tension, safer for joints' },
+  'Incline Chest Press Machine':{ synergists:[{muscle:'Shoulders',coeff:0.65,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.52,label:'Triceps',color:'#4f9de8'}], note:'Upper pec emphasis with machine stability' },
+  // ── CHEST FLY / ISOLATION ──
+  'Push Up':                    { synergists:[{muscle:'Shoulders',coeff:0.48,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'},{muscle:'Core',coeff:0.18,label:'Serratus/Core',color:'#e8533f'}], note:'Bodyweight equivalent of flat bench. Scapular freedom.' },
+  'Wide Push Up':               { synergists:[{muscle:'Shoulders',coeff:0.44,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.45,label:'Triceps',color:'#4f9de8'},{muscle:'Core',coeff:0.18,label:'Core',color:'#e8533f'}], note:'Wide grip — greater pec stretch, less tricep' },
+  'Diamond Push Up':            { synergists:[{muscle:'Shoulders',coeff:0.45,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.80,label:'Triceps ↑',color:'#4f9de8'},{muscle:'Core',coeff:0.20,label:'Core',color:'#e8533f'}], note:'Narrow hands — tricep dominant push up' },
+  'Decline Push Up':            { synergists:[{muscle:'Shoulders',coeff:0.65,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'},{muscle:'Core',coeff:0.22,label:'Core',color:'#e8533f'}], note:'Feet elevated — upper pec and anterior delt focus' },
+  'Incline Push Up':            { synergists:[{muscle:'Shoulders',coeff:0.38,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.50,label:'Triceps',color:'#4f9de8'},{muscle:'Core',coeff:0.15,label:'Core',color:'#e8533f'}], note:'Hands elevated — lower chest emphasis, reduced intensity' },
+  'Pike Push Up':               { synergists:[{muscle:'Shoulders',coeff:0.85,label:'Delts ↑↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.55,label:'Triceps',color:'#4f9de8'}], note:'Hips high — shoulder dominant push up' },
+  'Chest Dip':                  { synergists:[{muscle:'Triceps',coeff:0.65,label:'Triceps',color:'#4f9de8'},{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'}], note:'Lean forward to bias chest. Compound push.' },
+  'Dumbbell Fly':               { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.15,label:'Triceps',color:'#4f9de8'}], note:'Near-isolation — minimal triceps elbow work' },
+  'Incline Dumbbell Fly':       { synergists:[{muscle:'Shoulders',coeff:0.55,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.12,label:'Triceps',color:'#4f9de8'}], note:'Upper pec stretch — high anterior delt' },
+  'Pec Dec':                    { synergists:[{muscle:'Shoulders',coeff:0.30,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.08,label:'Triceps',color:'#4f9de8'}], note:'Pure pec isolation. Minimal stabiliser demand.' },
+  'Cable Fly':                  { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.12,label:'Triceps',color:'#4f9de8'}], note:'Constant tension fly. Excellent stretch-to-squeeze.' },
+  'Low Cable Fly':              { synergists:[{muscle:'Shoulders',coeff:0.45,label:'Ant. Delt ↑',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.10,label:'Triceps',color:'#4f9de8'}], note:'Low to high — lower pec sweep to upper fibres' },
+  'High Cable Fly':             { synergists:[{muscle:'Shoulders',coeff:0.35,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.10,label:'Triceps',color:'#4f9de8'}], note:'High to low — upper chest emphasis' },
+  'Cable Crossover':            { synergists:[{muscle:'Shoulders',coeff:0.40,label:'Ant. Delt',color:'#9b6fe0'},{muscle:'Triceps',coeff:0.12,label:'Triceps',color:'#4f9de8'}], note:'Mid-height cable cross — full ROM, constant tension' },
+  // ── BACK ──
+  // Pull Up movement pattern — base coefficients (variant overrides apply per pick)
+  'Pull Up':        { synergists:[{muscle:'Biceps',coeff:0.62,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.32,label:'Rear Delt',color:'#9b6fe0'}], note:'Vertical pull — overhand shoulder-width. Strong bicep synergist.' },
+  // Row — base (horizontal pull)
+  'Row':            { synergists:[{muscle:'Biceps',coeff:0.60,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.40,label:'Rear Delt',color:'#9b6fe0'}], note:'Horizontal pull — biceps + rear delt. Grip determines exact split.' },
+  // Deadlift — base (hinge)
+  'Deadlift':       { synergists:[{muscle:'Hamstrings',coeff:0.70,label:'Hamstrings',color:'#5ec97a'},{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.60,label:'Erectors',color:'#e8533f'},{muscle:'Quads',coeff:0.45,label:'Quads',color:'#44c76a'}], note:'Conventional — full posterior chain. Highest systemic fatigue.' },
+  // Lat Pulldown — base
+  'Lat Pulldown':   { synergists:[{muscle:'Biceps',coeff:0.62,label:'Biceps',color:'#e8533f'},{muscle:'Shoulders',coeff:0.35,label:'Rear Delt',color:'#9b6fe0'}], note:'Wide overhand — lat width focus. Similar pattern to pull-up.' },
+  // Face Pull — base
+  'Face Pull':      { synergists:[{muscle:'Shoulders',coeff:0.65,label:'Rear Delt',color:'#9b6fe0'},{muscle:'Biceps',coeff:0.30,label:'Biceps',color:'#e8533f'}], note:'Rope to face — rear delt + external rotators.' },
+  // ── SHOULDERS ──
+  // Overhead Press — base
+  'Overhead Press': { synergists:[{muscle:'Triceps',coeff:0.65,label:'Triceps',color:'#4f9de8'},{muscle:'Chest',coeff:0.25,label:'Upper Pec',color:'#e8533f'},{muscle:'Core',coeff:0.28,label:'Core',color:'#e8533f'}], note:'Standing barbell — heavy tricep synergist. Core stabilises.' },
+  // Lateral Raise — base
+  'Lateral Raise':  { synergists:[{muscle:'Shoulders',coeff:0.35,label:'Supraspinatus',color:'#9b6fe0'}], note:'Medial delt near-isolation. Rotator cuff stabilises.' },
+  // Front Raise — base
+  'Front Raise':    { synergists:[{muscle:'Shoulders',coeff:0.30,label:'Ant. Delt',color:'#9b6fe0'}], note:'Anterior delt isolation. Minimal synergist load.' },
+  // Rear Delt Fly — base
+  'Rear Delt Fly':  { synergists:[{muscle:'Back',coeff:0.48,label:'Upper Back',color:'#44c76a'},{muscle:'Biceps',coeff:0.20,label:'Biceps',color:'#e8533f'}], note:'Posterior delt + rhomboids. Near-isolation for rear delt.' },
+  // Shrug — base
+  'Shrug':          { synergists:[{muscle:'Shoulders',coeff:0.20,label:'Levator Scap',color:'#9b6fe0'},{muscle:'Forearms',coeff:0.25,label:'Grip',color:'#e07a5f'}], note:'Trap isolation. Grip/forearm stabilise throughout.' },
+  // ── LEGS ──
   'Squat':          { synergists:[{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Hamstrings',coeff:0.55,label:'Hamstrings',color:'#5ec97a'},{muscle:'Core',coeff:0.30,label:'Core',color:'#e8533f'},{muscle:'Calves',coeff:0.20,label:'Calves',color:'#4f9de8'}], note:'Highest lower-body synergist spread — Escamilla 2001' },
   'Romanian Deadlift': { synergists:[{muscle:'Glutes',coeff:0.80,label:'Glutes',color:'#f0b429'},{muscle:'Core',coeff:0.50,label:'Erectors',color:'#e8533f'}], note:'Hip-hinge — glutes nearly equal primary' },
   'Hip Thrust':     { synergists:[{muscle:'Hamstrings',coeff:0.50,label:'Hamstrings',color:'#5ec97a'},{muscle:'Quads',coeff:0.25,label:'Quads',color:'#44c76a'}], note:'Glute isolation — moderate synergist load' },
   'Leg Press':      { synergists:[{muscle:'Glutes',coeff:0.65,label:'Glutes',color:'#f0b429'},{muscle:'Hamstrings',coeff:0.40,label:'Hamstrings',color:'#5ec97a'},{muscle:'Calves',coeff:0.15,label:'Calves',color:'#4f9de8'}], note:'Machine squat — less core demand' },
+  // ── ARMS ──
   'Barbell Curl':   { synergists:[{muscle:'Forearms',coeff:0.60,label:'Brachioradialis',color:'#e07a5f'}], note:'Elbow flexion — forearm synergist' },
   'Hammer Curl':    { synergists:[{muscle:'Forearms',coeff:0.80,label:'Brachioradialis',color:'#e07a5f'}], note:'Neutral grip — increased forearm involvement' },
   'Skull Crusher':  { synergists:[{muscle:'Shoulders',coeff:0.25,label:'Ant. Delt stab.',color:'#9b6fe0'}], note:'Triceps isolation' },
@@ -5604,15 +6531,22 @@ const SYNERGIST_MAP = {
   'Core':       [{muscle:'Back',coeff:0.40,label:'Erectors',color:'#44c76a'}],
 };
 
-function getSynergists(exName, primaryMuscle){
+function getSynergists(exName, primaryMuscle, variantId){
+  // Variant-specific override takes priority (set when user picks a variant in Pro mode)
+  if(variantId && _variantSynergistOverrides[variantId]){
+    return _variantSynergistOverrides[variantId].synergists;
+  }
   return EXERCISE_SYNERGIST_MAP[exName]?.synergists || SYNERGIST_MAP[primaryMuscle] || [];
 }
-function getSynergistNote(exName){
+function getSynergistNote(exName, variantId){
+  if(variantId && _variantSynergistOverrides[variantId]){
+    return _variantSynergistOverrides[variantId].note;
+  }
   return EXERCISE_SYNERGIST_MAP[exName]?.note || null;
 }
 
-function applySynergistFatigue(exName, primaryMuscle, setVol, dateKey){
-  const synergists = getSynergists(exName, primaryMuscle);
+function applySynergistFatigue(exName, primaryMuscle, setVol, dateKey, variantId){
+  const synergists = getSynergists(exName, primaryMuscle, variantId);
   if(!synergists.length) return;
   if(!DATA[dateKey]) DATA[dateKey]={exercises:[]};
   const day = DATA[dateKey];
@@ -5829,17 +6763,16 @@ function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
   const showTimerCols=hasTimerData||t.useTimer;
 
   // ── SYNERGIST BANNER DATA ──
-  const synergists = getSynergists(ex.name, ex.muscle);
-  const synNote = getSynergistNote(ex.name);
+  const synergists = getSynergists(ex.name, ex.muscle, ex.variantId);
+  const synNote = getSynergistNote(ex.name, ex.variantId);
   const synBanner = (synergists.length && ex.muscle) ? (() => {
     const primaryColor = MUSCLE_COLOURS[ex.muscle]||'var(--border2)';
+    const variantInfo = ex.variantLabel ? `<span class="syn-variant-label">${EQUIP_ICONS[ex.variantEquip]||''} ${ex.variantLabel}</span>` : '';
     const pills = [
-      // Primary muscle pill
       `<span class="syn-pill syn-pill-primary" style="border-color:${primaryColor};color:${primaryColor}">
         <span class="syn-dot" style="background:${primaryColor}"></span>
         ${ex.muscle} <span class="syn-pct">100%</span>
       </span>`,
-      // Synergist pills
       ...synergists.map(s =>
         `<span class="syn-pill" style="border-color:${s.color}22;color:${s.color}">
           <span class="syn-dot" style="background:${s.color}"></span>
@@ -5848,7 +6781,7 @@ function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
       )
     ].join('');
     return `<div class="syn-banner">
-      <div class="syn-pills">${pills}</div>
+      <div class="syn-pills">${variantInfo}${pills}</div>
       ${synNote?`<div class="syn-note">🔬 ${synNote}</div>`:''}
     </div>`;
   })() : '';
@@ -5910,6 +6843,7 @@ function exCardHTML(ex, inSS, forceCollapsed, ssIndex){
         </div>
         <div class="ex-meta-row">
           ${ex.muscle?`<span class="badge ${bCls}">${ex.muscle} · ${grp.toUpperCase()}</span>`:''}
+          ${ex.variantLabel?`<span class="ex-variant-badge">${EQUIP_ICONS[ex.variantEquip]||''} ${ex.variantLabel}${ex.variantAngle?' · '+ex.variantAngle.toUpperCase():''}</span>`:''}
           ${ex.planScheme?`<span style="font-size:10px;font-family:var(--font-head);color:var(--gold);letter-spacing:.04em">${ex.planScheme}</span>`:''}
         </div>
       </div>
@@ -6787,7 +7721,20 @@ function toggleHistCard(key){
 }
 
 // LIBRARY
-function toggleAddLib(){const f=document.getElementById('lib-add-form');f.style.display=f.style.display==='none'?'block':'none';}
+function toggleAddLib(){
+  const f=document.getElementById('lib-add-form');
+  const open=f.style.display==='none'||!f.style.display;
+  f.style.display=open?'block':'none';
+  if(open){
+    setTimeout(()=>document.getElementById('lib-name')?.focus(),80);
+    // Hide the + card
+    const btn=document.getElementById('lib-add-btn');
+    if(btn)btn.style.display='none';
+  } else {
+    const btn=document.getElementById('lib-add-btn');
+    if(btn)btn.style.display='';
+  }
+}
 function saveLibEx(){
   const name=document.getElementById('lib-name').value.trim();const muscle=document.getElementById('lib-muscle').value;
   if(!name||!muscle){toast('Please fill name and muscle group',true);return;}
@@ -7193,28 +8140,166 @@ function showResearch(ex){
   if(bench) bench.style.display = ex==='bench'?'block':'none';
 }
 
+function delLibEx(name){if(!LIBRARY[name])return;delete LIBRARY[name];saveLib();toast('Removed');renderLibrary();}
+window.delLibEx=delLibEx;
+
+let _libMuscleFilter='';
+
+function libSetMuscle(m){
+  _libMuscleFilter=m;
+  document.querySelectorAll('.lib-mtab').forEach(b=>b.classList.toggle('active',b.dataset.m===m));
+  renderLibrary();
+}
+window.libSetMuscle=libSetMuscle;
+
+// Exercise icons per muscle group
+const LIB_ICONS={
+  'Chest':'🏋️','Back':'🔙','Shoulders':'💪','Biceps':'💪','Triceps':'💪',
+  'Forearms':'🤜','Quads':'🦵','Hamstrings':'🦵','Glutes':'🍑','Calves':'🦵','Core':'⚡'
+};
+const LIB_EX_ICONS={
+  // Chest
+  'Bench Press':'🏋️','Incline Bench':'🏋️','Decline Bench':'🏋️',
+  'Dumbbell Bench Press':'🔩','Incline Dumbbell Press':'🔩','Decline Dumbbell Press':'🔩',
+  'Smith Machine Bench':'🔧','Smith Machine Incline':'🔧',
+  'Chest Press Machine':'⚙️','Incline Chest Press Machine':'⚙️',
+  'Dumbbell Fly':'🦋','Incline Dumbbell Fly':'🦋','Pec Dec':'⚙️',
+  'Cable Fly':'🔗','Low Cable Fly':'🔗','High Cable Fly':'🔗','Cable Crossover':'🔗',
+  'Push Up':'🤸','Wide Push Up':'🤸','Diamond Push Up':'💎',
+  'Chest Dip':'↕️','Decline Push Up':'⬇️','Incline Push Up':'⬆️','Pike Push Up':'🔺',
+  // Back
+  'Deadlift':'⚡','Pull Up':'⬆️','Chin Up':'⬆️','Barbell Row':'↩️',
+  'Lat Pulldown':'⬇️','Face Pull':'🎯','Inverted Row':'↕️',
+  // Shoulders
+  'Overhead Press':'☝️','Lateral Raise':'↔️',
+  // Legs
+  'Squat':'🦵','Hip Thrust':'🔥','Romanian Deadlift':'🔽','Leg Press':'🦵',
+  // Arms
+  'Barbell Curl':'💪','Skull Crusher':'💀',
+  // Core
+  'Plank':'🧘','Ab Wheel':'⭕','Hanging Leg Raise':'🔼','Dragon Flag':'🐉','L-Sit':'🅻',
+};
+
 function renderLibrary(){
-  const fM=document.getElementById('lib-filter').value;const srch=(document.getElementById('lib-search').value||'').toLowerCase();
-  const allEx=allExLib();const bestE1RM={};
+  const srch=(document.getElementById('lib-search')?.value||'').toLowerCase();
+  const allEx=allExLib();
+
+  // Compute best e1RM per exercise
+  const bestE1RM={};
   Object.values(DATA).forEach(d=>(d.exercises||[]).forEach(ex=>{
-    if(!ex.sets.length)return;const bs=bestSet(ex.sets);const est=e1rm(bs.w,bs.r);
+    if(!ex.sets.length)return;
+    const bs=bestSet(ex.sets);if(!bs)return;
+    const est=e1rm(bs.w,bs.r);
     if(!bestE1RM[ex.name]||est>bestE1RM[ex.name])bestE1RM[ex.name]=est;
   }));
-  let entries=Object.entries(allEx).filter(([name,muscle])=>{if(fM&&muscle!==fM)return false;if(srch&&!name.toLowerCase().includes(srch))return false;return true;}).sort(([a],[b])=>a.localeCompare(b));
-  if(!entries.length){document.getElementById('lib-tbody').innerHTML=`<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--dim);font-family:var(--font-head);font-size:12px;letter-spacing:.08em">NO EXERCISES FOUND</td></tr>`;return;}
-  document.getElementById('lib-tbody').innerHTML=entries.map(([name,muscle])=>{
-    const grp=mGrp(muscle);const bCls=grp==='upper'?'badge-upper':'badge-lower';const isCustom=!!LIBRARY[name];const pr=bestE1RM[name];
-    return`<tr>
-      <td style="font-weight:500">${name} ${isCustom?'<span style="font-size:10px;color:var(--gold);font-family:var(--font-head);font-weight:700">CUSTOM</span>':''}</td>
-      <td><span class="badge ${bCls}">${muscle}</span></td>
-      <td style="font-size:11px;color:var(--dim);font-family:var(--font-head);letter-spacing:.06em">${grp.toUpperCase()}</td>
-      <td style="font-family:var(--font-display);font-size:18px;color:var(--blue)">${pr?pr+' kg':'—'}</td>
-      <td>${isCustom?`<button class="btn-icon" onclick="delLibEx('${name.replace(/'/g,"\\'")}')">✕</button>`:''}</td>
-    </tr>`;
-  }).join('');
-}
-function delLibEx(name){if(!LIBRARY[name])return;delete LIBRARY[name];saveLib();toast(`Removed`);renderLibrary();}
 
+  const allMuscles=['Chest','Back','Shoulders','Biceps','Triceps','Forearms','Quads','Hamstrings','Glutes','Calves','Core'];
+
+  // Build muscle counts
+  const muscleCounts={};
+  allMuscles.forEach(m=>{muscleCounts[m]=0;});
+  Object.values(allEx).forEach(m=>{if(muscleCounts[m]!==undefined)muscleCounts[m]++;});
+
+  // Render stats bar
+  const statsEl=document.getElementById('lib-stats-bar');
+  if(statsEl){
+    const total=Object.keys(allEx).length;
+    const withPR=Object.keys(allEx).filter(n=>bestE1RM[n]).length;
+    const custom=Object.keys(LIBRARY).length;
+    statsEl.innerHTML=`
+      <div class="lib-stat-pill">
+        <div class="lib-stat-pill-val">${total}</div>
+        <div class="lib-stat-pill-lbl">EXERCISES</div>
+      </div>
+      <div class="lib-stat-pill">
+        <div class="lib-stat-pill-val">${allMuscles.length}</div>
+        <div class="lib-stat-pill-lbl">MUSCLE GROUPS</div>
+      </div>
+      <div class="lib-stat-pill">
+        <div class="lib-stat-pill-val" style="color:var(--blue)">${withPR}</div>
+        <div class="lib-stat-pill-lbl">PRs LOGGED</div>
+      </div>
+      <div class="lib-stat-pill">
+        <div class="lib-stat-pill-val" style="color:var(--gold)">${custom}</div>
+        <div class="lib-stat-pill-lbl">CUSTOM</div>
+      </div>`;
+  }
+
+  // Render muscle tabs
+  const tabsEl=document.getElementById('lib-muscle-tabs');
+  if(tabsEl){
+    const allCount=Object.keys(allEx).length;
+    tabsEl.innerHTML=`<button class="lib-mtab${_libMuscleFilter===''?' active':''}" data-m="" onclick="libSetMuscle('')" style="${_libMuscleFilter===''?'background:var(--red);border-color:var(--red)':''}">ALL <span class="lib-mtab-count">${allCount}</span></button>`
+    +allMuscles.map(m=>{
+      const col=MUSCLE_COLOURS[m]||'#888';
+      const active=_libMuscleFilter===m;
+      return`<button class="lib-mtab${active?' active':''}" data-m="${m}" onclick="libSetMuscle('${m}')"
+        style="${active?`background:${col};border-color:${col}`:`border-color:${col}40;color:${col}`}">
+        ${m} <span class="lib-mtab-count">${muscleCounts[m]||0}</span>
+      </button>`;
+    }).join('');
+  }
+
+  // Filter entries
+  let entries=Object.entries(allEx).filter(([name,muscle])=>{
+    if(_libMuscleFilter&&muscle!==_libMuscleFilter)return false;
+    if(srch&&!name.toLowerCase().includes(srch))return false;
+    return true;
+  }).sort(([a],[b])=>a.localeCompare(b));
+
+  const grid=document.getElementById('lib-grid');
+  if(!grid)return;
+
+  if(!entries.length){
+    grid.innerHTML=`<div class="lib-empty">NO EXERCISES FOUND</div>`;
+    return;
+  }
+
+  grid.innerHTML=entries.map(([name,muscle])=>{
+    const col=MUSCLE_COLOURS[muscle]||'#888';
+    const grp=mGrp(muscle);
+    const isCustom=!!LIBRARY[name];
+    const pr=bestE1RM[name];
+    const icon=LIB_EX_ICONS[name]||LIB_ICONS[muscle]||'💪';
+    const [r,g,b]=(()=>{const h=(col).replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];})();
+    const nameSafe=name.replace(/'/g,"\\'");
+    return`<div class="lib-ex-card${pr?' has-pr':''}" style="--lib-accent:${col}" onclick="libQuickAdd('${nameSafe}')">
+      <div class="lib-card-stripe" style="background:linear-gradient(90deg,${col},${col}88)"></div>
+      <div class="lib-card-body">
+        <div class="lib-card-icon" style="background:rgba(${r},${g},${b},0.15)">${icon}</div>
+        <div class="lib-card-name">${name}</div>
+        <div class="lib-card-tags">
+          <span class="lib-card-tag" style="background:rgba(${r},${g},${b},0.18);color:${col}">${muscle}</span>
+          <span class="lib-card-tag" style="background:var(--card2);color:var(--muted)">${grp.toUpperCase()}</span>
+          ${isCustom?`<span class="lib-card-tag" style="background:rgba(240,180,41,.15);color:var(--gold)">CUSTOM</span>`:''}
+        </div>
+        ${pr
+          ?`<div class="lib-card-pr">
+              <div class="lib-card-pr-val" style="color:${col}">${pr}</div>
+              <div class="lib-card-pr-lbl">kg e1RM PR</div>
+            </div>`
+          :`<div class="lib-card-no-pr">NO HISTORY YET</div>`
+        }
+      </div>
+      ${isCustom?`<button class="lib-card-del" onclick="event.stopPropagation();delLibEx('${nameSafe}')" title="Remove">✕</button>`:''}
+    </div>`;
+  }).join('')
+  +`<div class="lib-add-card" onclick="toggleAddLib()" id="lib-add-btn">
+    <div class="lib-add-card-icon">＋</div>
+    <div class="lib-add-card-lbl">ADD EXERCISE</div>
+  </div>`;
+}
+
+function libQuickAdd(name){
+  // Navigate to log page with this exercise pre-selected
+  goPage('log');
+  setTimeout(()=>{
+    const picker=document.getElementById('ex-search');
+    if(picker){picker.value=name;picker.dispatchEvent(new Event('input'));}
+  },200);
+}
+window.libQuickAdd=libQuickAdd;
+window.renderLibrary=renderLibrary;
 // DATA
 function renderDemoDataCard(){
   const badge=document.getElementById('demo-status-badge');
@@ -8424,7 +9509,7 @@ window.selectExPickerItem=selectExPickerItem;
 // Pages
 window.histSetMuscle=histSetMuscle; window.toggleHistCard=toggleHistCard;
 window.renderProgress=renderProgress; window.populateProgEx=populateProgEx;
-window.renderLibrary=renderLibrary; window.renderMuscles=renderMuscles;
+window.renderMuscles=renderMuscles;
 window.renderHistory=renderHistory; window.populateHistEx=populateHistEx;
 // Muscles
 window.saveTarget=saveTarget; window.toggleTarget=toggleTarget;
